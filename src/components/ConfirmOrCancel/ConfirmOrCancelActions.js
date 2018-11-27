@@ -3,30 +3,22 @@ import axios from 'axios';
 export const changeTalkStatus = (talkId, selectedStatus, speakerToken) => {
     return {
         type: 'SUBMIT_STATUS',
-        payload: axios.get('api/robotLogin')
-            .then(accessToken => {
+        payload:
+            axios({
+                method: 'put',
+                url: 'api/talks/changeTalkStatus',
+                data: {
+                    talkId,
+                    selectedStatus
+                }
+            }).then(() => {
                 axios({
-                    method: 'put',
-                    url: 'api/talks/changeTalkStatus',
-                    headers: {
-                        Authorization: accessToken.data.id
-                    },
+                    method: 'delete',
+                    url: (`api/accessTokens/${speakerToken}`),
                     data: {
-                        talkId,
-                        selectedStatus
+                        speakerToken: speakerToken,
                     }
-                }).then(response => {
-                        axios({
-                            method: 'delete',
-                            url: (`api/accessTokens/${speakerToken}`),
-                            headers: { 
-                                Authorization: accessToken.data.id
-                            },
-                            data: {
-                                speakerToken: speakerToken,
-                            }
-                        })
-                    })
+                })
             })
     }
 }
