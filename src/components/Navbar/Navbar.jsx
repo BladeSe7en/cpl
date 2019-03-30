@@ -14,7 +14,7 @@ const Navbar = props => {
                     <Link to='/' className={location.pathname === '/' ? 'nav-item w--current' : 'nav-item'}>
                         HOME
                     </Link>
-                    <Link to='/SignUp' className={location.pathname === '/faq' ? 'nav-item w--current' : 'nav-item'}>
+                    <Link to='/Faq' className={location.pathname === '/Faq' ? 'nav-item w--current' : 'nav-item'}>
                         FAQ
                     </Link>
                     <Link to='/Connect' className={location.pathname === '/rules' ? 'nav-item w--current' : 'nav-item'}>
