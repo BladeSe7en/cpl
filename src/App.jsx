@@ -9,7 +9,7 @@ import AdminLogin      from './components/AdminLogin';
 import ConfirmOrCancel from './components/ConfirmOrCancel';
 import TalksPage       from './components/TalksPage';
 import Organizers      from './components/Organizers';
-import SignUp          from './components/SignUp';
+import Faq             from './components/Faq/Faq';
 import Thankyou        from './components/Thankyou'
 
 class App extends Component {
@@ -23,7 +23,7 @@ class App extends Component {
 				<Route path='/Admin/Talks'     component={TalksPage} />
         <Route path='/ConfirmOrCancel' component={ConfirmOrCancel} />
         <Route path='/Organizers'      component={Organizers} />
-				<Route path='/SignUp'          component={SignUp} />
+				<Route path='/Faq'             component={Faq} />
         <Route path='/Thankyou'        component={Thankyou} />
 			</div>
       </Router>
