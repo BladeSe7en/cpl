@@ -3,7 +3,7 @@ import Home from './Home';
 
 function mapStoreToProps(store){
     return {
-        submmitted: store.SignUp.submitted
+
     };
 }
 

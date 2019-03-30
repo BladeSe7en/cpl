@@ -52,7 +52,7 @@
   margin-left: 20px;
 }
 
-.dos-and-donts {
+.info {
   display: flex;
   align-items: center;
   margin-top: 20px;
@@ -65,7 +65,7 @@
   width: 100%;
 }
 
-.dos {
+.about-us {
   margin: 15px;
   padding: 15px;
   -webkit-box-flex: 0;
@@ -77,54 +77,15 @@
   width: 25%;
   box-shadow: 5px 5px #888888;
 }
-.dos h5 {
+.about-us h5 {
   font-size: 30px;
   color: green;
   margin-bottom: 5px;
   margin-top: 5px;
 }
 
-.donts {
-  margin: 15px;
-  padding: 15px;
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 auto;
-  -ms-flex: 0 auto;
-  flex: 0 auto;
-  border: 1px solid silver;
-  border-radius: 3px;
-  width: 25%;
-  flex: 0 auto;
-  border: 1px solid silver;
-  border-radius: 3px;
-  box-shadow: 5px 5px #888888;
-}
-.donts h5 {
-  font-size: 30px;
-  color: red;
-  margin-bottom: 5px;
-  margin-top: 5px;
-}
-
 .border {
   width: 50%;
-}
-
-.info {
-  margin-left: 15%;
-  margin-right: 15%;
-}
-.info h3 {
-  color: #1884c3;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 36px;
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
-.info p {
-  color: #777;
-  font-size: 20;
 }
 
 .inline-link {
@@ -138,33 +99,61 @@
 
 .banner {
   margin-top: 80px;
-  align-items: center;
-  background-image: linear-gradient(180deg, rgba(24, 132, 195, 0.64), rgba(24, 132, 195, 0.64)), url("/pics/background-meetup.png");
-  background-size: auto, cover;
+  background-image: url("/pics/cpl_logo_5.jpg");
+  background-size: cover;
   background-repeat: no-repeat;
-  color: white;
-  display: flex;
+  display: fixed;
   flex-direction: column;
   margin-left: 0;
   margin-right: 0;
-}
-.banner .btn {
-  background-color: #ff5041;
-  margin-bottom: 40px;
+  height: 90vh;
+  width: 100%;
+  color: white;
+  position: relative;
+  z-index: 0;
 }
 .banner h1 {
   font-size: 60px;
   margin-bottom: 10px;
-}
-.banner h2 {
-  font-size: 40px;
-  padding: 0;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  height: auto;
+  text-align: center;
 }
 .banner p {
   font-size: 24px;
   padding-bottom: 15px;
+  text-align: center;
+}
+
+.media {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 15px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 auto;
+  -ms-flex: 0 auto;
+  flex: 0 auto;
+  border: 1px solid silver;
+  border-radius: 3px;
+  width: 90%;
+  box-shadow: 5px 5px #888888;
+  position: relative;
+  bottom: 15px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.media h5 {
+  font-size: 30px;
+  color: white;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  text-align: center;
+}
+.media ul {
+  display: flex;
+  justify-content: center;
+}
+.media li {
+  display: inline;
+  padding: 10px 40px;
 }
 
 .navbar {
