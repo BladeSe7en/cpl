@@ -3,7 +3,7 @@ import Thankyou from './Thankyou';
 
 function mapStoreToProps(store){
     return {
-        submmitted: store.SignUp.submitted
+
     };
 }
 
