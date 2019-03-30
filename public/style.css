@@ -156,6 +156,11 @@
   padding: 10px 40px;
 }
 
+.link-icon {
+  height: 40px;
+  width: auto;
+}
+
 .navbar {
   position: fixed;
   left: 0px;
