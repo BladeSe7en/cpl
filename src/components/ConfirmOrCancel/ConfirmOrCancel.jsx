@@ -12,7 +12,7 @@ class ConfirmOrCancel extends Component {
             <div>
                 <Navbar />
                 <div id=''>
-                   <h1>hello</h1>
+                   <h1>nothing here yet</h1>
                 </div>
             </div>
         )

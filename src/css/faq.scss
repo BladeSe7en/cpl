@@ -33,6 +33,14 @@
         width: 80%;
         margin-left: 10%;
     }
+    h4 {
+        font-size: 30px;
+        margin-bottom: 10px;
+        height: auto;
+        text-align: center;
+        width: 80%;
+        margin-left: 10%;
+    }
     p {
         font-size: 24px;
         padding-bottom: 15px;
@@ -40,16 +48,8 @@
         width: 80%;
         margin-left: 10%;
     }
-    ul {
-        list-style-type: none;
-    }
-    li {
-        font-size: 24px;
-        padding-bottom: 15px;
-        text-align: center;
-        width: 90%;
-        
-    }
+   
+   
 }
 .faq-content {
     margin-left:  auto;
@@ -83,5 +83,7 @@
             display: flex;
             padding: 10px 40px;
         }
-       
+        br {
+            border-bottom: 5px solid white;
+        }
 }

@@ -1,7 +1,7 @@
 const initialstate = {
 
 }
-export default function SignUpReducer(state = initialstate, action) {
+export default function ForumReducer(state = initialstate, action) {
 	const { payload, type } = action;
 
 	switch (type) {

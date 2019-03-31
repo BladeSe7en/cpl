@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 
 import Navbar from '../Navbar/Navbar';
 
-class SignUp extends Component {
+class Forum extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -12,14 +12,14 @@ class SignUp extends Component {
 	render() {
 			return (
 				<div>
-					<Navbar />
-					<div className='signUp-container'>
-						<h1> hi </h1>
-					</div>
+				<Navbar />
+				<div className='banner'>
+					<h1>Nothing here yet</h1>
 				</div>
+			</div>
 
 			)
 	}
 }
 
-export default SignUp;
+export default Forum;

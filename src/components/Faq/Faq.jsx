@@ -7,7 +7,7 @@ const Faq = () => {
             <Navbar />
             <div className='faq'>
                 <div className='faq-content'>
-                    <h1>Civilization Players Leagues FAQ</h1>
+                    <h1>Civilization Players Leagues Rules</h1>
                     <h3>Contents</h3>
                     <ul>
                         <li> Q. How does the ranking work?</li>

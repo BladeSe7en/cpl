@@ -2,7 +2,7 @@ const initialstate = {
     pastTalks: []
 }
 
-export default function PastTalkReducer(state = initialstate, action) {
+export default function LeaderboardReducer(state = initialstate, action) {
     const { payload, type } = action; 
 
     switch(type) {

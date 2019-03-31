@@ -1,22 +1,22 @@
 import { combineReducers }     from 'redux';
 import AdminLoginReducer       from './components/AdminLogin/AdminLoginReducer';
 import ConfimOrCancelReducer   from './components/ConfirmOrCancel/ConfirmOrCancelReducer';
-import MeetupsReducer          from './components/Meetups/MeetupsReducer'
+import ForumReducer            from './components/Forum/ForumReducer'
 import OrganizersReducer       from './components/Organizers/OrganizersReducer';
-import SignUpReducer           from './components/SignUp/SignUpReducer';
-import TalksReducer            from './components/Talks/TalksReducer';
+import LeaderboardReducer      from './components/Leaderboard/LeaderboardReducer';
 import TalksPageReducer        from './components/TalksPage/TalksPageReducer';
-import PastTalksReducer        from './components/PastTalks/PastTalksReducer';
+import MeetupsReducer          from './components/Meetups/MeetupsReducer';
+import NewslettersReducer      from './components/Newsletters/NewslettersReducer';
 
 const rootReducer = combineReducers({
     AdminLogin       : AdminLoginReducer,
     ConfirmOrCancel  : ConfimOrCancelReducer,
-    Meetups          : MeetupsReducer,
+    Forum          : ForumReducer,
     Organizers       : OrganizersReducer,
-    SignUp           : SignUpReducer,
-    Talks            : TalksReducer, 
+    Leaderboard           : LeaderboardReducer,
     TalksPage        : TalksPageReducer, 
-    PastTalks        : PastTalksReducer,
+    MeetupsReducer   : MeetupsReducer,
+    Newsletters      : NewslettersReducer,
 });
 
 export default rootReducer; 
