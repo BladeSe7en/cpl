@@ -11,7 +11,8 @@
     "build": "webpack --p",
     "sass": "sass --watch src/css/style.scss public/style.css",
     "start": "npm run dev && node .",
-    "test": "mocha --require ignore-styles test/setup.js test/**/**.spec.js --exit"
+    "test": "mocha --require ignore-styles test/setup.js test/**/**.spec.js --exit",
+    "heroku-postbuild": "echo Skip build on Heroku"
   },
   "dependencies": {
     "@babel/register": "^7.0.0",
@@ -66,5 +67,6 @@
     "url": ""
   },
   "license": "UNLICENSED",
-  "description": "cpl-website"
+  "description": "cpl-website",
+  "heroku-run-build-script": true
 }
