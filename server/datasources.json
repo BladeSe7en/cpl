@@ -3,11 +3,15 @@
       "name": "db",
       "connector": "memory"
     },
-        "mongodb": {
-            "host": "127.0.0.1",
-            "database": "test",
-            "username": "youruser",
-            "password": "yourpass",
-            "port": 27017
-        }
+    "mongodb": {
+      "host": "",
+      "port": 0,
+      "url": "",
+      "database": "",
+      "password": "",
+      "name": "mongodb",
+      "user": "",
+      "connector": "mongodb"
     }
+  }
+  
