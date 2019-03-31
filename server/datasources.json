@@ -3,7 +3,7 @@
       "name": "db",
       "connector": "memory"
     },
-        "MongoDB": {
+        "mongodb": {
             "host": "127.0.0.1",
             "database": "test",
             "username": "youruser",
