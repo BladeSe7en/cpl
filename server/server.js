@@ -22,6 +22,15 @@ app.start = function() {
  });
 };
 
+var mongoose = require('mongoose');
+
+var mongoURI = "mongodb://localhost:27017/test";
+var MongoDB = mongoose.connect(mongoURI).connection;
+MongoDB.on('error', function(err) { console.log(err.message); });
+MongoDB.once('open', function() {
+  console.log("mongodb connection open");
+});
+
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.
 boot(app, __dirname, function(err) {
@@ -30,3 +39,5 @@ boot(app, __dirname, function(err) {
   // start the server if `$ node server.js`
   if (require.main === module) app.start();
 });
+
+
