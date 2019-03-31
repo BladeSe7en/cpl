@@ -2,7 +2,7 @@ const initialState = {
    
 }
 
-export default function TalksReducer(state = initialState, action) {
+export default function NewslettersReducer(state = initialState, action) {
     const { payload, type } = action;
 
     switch (type) {

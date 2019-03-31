@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import PastTalks from './PastTalks'
+import Leaderboard from './Leaderboard'
 
 function mapStoreToProps(store){
     return {
@@ -7,4 +7,4 @@ function mapStoreToProps(store){
     };
 }
 
-export default connect(mapStoreToProps)(PastTalks);
+export default connect(mapStoreToProps)(Leaderboard);

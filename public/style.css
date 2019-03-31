@@ -661,21 +661,20 @@ p {
   width: 80%;
   margin-left: 10%;
 }
+.faq h4 {
+  font-size: 30px;
+  margin-bottom: 10px;
+  height: auto;
+  text-align: center;
+  width: 80%;
+  margin-left: 10%;
+}
 .faq p {
   font-size: 24px;
   padding-bottom: 15px;
   text-align: center;
   width: 80%;
   margin-left: 10%;
-}
-.faq ul {
-  list-style-type: none;
-}
-.faq li {
-  font-size: 24px;
-  padding-bottom: 15px;
-  text-align: center;
-  width: 90%;
 }
 
 .faq-content {
@@ -708,6 +707,56 @@ p {
 .faq-content li {
   display: flex;
   padding: 10px 40px;
+}
+.faq-content br {
+  border-bottom: 5px solid white;
+}
+
+.rules-content {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 15px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 auto;
+  -ms-flex: 0 auto;
+  flex: 0 auto;
+  border: 1px solid silver;
+  border-radius: 3px;
+  width: 90%;
+  box-shadow: 5px 5px #888888;
+  position: relative;
+  bottom: 15px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.rules-content h5 {
+  font-size: 30px;
+  color: white;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  text-align: center;
+}
+.rules-content ul {
+  display: block;
+  justify-content: center;
+  list-style-type: circle;
+}
+.rules-content li {
+  display: flex;
+  padding: 10px 40px;
+}
+.rules-content br {
+  border-bottom: 5px solid white;
+}
+.rules-content table, .rules-content td, .rules-content th {
+  border: 1px solid white;
+}
+.rules-content table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.rules-content td {
+  height: 50px;
+  vertical-align: bottom;
 }
 
 html {
