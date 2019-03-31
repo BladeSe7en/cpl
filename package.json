@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "eslint .",
     "dev": "webpack --mode development",
-    "build": "webpack --p",
+    "build": "webpack",
     "sass": "sass --watch src/css/style.scss public/style.css",
     "start": "npm run build && node .",
     "test": "mocha --require ignore-styles test/setup.js test/**/**.spec.js --exit",
