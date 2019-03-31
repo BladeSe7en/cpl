@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { getPastTalks } from './LeaderboardActions'
-import moment from 'moment';
 import Navbar from '../Navbar/Navbar';
 
 class Leaderboard extends Component {
