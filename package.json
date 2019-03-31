@@ -10,7 +10,7 @@
     "dev": "webpack --mode development",
     "build": "webpack --p",
     "sass": "sass --watch src/css/style.scss public/style.css",
-    "start": "npm run dev && node .",
+    "start": "npm run build && node .",
     "test": "mocha --require ignore-styles test/setup.js test/**/**.spec.js --exit",
     "heroku-postbuild": "echo Skip build on Heroku"
   },
