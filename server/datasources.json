@@ -1,15 +1,9 @@
 {
-    "dev": {
-        "mongodb": {
-            "host": "127.0.0.1",
-            "database": "test",
-            "username": "youruser",
-            "password": "yourpass",
-            "port": 27017
-        }
+    "db": {
+      "name": "db",
+      "connector": "memory"
     },
-    "test": {
-        "mongodb": {
+        "MongoDB": {
             "host": "127.0.0.1",
             "database": "test",
             "username": "youruser",
@@ -17,4 +11,3 @@
             "port": 27017
         }
     }
-}
