@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import moment from 'moment';
+import Navbar from '../Navbar/Navbar';
 
-class Talks extends Component {
+class Newsletters extends Component {
   constructor(props) {
     super(props);
   }
@@ -10,10 +11,13 @@ class Talks extends Component {
   render() {
       return (
         <div>
-         <h1>hello</h1>
+        <Navbar />
+        <div className='banner'>
+            <h1>Nothing here yet</h1>
         </div>
+    </div>
       )
     }
 }
 
-export default Talks;
+export default Newsletters;

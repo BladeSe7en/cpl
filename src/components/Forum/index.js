@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SignUp from './SignUp';
+import Forum from './Forum';
 
 function mapStoreToProps(store){
     return {
@@ -7,4 +7,4 @@ function mapStoreToProps(store){
     };
 }
 
-export default connect(mapStoreToProps)(SignUp);
+export default connect(mapStoreToProps)(Forum);

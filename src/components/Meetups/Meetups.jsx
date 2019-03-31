@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { getEvents } from './MeetupsActions';
-import Talks from '../Talks';
 import AdminNav from '../AdminNav';
 
 class Meetups extends Component {
@@ -14,7 +13,7 @@ class Meetups extends Component {
             <div className='top-div'>
                 <AdminNav />
                 <div className='meetups'>
-                    <h1>something</h1>
+                    <h1>Nothing here yet</h1>
                 </div>
             </div>
         )

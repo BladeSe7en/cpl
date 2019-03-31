@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { handleOwnerFilter } from './TalksPageActions';
 import { getAdmins } from '../Organizers/OrganizersActions'
-import Talks from '../Talks';
-import PastTalks from '../PastTalks';
 import AdminNav from '../AdminNav';
 
 class TalksPage extends Component {
