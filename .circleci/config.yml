@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build-job:
-    working_directory: ~/sdjs-speaker-pipeline
+    working_directory: ~/cpl
     docker:
       - image: circleci/node:8.11.0
     steps:
@@ -17,7 +17,7 @@ jobs:
           name: Mocha Test Suite
           command: 'npm run test'
   deploy-job:
-    working_directory: ~/sdjs-speaker-pipeline
+    working_directory: ~/cpl
     docker:
       - image: circleci/node:8.11.0
     steps:

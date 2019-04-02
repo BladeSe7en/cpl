@@ -14,46 +14,34 @@
     ]
   },
   "User": {
-    "dataSource": "atlas",
+    "dataSource": "MongoDB",
     "public": false
   },
   "AccessToken": {
-    "dataSource": "atlas",
+    "dataSource": "MongoDB",
     "public": false
   },
   "ACL": {
-    "dataSource": "atlas",
+    "dataSource": "MongoDB",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "atlas",
+    "dataSource": "MongoDB",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "atlas",
+    "dataSource": "MongoDB",
     "public": false
   },
-  "speaker": {
-    "dataSource": "atlas",
-    "public": true
-  },
-  "event": {
-    "dataSource": "atlas",
-    "public": true
-  },
-  "talk": {
-    "dataSource": "atlas",
-    "public": true
-  },
   "organizer": {
-    "dataSource": "atlas",
+    "dataSource": "MongoDB",
     "public": true
   },
   "accessToken": {
-    "dataSource": "atlas",
+    "dataSource": "MongoDB",
     "public": true,
     "relations": {
       "user": {
@@ -62,5 +50,9 @@
         "foreignKey": "organizerId"
       }
     }
+  },
+  "player": {
+    "dataSource": "db",
+    "public": true
   }
 }
