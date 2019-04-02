@@ -3,7 +3,7 @@ import Leaderboard from './Leaderboard'
 
 function mapStoreToProps(store){
     return {
-    
+    gameType: store.Leaderboard.gameType
     };
 }
 

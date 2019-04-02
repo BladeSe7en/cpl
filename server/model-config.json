@@ -14,46 +14,46 @@
     ]
   },
   "User": {
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "public": false
   },
   "AccessToken": {
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "public": false
   },
   "ACL": {
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "public": false
   },
   "speaker": {
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "public": true
   },
   "event": {
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "public": true
   },
   "talk": {
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "public": true
   },
   "organizer": {
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "public": true
   },
   "accessToken": {
-    "dataSource": "mongodb",
+    "dataSource": "MongoDB",
     "public": true,
     "relations": {
       "user": {

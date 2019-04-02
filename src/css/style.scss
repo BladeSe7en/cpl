@@ -16,6 +16,7 @@ $off-white: #fbfbfb;
 @import 'ConfirmOrCancel';
 @import 'faq';
 @import 'rules';
+@import 'leaderboard';
 
 html{
     -webkit-font-smoothing: antialiased;
@@ -27,25 +28,7 @@ body {
     margin: 0;
 }
 
-.btn {
-    background-color: #1884c3;
-    border: 3px solid transparent;
-    color: white;
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 700;
-    padding: 12px 23px;
-    padding-top: 12px;
-    padding-right: 23px;
-    padding-bottom: 12px;
-    padding-left: 23px;
-    text-transform: uppercase;
-    transition: border 200ms ease, color 200ms ease, background-color 200ms ease;
-    transition-property: border, color, background-color;
-    transition-duration: 200ms, 200ms, 200ms;
-    transition-timing-function: ease, ease, ease;
-    transition-delay: 0s, 0s, 0s;
-}
+
 
 .top-div {
     background-color: $background-color;
