@@ -1,15 +1,15 @@
 const initialstate = {
-    pastTalks: []
+    gameType: 'FFA'
 }
 
 export default function LeaderboardReducer(state = initialstate, action) {
     const { payload, type } = action; 
 
     switch(type) {
-        case 'GET_PAST_TALKS_FULFILLED': {
+        case 'SET_GAME_TYPE': {
             return {
                 ...state,
-                pastTalks: payload
+                gameType: payload
             }
         }
         default: {
