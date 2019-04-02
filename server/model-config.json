@@ -36,18 +36,6 @@
     "dataSource": "MongoDB",
     "public": false
   },
-  "speaker": {
-    "dataSource": "MongoDB",
-    "public": true
-  },
-  "event": {
-    "dataSource": "MongoDB",
-    "public": true
-  },
-  "talk": {
-    "dataSource": "MongoDB",
-    "public": true
-  },
   "organizer": {
     "dataSource": "MongoDB",
     "public": true
@@ -62,5 +50,9 @@
         "foreignKey": "organizerId"
       }
     }
+  },
+  "player": {
+    "dataSource": "db",
+    "public": true
   }
 }

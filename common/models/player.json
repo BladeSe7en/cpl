@@ -1,0 +1,60 @@
+{
+  "name": "player",
+  "plural": "n",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "careerStats": {
+      "type": "number",
+      "required": true,
+      "default": 1500
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "teamStats": {
+      "type": "number",
+      "default": 1500
+    },
+    "duelStats": {
+      "type": "number",
+      "default": 1500
+    },
+    "careerWins": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "careerLosses": {
+      "type": "number",
+      "default": 0
+    },
+    "highestSkill": {
+      "type": "number",
+      "default": 1500
+    },
+    "bestLeader": {
+      "type": "array",
+      "required": true,
+      "default": []
+    },
+    "seasonWins": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "seasonLosses": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
