@@ -1,15 +1,52 @@
 const initialstate = {
-    gameType: 'FFA'
+    typeOfGame: 'careerSkill',
+    highToLow: true,
+    sortBy: "careerSkill",
+    data: [],
+    profile: {},
+    sortOrder: false
 }
 
 export default function LeaderboardReducer(state = initialstate, action) {
     const { payload, type } = action; 
 
     switch(type) {
-        case 'SET_GAME_TYPE': {
+        
+        case 'CHANGE_GAME_TYPE': {
+            console.log('how many times am i here: ');
+            console.log('this is payload: ',payload);
             return {
                 ...state,
-                gameType: payload
+                typeOfGame: payload
+            }
+        }
+
+        case 'TOGGLE_HIGH_TO_LOW': {
+            return {
+                ...state,
+                highToLow: payload
+            }
+        }
+
+        case 'TOGGLE_SORT_BY': {
+            return {
+                ...state,
+                sortBy: payload
+            }
+        }
+
+        case 'GET_DATA_FULFILLED': {
+            return {
+                ...state,
+                data: payload
+            }
+        }
+
+        case 'GET_DATA_FULFILLED': {
+            console.log('4')
+            return {
+                ...state,
+                profile: payload
             }
         }
         default: {

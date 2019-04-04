@@ -1,55 +1,133 @@
 {
   "name": "player",
-  "plural": "n",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "careerStats": {
-      "type": "number",
-      "required": true,
-      "default": 1500
-    },
     "name": {
       "type": "string",
       "required": true
     },
-    "teamStats": {
+    "careerSkill": {
       "type": "number",
+      "required": true,
       "default": 1500
     },
-    "duelStats": {
+    "highestCareerSkill": {
       "type": "number",
       "default": 1500
     },
     "careerWins": {
       "type": "number",
       "required": true,
-      "default": 0
+      "default": 1500
     },
     "careerLosses": {
       "type": "number",
       "default": 0
     },
-    "highestSkill": {
-      "type": "number",
-      "default": 1500
-    },
-    "bestLeader": {
+    "careerBestLeader": {
       "type": "array",
       "required": true,
       "default": []
     },
-    "seasonWins": {
+    "careerSeasonWins": {
       "type": "number",
       "required": true,
       "default": 0
     },
-    "seasonLosses": {
+    "careerSeasonLosses": {
       "type": "number",
       "required": true,
+      "default": 0
+    },
+
+    "teamSkill": {
+      "type": "number",
+      "default": 1500
+    },
+    "highestTeamSkill": {
+      "type": "number",
+      "default": 1500
+    },
+    "teamWins": {
+      "type": "number",
+      "default": 1500
+    },
+    "teamLosses": {
+      "type": "number",
+      "default": 0
+    },
+    "teamBestLeader": {
+      "type": "array",
+      "default": []
+    },
+    "teamSeasonWins": {
+      "type": "number",
+      "default": 0
+    },
+    "teamSeasonLosses": {
+      "type": "number",
+      "default": 0
+    },
+
+    "duelSkill": {
+      "type": "number",
+      "default": 1500
+    },
+     "highestDuelSkill": {
+      "type": "number",
+      "default": 1500
+    },
+    "duelWins": {
+      "type": "number",
+      "default": 1500
+    },
+    "duelLosses": {
+      "type": "number",
+      "default": 0
+    },
+    "duelBestLeader": {
+      "type": "array",
+      "default": []
+    },
+    "duelSeasonWins": {
+      "type": "number",
+      "default": 0
+    },
+    "duelSeasonLosses": {
+      "type": "number",
+      "default": 0
+    },
+
+    "ffaSkill": {
+      "type": "number",
+      "default": 1500
+    },
+     "highestffaSkill": {
+      "type": "number",
+      "default": 1500
+    },
+    "ffaWins": {
+      "type": "number",
+      "default": 1500
+    },
+    "ffaLosses": {
+      "type": "number",
+      "default": 0
+    },
+    "ffaBestLeader": {
+      "type": "array",
+      "default": []
+    },
+    "ffaSeasonWins": {
+      "type": "number",
+      "default": 0
+    },
+    "ffaSeasonLosses": {
+      "type": "number",
       "default": 0
     }
   },
