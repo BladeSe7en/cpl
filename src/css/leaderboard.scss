@@ -75,7 +75,7 @@
 .dropbtn {
     background-color: #1884c3;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     margin: 0px;
     padding: 5px;
   }
@@ -94,7 +94,7 @@
     display: none;
     position: absolute;
     background-color: rgb(204, 32, 32);
-    max-width: 5%;
+    max-width: 7%;
     margin: 0px;
     padding: 5px;
     min-width: 160px;
@@ -111,7 +111,26 @@
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdown:hover .dropbtn {background-color: rgb(204, 32, 32); border-color: rgb(204, 32, 32); color: black}
   
-  
+  #chevron_down {
+    height:10px;
+  }
 
+  #chevron_up {
+    height:10px;
+  }
 
-  
+  .header {
+    border: none;
+    text-align: center;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    margin: 0px;
+    padding: 5px;
+  }
+
+  .header:hover {border: 1px solid #ddd; font-weight: 800}
+

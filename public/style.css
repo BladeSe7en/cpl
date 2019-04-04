@@ -811,7 +811,7 @@ label {
 .dropbtn {
   background-color: #1884c3;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   margin: 0px;
   padding: 5px;
 }
@@ -830,7 +830,7 @@ label {
   display: none;
   position: absolute;
   background-color: #cc2020;
-  max-width: 5%;
+  max-width: 7%;
   margin: 0px;
   padding: 5px;
   min-width: 160px;
@@ -855,6 +855,32 @@ label {
   background-color: #cc2020;
   border-color: #cc2020;
   color: black;
+}
+
+#chevron_down {
+  height: 10px;
+}
+
+#chevron_up {
+  height: 10px;
+}
+
+.header {
+  border: none;
+  text-align: center;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0);
+  color: white;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  margin: 0px;
+  padding: 5px;
+}
+
+.header:hover {
+  border: 1px solid #ddd;
+  font-weight: 800;
 }
 
 html {
