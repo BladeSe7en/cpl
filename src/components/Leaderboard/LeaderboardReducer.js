@@ -1,10 +1,10 @@
 const initialstate = {
-    typeOfGame: 'careerSkill',
+    typeOfGame: 'career',
     highToLow: true,
     sortBy: "careerSkill",
     data: [],
     profile: {},
-    sortOrder: false
+    sortOrder: true
 }
 
 export default function LeaderboardReducer(state = initialstate, action) {
@@ -36,6 +36,7 @@ export default function LeaderboardReducer(state = initialstate, action) {
         }
 
         case 'GET_DATA_FULFILLED': {
+            console.log('this is main data: ', payload)
             return {
                 ...state,
                 data: payload

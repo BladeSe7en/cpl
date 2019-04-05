@@ -30,17 +30,17 @@ export const sortBy = (value, order) => {
 	}
 }
 
-export const getData = (typeOfGame, sortOrder) => {
+export const getData = (sortBy, sortOrder) => {
 	const accessToken = 'ZHWTGJ9sPahvLeQ8M97jtO7XwSlRGYJ4XZSMhprA8GzGNM5AXNcdJDtM67MHEIPx'
 	const order = sortOrder?'ASC':'DESC';
 	console.log('this is order: ',order)
-	console.log('this is typeOfGame in get data: ',typeOfGame)
-	console.log('this is url: ',`http://localhost:3000/api/players?access_token=${accessToken}&filter[order]=${typeOfGame}%20${order}`)
+	console.log('this is sortBy in get data: ',sortBy)
+	console.log('this is url: ',`http://localhost:3000/api/players?access_token=${accessToken}&filter[order]=${sortBy}%20${order}`)
 	return {
 		type: 'GET_DATA',
 		payload: Axios({
 			method: 'get',
-			url: `http://localhost:3000/api/players?access_token=${accessToken}&filter[order]=${typeOfGame}%20${order}`
+			url: `http://localhost:3000/api/players?access_token=${accessToken}&filter[order]=${sortBy}%20${order}`
 		})
 			.then(response => {
 				return response.data
@@ -49,20 +49,24 @@ export const getData = (typeOfGame, sortOrder) => {
 	}
 }
 
-export const profile = () => {
+export const searchBy = (value, typeOfGame, BestCiv) => {
+	const accessToken = 'ZHWTGJ9sPahvLeQ8M97jtO7XwSlRGYJ4XZSMhprA8GzGNM5AXNcdJDtM67MHEIPx'
+	console.log('value in searchBy: ',value)
+	console.log('this is url: ',`http://localhost:3000/api/players?access_token=${accessToken}&filter[where][${typeOfGame}${BestCiv}]=${value}`)
 	return {
-		type: 'GET_PROFILE',
+		type: 'GET_DATA',
 		payload: Axios({
 			method: 'get',
-			url: 'http://localhost:3000/api/players?filter=%7B%22where%22%3A%7B%22id%22%3A1%7D%7D&access_token=ZHWTGJ9sPahvLeQ8M97jtO7XwSlRGYJ4XZSMhprA8GzGNM5AXNcdJDtM67MHEIPx'
+			url: `http://localhost:3000/api/players?access_token=${accessToken}&filter[where][${typeOfGame}${BestCiv}]=${value}`
 		})
 			.then(response => {
-				console.log('this is data1: ',response.data);
 				return response.data
 			})
 			.catch(err => err)
 	}
 }
+
+
 
 
 //filter[order]=CAREERSKILL%20ASC
