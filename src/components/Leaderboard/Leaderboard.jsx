@@ -10,7 +10,6 @@ class Leaderboard extends Component {
         this.handleType = this.handleType.bind(this);
         this.handleSortBy = this.handleSortBy.bind(this);
         this.bestCiv = this.bestCiv.bind(this);
-        this.winPercent = this.winPercent.bind(this);
         this.handleProfile = this.handleProfile.bind(this);
         this.handleSearchByLeader = this.handleSearchByLeader.bind(this);
 
@@ -18,9 +17,9 @@ class Leaderboard extends Component {
     }
 
     componentDidMount() {
-        const { dispatch, typeOfGame, sortOrder } = this.props;
+        const { dispatch, sortBy, sortOrder } = this.props;
 
-        dispatch(getData(typeOfGame, sortOrder));
+        dispatch(getData(sortBy, sortOrder));
     }
 
     handleType(e) {
@@ -32,6 +31,9 @@ class Leaderboard extends Component {
 
     handleSortBy(e) {
         const { dispatch, sortOrder } = this.props;
+        console.log('this is e.target.value: ', e.target.value)
+        console.log('this is sortOrder: ', sortOrder)
+        dispatch(getData(e.target.value, sortOrder))
         dispatch(sortBy(e.target.value, sortOrder));
     }
 
@@ -49,19 +51,14 @@ bestCiv(civs) {
     return civ;
 }
 
-winPercent(wins, losses) {
-    const percent = Math.trunc((wins / (wins + losses)) * 100);
-    return percent;
-}
-
 handleProfile(e) {
     const { dispatch } = this.props;
     dispatch(profile(e.target.value));
 }
 
 render() {
-    const { typeOfGame, data, highToLow, sortBy } = this.props;
-    const img = (<img id={`chevron_${highToLow ? 'down' : 'up'}`} src={`/pics/chevron_${highToLow ? 'down' : 'up'}.png`} />);
+    const { typeOfGame, data, sortOrder } = this.props;
+    const img = (<img id={`chevron_${sortOrder ? 'down' : 'up'}`} src={`/pics/chevron_${sortOrder ? 'down' : 'up'}.png`} />);
     const civList = ['ZuluShaka', 'SwedenKristina', 'SumeriaGilgamesh', 'SpainPhilipII', 'ScythiaTomyris', 'ScotlandRobertTheBruce', 'RussiaPeterTheGreat',
         'RomeTrajan', 'PolandJadwiga', 'PhoeniciaDido', 'PersiaCyrus', 'OttomanSuleiman', 'NubiaAmanitore', 'NorwayHaraldHardrada', 'MongoliaGenghisKhan',
         'MapucheLautaro', 'MaoriKupe', 'MaliMansa', 'MacedonAlexander', 'KoreaSeondeok', 'KongoMvembaANzinga', 'KhmerJayavarmanVII', 'JapanHojoTokimune',
@@ -87,25 +84,25 @@ render() {
                             </div>
                         </div>
                         <div className='item'>
-                            <button className="header" value="RANK" onClick={this.handleSortBy}>RANK{img}</button>
+                            <button className="header" value="RANK">RANK{img}</button>
                         </div>
                         <div className='item'>
                             <button className="header" value="name" onClick={this.handleSortBy}>PLAYER{img}</button>
                         </div>
                         <div className='item'>
-                            <button className="header" value="careerSkill" onClick={this.handleSortBy}> SKILL{img}</button>
+                            <button className="header" value={`${typeOfGame}Skill`} onClick={this.handleSortBy}> SKILL{img}</button>
                         </div>
                         <div className='item'>
-                            <button className="header" value="careerWins" onClick={this.handleSortBy}> WINS{img}</button>
+                            <button className="header" value={`${typeOfGame}Wins`} onClick={this.handleSortBy}> WINS{img}</button>
                         </div>
                         <div className='item'>
-                            <button className="header" value="careerLosses" onClick={this.handleSortBy}> LOSSES{img}</button>
+                            <button className="header" value={`${typeOfGame}Losses`} onClick={this.handleSortBy}> LOSSES{img}</button>
                         </div>
                         <div className='item'>
-                            <button className="header" value="win%" onClick={this.handleSortBy}>WIN %{img}</button>
+                            <button className="header" value={`${typeOfGame}Percent`} onClick={this.handleSortBy}>WIN %{img}</button>
                         </div>
                         <div className='item'>
-                            <button className="header" value="highestSkill" onClick={this.handleSortBy}> HIGHEST SKILL{img}</button>
+                            <button className="header" value={`${typeOfGame}HighestSkill`} onClick={this.handleSortBy}> HIGHEST SKILL{img}</button>
                         </div>
                         <div className='item'>
                             <div className="dropdown">
@@ -126,13 +123,12 @@ render() {
                             <button className="header" value="careerSeasonLosses" onClick={this.handleSortBy}> SEASON LOSSES{img}</button>
                         </div>
                         <div className='item'>
-                            <button className="header" value="careerSeason%" onClick={this.handleSortBy}> SEASON WIN %{img}</button>
+                            <button className="header" value="careerSeasonPercent" onClick={this.handleSortBy}> SEASON WIN %{img}</button>
                         </div>
                     </div>
                 </div>
                 {data && data.map((stat, index) => {
                     if (typeOfGame === 'career') {
-                        console.log('bestleader: ', index, stat.careerBestLeader)
                         return (
                             <div className='leaderboard'>
                                 <div className='leaderboard-child'>
@@ -144,19 +140,18 @@ render() {
                                     <div className='item'>{stat.careerSkill}</div>
                                     <div className='item'>{stat.careerWins}</div>
                                     <div className='item'>{stat.careerLosses}</div>
-                                    <div className='item'>{this.winPercent(stat.careerWins, stat.careerLosses, index)}%</div>
+                                    <div className='item'>{stat.careerPercent}%</div>
                                     <div className='item'>{stat.careerHighSkill}</div>
                                     <div className='item'><img className='leaderIcon' src={` ./pics/civ_icons/${stat.careerBestLeader}.png`} /></div>
                                     <div className='item'>{stat.careerSeasonWins}</div>
                                     <div className='item'>{stat.careerSeasonLosses}</div>
-                                    <div className='item'>{this.winPercent(stat.careerSeasonWins, stat.careerSeasonLosses, index)}%</div>
+                                    <div className='item'>{stat.careerSeasonPercent}%</div>
                                 </div>
                             </div>
                         )
                     }
 
                     if (typeOfGame === 'team') {
-                        console.log('im now here')
                         return (
                             <div className='leaderboard'>
                                 <div className='leaderboard-child'>
@@ -168,19 +163,18 @@ render() {
                                     <div className='item'>{stat.teamSkill}</div>
                                     <div className='item'>{stat.teamWins}</div>
                                     <div className='item'>{stat.teamLosses}</div>
-                                    <div className='item'>{this.winPercent(stat.teamWins, stat.teamLosses, index)}%</div>
+                                    <div className='item'>{stat.teamPercent}%</div>
                                     <div className='item'>{stat.teamHighSkill}</div>
-                                    <div className='item'>{this.bestCiv(stat.teamBestLeader)}</div>
+                                    <div className='item'><img className='leaderIcon' src={` ./pics/civ_icons/${stat.teamBestLeader}.png`} /></div>
                                     <div className='item'>{stat.teamSeasonWins}</div>
                                     <div className='item'>{stat.teamSeasonLosses}</div>
-                                    <div className='item'>{this.winPercent(stat.teamSeasonWins, stat.teamSeasonLosses, index)}%</div>
+                                    <div className='item'>{stat.teamSeasonPercent}%</div>
                                 </div>
                             </div>
                         )
                     }
 
                     if (typeOfGame === 'duel') {
-                        console.log('or here?')
                         return (
                             <div className='leaderboard'>
                                 <div className='leaderboard-child'>
@@ -192,19 +186,18 @@ render() {
                                     <div className='item'>{stat.duelSkill}</div>
                                     <div className='item'>{stat.duelWins}</div>
                                     <div className='item'>{stat.duelLosses}</div>
-                                    <div className='item'>{this.winPercent(stat.duelWins, stat.duelLosses, index)}%</div>
+                                    <div className='item'>{stat.duelPercent}%</div>
                                     <div className='item'>{stat.duelHighSkill}</div>
-                                    <div className='item'>{this.bestCiv(stat.duelBestLeader)}</div>
+                                    <div className='item'><img className='leaderIcon' src={` ./pics/civ_icons/${stat.duelBestLeader}.png`} /></div>
                                     <div className='item'>{stat.duelSeasonWins}</div>
                                     <div className='item'>{stat.duelSeasonLosses}</div>
-                                    <div className='item'>{this.winPercent(stat.duelSeasonWins, stat.duelSeasonLosses, index)}%</div>
+                                    <div className='item'>{stat.duelSeasonPercent}%</div>
                                 </div>
                             </div>
                         )
                     }
 
                     if (typeOfGame === 'ffa') {
-                        console.log('surprise')
                         return (
                             <div className='leaderboard'>
                                 <div className='leaderboard-child'>
@@ -216,16 +209,22 @@ render() {
                                     <div className='item'>{stat.ffaSkill}</div>
                                     <div className='item'>{stat.ffaWins}</div>
                                     <div className='item'>{stat.ffaLosses}</div>
-                                    <div className='item'>{this.winPercent(stat.ffaWins, stat.ffaLosses, index)}%</div>
+                                    <div className='item'>{stat.ffaPercent}%</div>
                                     <div className='item'>{stat.ffaHighSkill}</div>
-                                    <div className='item'>{this.bestCiv(stat.ffaBestLeader)}</div>
+                                    <div className='item'><img className='leaderIcon' src={` ./pics/civ_icons/${stat.ffaBestLeader}.png`} /></div>
                                     <div className='item'>{stat.ffaSeasonWins}</div>
                                     <div className='item'>{stat.ffaSeasonLosses}</div>
-                                    <div className='item'>{this.winPercent(stat.ffaSeasonWins, stat.ffaSeasonLosses, index)}%</div>
+                                    <div className='item'>{stat.ffaSeasonPercent}%</div>
                                 </div>
                             </div>
                         )
                     }
+
+                    
+
+                    
+
+                    
                 }
                 )}
             </div>

@@ -15,7 +15,7 @@
       "required": true,
       "default": 1500
     },
-    "highestCareerSkill": {
+    "careerHighestSkill": {
       "type": "number",
       "default": 1500
     },
@@ -25,6 +25,10 @@
       "default": 1500
     },
     "careerLosses": {
+      "type": "number",
+      "default": 0
+    },
+    "careerPercent": {
       "type": "number",
       "default": 0
     },
@@ -49,11 +53,15 @@
     "required": true,
     "default": 0
   },
+  "careerSeasonPercent": {
+    "type": "number",
+    "default": 0
+  },
   "teamSkill": {
     "type": "number",
     "default": 1500
   },
-  "highestTeamSkill": {
+  "teamHighestSkill": {
     "type": "number",
     "default": 1500
   },
@@ -62,6 +70,10 @@
     "default": 1500
   },
   "teamLosses": {
+    "type": "number",
+    "default": 0
+  },
+  "teamPercent": {
     "type": "number",
     "default": 0
   },
@@ -82,11 +94,15 @@
     "type": "number",
     "default": 0
   },
+  "teamSeasonPercent": {
+    "type": "number",
+    "default": 0
+  },
   "duelSkill": {
     "type": "number",
     "default": 1500
   },
-  "highestDuelSkill": {
+  "duelHighestSkill": {
     "type": "number",
     "default": 1500
   },
@@ -95,6 +111,10 @@
     "default": 1500
   },
   "duelLosses": {
+    "type": "number",
+    "default": 0
+  },
+  "duelPercent": {
     "type": "number",
     "default": 0
   },
@@ -115,11 +135,15 @@
     "type": "number",
     "default": 0
   },
+  "duelSeasonPercent": {
+    "type": "number",
+    "default": 0
+  },
   "ffaSkill": {
     "type": "number",
     "default": 1500
   },
-  "highestffaSkill": {
+  "ffaHighestSkill": {
     "type": "number",
     "default": 1500
   },
@@ -128,6 +152,10 @@
     "default": 1500
   },
   "ffaLosses": {
+    "type": "number",
+    "default": 0
+  },
+  "ffaPercent": {
     "type": "number",
     "default": 0
   },
@@ -145,6 +173,10 @@
     "default": 0
   },
   "ffaSeasonLosses": {
+    "type": "number",
+    "default": 0
+  },
+  "ffaSeasonPercent": {
     "type": "number",
     "default": 0
   },

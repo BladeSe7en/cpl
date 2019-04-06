@@ -13,11 +13,12 @@ export default function LeaderboardReducer(state = initialstate, action) {
     switch(type) {
         
         case 'CHANGE_GAME_TYPE': {
+
             console.log('how many times am i here: ');
             console.log('this is payload: ',payload);
             return {
                 ...state,
-                typeOfGame: payload
+                ...payload
             }
         }
 
@@ -31,7 +32,7 @@ export default function LeaderboardReducer(state = initialstate, action) {
         case 'TOGGLE_SORT_BY': {
             return {
                 ...state,
-                sortBy: payload
+                ...payload 
             }
         }
 
