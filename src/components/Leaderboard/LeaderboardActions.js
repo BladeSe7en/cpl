@@ -1,7 +1,8 @@
 import Axios from "axios";
 
 export const type = (value) => {
-	console.log('test2')
+	console.log('value2: ', value)
+	
 	return {
 		type: 'CHANGE_GAME_TYPE',
 		payload: {
@@ -20,19 +21,19 @@ export const highToLow = (value) => {
 	}
 }
 
-export const sortBy = (value, order) => {
+export const sortBy = (value, sortOrder) => {
 	return {
 		type: 'TOGGLE_SORT_BY',
 		payload: {
 			sortBy: value,
-			sortOrder: !order
+			sortOrder: !sortOrder
 		}
 	}
 }
 
 export const getData = (sortBy, sortOrder) => {
 	const accessToken = 'ZHWTGJ9sPahvLeQ8M97jtO7XwSlRGYJ4XZSMhprA8GzGNM5AXNcdJDtM67MHEIPx'
-	const order = sortOrder?'ASC':'DESC';
+	const order = sortOrder?'DESC':'ASC';
 	console.log('this is order: ',order)
 	console.log('this is sortBy in get data: ',sortBy)
 	console.log('this is url: ',`http://localhost:3000/api/players?access_token=${accessToken}&filter[order]=${sortBy}%20${order}`)
@@ -40,7 +41,9 @@ export const getData = (sortBy, sortOrder) => {
 		type: 'GET_DATA',
 		payload: Axios({
 			method: 'get',
-			url: `http://localhost:3000/api/players?access_token=${accessToken}&filter[order]=${sortBy}%20${order}`
+			url: `http://localhost:3000/api/players?filter=%7B%20%22order%22%3A%20%22${sortBy}%20${order}%22%20%7D&access_token=${accessToken}`
+			//url: `http://localhost:3000/api/players?filter=%7B%20%22order%22%3A%20%22careerSkill%20DESC%22%20%7D&access_token=ZHWTGJ9sPahvLeQ8M97jtO7XwSlRGYJ4XZSMhprA8GzGNM5AXNcdJDtM67MHEIPx`
+
 		})
 			.then(response => {
 				return response.data
@@ -70,7 +73,8 @@ export const searchBy = (selected, typeOfGame, BestLeader) => {
 
 
 
-//filter[order]=CAREERSKILL%20ASC
-//filter[order]=FFA%20ASC
-//filter[order]=TEAM%20ASC
-//filter[order]=DUEL%20ASC
+
+
+
+//{"where": {"careerBestLeader": "ZuluShaka"}};
+//{ "order": "careerSkill ASC" }
