@@ -19,6 +19,7 @@ class Leaderboard extends Component {
 
     componentDidMount() {
         const { dispatch, typeOfGame, sortOrder } = this.props;
+
         dispatch(getData(typeOfGame, sortOrder));
     }
 
@@ -35,26 +36,10 @@ class Leaderboard extends Component {
     }
 
     handleSearchByLeader(e) {
-        const { dispatch, typeOfGame, data } = this.props;
-        // console.log('this should be the typeOfGame: ', typeOfGame)
-        // dispatch(searchBy(value, typeOfGame, 'BestCiv'));
-        
+        const { dispatch, typeOfGame } = this.props;
         const selected = e.currentTarget.value
-        console.log('this should be the e.currentTarget.value: ', e.currentTarget.value)
-        
-        const sort =  data.map(stat => {
-            if (typeOfGame === 'career') {
-                const leaderIcon = this.bestCiv(stat.careerBestLeader)
-                return leaderIcon
-            }
-            Object.defineProperty(stat, 'careerBestLeader', [leaderIcon])
-        })
-        console.log(sort)
-
-
+        dispatch(searchBy(selected, typeOfGame, 'BestLeader'));
     }
-
-
 
 bestCiv(civs) {
     const civ = civs.sort((a, b) =>
@@ -76,23 +61,6 @@ handleProfile(e) {
 
 render() {
     const { typeOfGame, data, highToLow, sortBy } = this.props;
-    //  if (typeOfGame === 'career') {
-    //     const sorted = stat.careerSkill.sort((a, b) => a - b)
-    // } 
-    // if (typeOfGame === 'ffa') {
-    //     const sorted = stat.ffaSkill.sort((a, b) => a - b)
-    //  } 
-    //  if (typeOfGame === 'team') {
-    //     const sorted = stat.teamSkill.sort((a, b) => a - b)
-    //  } 
-    //  if (typeOfGame === 'duel') {
-    //     const sorted = stat.duelSkill.sort((a, b) => a - b)
-    //  } 
-    //  if (sortBy === 'career') {
-    //     const sorted = stat.careerSkill.sort((a, b) => a - b)
-
-
-
     const img = (<img id={`chevron_${highToLow ? 'down' : 'up'}`} src={`/pics/chevron_${highToLow ? 'down' : 'up'}.png`} />);
     const civList = ['ZuluShaka', 'SwedenKristina', 'SumeriaGilgamesh', 'SpainPhilipII', 'ScythiaTomyris', 'ScotlandRobertTheBruce', 'RussiaPeterTheGreat',
         'RomeTrajan', 'PolandJadwiga', 'PhoeniciaDido', 'PersiaCyrus', 'OttomanSuleiman', 'NubiaAmanitore', 'NorwayHaraldHardrada', 'MongoliaGenghisKhan',
@@ -164,7 +132,7 @@ render() {
                 </div>
                 {data && data.map((stat, index) => {
                     if (typeOfGame === 'career') {
-                        const leaderIcon = this.bestCiv(stat.careerBestLeader)
+                        console.log('bestleader: ', index, stat.careerBestLeader)
                         return (
                             <div className='leaderboard'>
                                 <div className='leaderboard-child'>
@@ -178,7 +146,7 @@ render() {
                                     <div className='item'>{stat.careerLosses}</div>
                                     <div className='item'>{this.winPercent(stat.careerWins, stat.careerLosses, index)}%</div>
                                     <div className='item'>{stat.careerHighSkill}</div>
-                                    <div className='item'><img className='leaderIcon' src={` ./pics/civ_icons/${leaderIcon}.png`} /></div>
+                                    <div className='item'><img className='leaderIcon' src={` ./pics/civ_icons/${stat.careerBestLeader}.png`} /></div>
                                     <div className='item'>{stat.careerSeasonWins}</div>
                                     <div className='item'>{stat.careerSeasonLosses}</div>
                                     <div className='item'>{this.winPercent(stat.careerSeasonWins, stat.careerSeasonLosses, index)}%</div>
@@ -309,3 +277,4 @@ export default Leaderboard;
 //       "ChinaQinShiHuang", "CanadaWilfrid", "BrazilPedroII", "AztecMontezuma", "MaoriKupe", "MaliMansa", "MacedonAlexander", "KoreaSeondeok",
 //       "KongoMvembaANzinga", "KhmerJayavarmanVII", "IncaPachacuti", "IncaPachacuti", "IncaPachacuti", "IncaPachacuti", "IncaPachacuti", "JapanHojoTokimune", "GeorgiaTamar", "GeorgiaTamar", "GeorgiaTamar", "GeorgiaTamar", "GeorgiaTamar", "AustraliaJohnCurtin", "AustraliaJohnCurtin", "AustraliaJohnCurtin", "AustraliaJohnCurtin","IndonesiaGitarja", "AustraliaJohnCurtin", "IndiaGandhi", "IndiaChandragupta", "IncaPachacuti", "HungaryMatthias", "GreecePericles", "GreeceGorgo", "GermanyFrederickBarbarossa", "GermanyFrederickBarbarossa"]
 //   }
+
