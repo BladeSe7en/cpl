@@ -8,26 +8,26 @@ const Navbar = props => {
         <div className='home-nav'>
             <div className='navbar'>
 
-                <img className='logo' src='https://uploads-ssl.webflow.com/5717c4de40b3bdeb02777ff4/598129e0c2a8fb000172a22e_Full%20Color.png' />
+                <img className='logo' src='./pics/cpl_logo_black.png' />
 
                 <div className='nav-items' >
                     <Link to='/' className={location.pathname === '/' ? 'nav-item w--current' : 'nav-item'}>
-                        SPEAK
+                        HOME
                     </Link>
-                    <Link to='/SignUp' className={location.pathname === '/SignUp' ? 'nav-item w--current' : 'nav-item'}>
-                        SIGN UP
+                    <Link to='/Faq' className={location.pathname === '/Faq' ? 'nav-item w--current' : 'nav-item'}>
+                        FAQ
                     </Link>
-                    <Link to='/Connect' className={location.pathname === '/Connect' ? 'nav-item w--current' : 'nav-item'}>
-                        CONNECT
+                    <Link to='/Rules' className={location.pathname === '/Rules' ? 'nav-item w--current' : 'nav-item'}>
+                        RULES
                     </Link>
-                    <Link to='/Shirts' className={location.pathname === '/Shirts' ? 'nav-item w--current' : 'nav-item'}>
-                        SHIRTS
+                    <Link to='/Leaderboard' className={location.pathname === '/Leaderboard' ? 'nav-item w--current' : 'nav-item'}>
+                        LEADERBOARD
                     </Link>
-                    <Link to='/Learn' className={location.pathname === '/Learn' ? 'nav-item w--current' : 'nav-item'}>
-                        LEARN
+                    <Link to='/Forum' className={location.pathname === '/Forum' ? 'nav-item w--current' : 'nav-item'}>
+                        FORUM
                     </Link>
-                    <Link to='/Jobs' className={location.pathname === '/Jobs' ? 'nav-item w--current' : 'nav-item'}>
-                        JOBS
+                    <Link to='/Newsletters' className={location.pathname === '/Newsletters' ? 'nav-item w--current' : 'nav-item'}>
+                        NEWSLETTERS
                     </Link>
                     <Link to='/Admin/Login' className={location.pathname === '/Admin/Login' ? 'nav-item w--current' : 'nav-item'}>
                         ADMIN

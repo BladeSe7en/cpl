@@ -24,7 +24,7 @@ class AdminNavbar extends Component {
         const { location } = this.props;
         return (
             <div className='navbar'>
-                <img className='logo' src='https://uploads-ssl.webflow.com/5717c4de40b3bdeb02777ff4/598129e0c2a8fb000172a22e_Full%20Color.png' />
+                <img className='logo' src='/pics/civplayers-logo-white.svg' />
                 <div className='nav-items' >
                     <Link to='/Admin/Meetups' className={location.pathname === '/Admin/Meetups' ? 'nav-item w--current' : 'nav-item'}>Meetups</Link>
                     <Link to='/Admin/Talks' className={location.pathname === '/Admin/Talks' ? 'nav-item w--current' : 'nav-item'}>Talks</Link>

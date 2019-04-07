@@ -1,5 +1,4 @@
 const sgMail = require('@sendgrid/mail');
-const moment = require('moment');
 const ontime = require('ontime');
 const { getTalkDetails } = require('./getTalkDetails');
 const axios = require('axios');

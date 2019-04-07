@@ -1,5 +1,5 @@
 {
-  "name": "sdjs-pipeline",
+  "name": "cpl",
   "version": "1.0.0",
   "main": "server/server.js",
   "engines": {
@@ -10,8 +10,9 @@
     "dev": "webpack --mode development",
     "build": "webpack --p",
     "sass": "sass --watch src/css/style.scss public/style.css",
-    "start": "npm run dev && node .",
-    "test": "mocha --require ignore-styles test/setup.js test/**/**.spec.js --exit"
+    "start": "npm run build && node .",
+    "test": "mocha --require ignore-styles test/setup.js test/**/**.spec.js --exit",
+    "heroku-prebuild": "npm install --dev"
   },
   "dependencies": {
     "@babel/register": "^7.0.0",
@@ -26,9 +27,11 @@
     "loopback": "^3.19.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^6.0.0",
-    "loopback-connector-mongodb": "^3.8.0",
+    "loopback-connector-mongodb": "^3.9.2",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.23",
+    "mongodb": "^3.2.2",
+    "mongoose": "^5.4.20",
     "nightmare": "^3.0.1",
     "ontime": "0.0.6",
     "react": "^16.5.2",
@@ -39,12 +42,13 @@
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^4.0.8",
     "redux": "^4.0.1",
-    "redux-persist": "^5.10.0",
     "redux-promise-middleware": "^5.1.1",
     "redux-thunk": "^2.3.0",
     "sass": "^1.14.3",
     "serve-favicon": "^2.0.1",
-    "strong-error-handler": "^3.0.0"
+    "strong-error-handler": "^3.0.0",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -66,5 +70,6 @@
     "url": ""
   },
   "license": "UNLICENSED",
-  "description": "cpl-website"
+  "description": "cpl-website",
+  "heroku-run-build-script": true
 }

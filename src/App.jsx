@@ -9,8 +9,13 @@ import AdminLogin      from './components/AdminLogin';
 import ConfirmOrCancel from './components/ConfirmOrCancel';
 import TalksPage       from './components/TalksPage';
 import Organizers      from './components/Organizers';
-import SignUp          from './components/SignUp';
-import Thankyou        from './components/Thankyou'
+import Leaderboard     from './components/Leaderboard';
+import Forum           from './components/Forum';
+import Newsletters     from './components/Newsletters';
+import Faq             from './components/Faq/Faq';
+import Rules           from './components/Rules/Rules';
+import PlayerProfile   from './components/PlayerProfile';
+import Thankyou        from './components/Thankyou';
 
 class App extends Component {
     render() {
@@ -23,8 +28,13 @@ class App extends Component {
 				<Route path='/Admin/Talks'     component={TalksPage} />
         <Route path='/ConfirmOrCancel' component={ConfirmOrCancel} />
         <Route path='/Organizers'      component={Organizers} />
-				<Route path='/SignUp'          component={SignUp} />
+        <Route path='/Leaderboard'     component={Leaderboard} />
+        <Route path='/Forum'           component={Forum} />
+        <Route path='/Newsletters'     component={Newsletters} />
+				<Route path='/Faq'             component={Faq} />
+        <Route path='/Rules'           component={Rules} />
         <Route path='/Thankyou'        component={Thankyou} />
+        <Route path='/PlayerProfile'   component={PlayerProfile} />
 			</div>
       </Router>
     );
