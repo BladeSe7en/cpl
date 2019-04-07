@@ -34,9 +34,6 @@ export const sortBy = (value, sortOrder) => {
 export const getData = (sortBy, sortOrder) => {
 	const accessToken = 'ZHWTGJ9sPahvLeQ8M97jtO7XwSlRGYJ4XZSMhprA8GzGNM5AXNcdJDtM67MHEIPx'
 	const order = sortOrder?'DESC':'ASC';
-	console.log('this is order: ',order)
-	console.log('this is sortBy in get data: ',sortBy)
-	console.log('this is url: ',`http://localhost:3000/api/players?access_token=${accessToken}&filter[order]=${sortBy}%20${order}`)
 	return {
 		type: 'GET_DATA',
 		payload: Axios({
@@ -61,12 +58,22 @@ export const searchBy = (selected, typeOfGame, BestLeader) => {
 		payload: Axios({
 			method: 'get',
 			url: `http://localhost:3000/api/players?filter=%7B%22where%22%3A%20%7B%22${typeOfGame}${BestLeader}%22%3A%20%22${selected}%22%7D%7D&access_token=${accessToken}`
-	      //url: `http://localhost:3000/api/players?filter=%7B%22where%22%3A%20%7B%22careerBestLeader%22%3A%20%22ZuluShaka%22%7D%7D&access_token=ZHWTGJ9sPahvLeQ8M97jtO7XwSlRGYJ4XZSMhprA8GzGNM5AXNcdJDtM67MHEIPx`
 		})
 			.then(response => {
 				return response.data
 			})
 			.catch(err => err)
+	}
+}
+
+export const updateProfile = (value) => {
+	console.log('2: ', value)
+	return {
+		type: 'UPDATE_PROFILE_ID',
+		payload: {
+			profileId: value
+		}
+		
 	}
 }
 
@@ -76,5 +83,5 @@ export const searchBy = (selected, typeOfGame, BestLeader) => {
 
 
 
-//{"where": {"careerBestLeader": "ZuluShaka"}};
+//{"where": {"careerBestLeader": "ZuluShaka"}}
 //{ "order": "careerSkill ASC" }

@@ -1,56 +1,56 @@
 
-
 .leaderboard {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  display: flex;
+  padding-left: auto;
+  padding-right: auto;
+  .leaderboard-header {
+    margin: 25px 50px 0px;
+    padding: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    justify-content: center;
     display: flex;
-    padding-left: auto;
-    padding-right: auto;
-    .leaderboard-header {
-      margin: 25px 50px 0px;
-      padding: 8px;
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.75);
-      color: white;
-      justify-content: center;
-      display: flex;
-      width: 100%;
-       .item {
-            margin: auto;
-            width: 5%;
-        }
-    }
-  }
-  .leaderboard {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
     width: 100%;
-    display: flex;
-    padding-left: auto;
-    padding-right: auto;
-    .leaderboard-child {
-      border: 1px solid #ddd;
-      margin: 0px 50px;
-      padding: 8px;
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-       .item {
-            margin: auto;
-            width: 5%;
-        }
-    }
+     .item {
+          margin: auto;
+          width: 5%;
+      }
   }
-  .leaderboard-child tr:nth-child(even){background-color: rgba(0, 0, 0, 0.75);}
-  .leaderboard-child:hover {background-color: black;}
+}
+.leaderboard {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  display: flex;
+  padding-left: auto;
+  padding-right: auto;
+  .leaderboard-child {
+    border: 1px solid #ddd;
+    margin: 0px 50px;
+    padding: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+     .item {
+          margin: auto;
+          width: 5%;
+      }
+  }
+}
+.leaderboard-child tr:nth-child(even){background-color: rgba(0, 0, 0, 0.75);}
+.leaderboard-child:hover {background-color: black;}
+  
 
   .btn {
     border: none;

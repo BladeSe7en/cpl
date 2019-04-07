@@ -7,16 +7,18 @@ import LeaderboardReducer      from './components/Leaderboard/LeaderboardReducer
 import TalksPageReducer        from './components/TalksPage/TalksPageReducer';
 import MeetupsReducer          from './components/Meetups/MeetupsReducer';
 import NewslettersReducer      from './components/Newsletters/NewslettersReducer';
+import PlayerProfileReducer    from './components/PlayerProfile/PlayerProfileReducer';
 
 const rootReducer = combineReducers({
     AdminLogin       : AdminLoginReducer,
     ConfirmOrCancel  : ConfimOrCancelReducer,
-    Forum          : ForumReducer,
+    Forum            : ForumReducer,
     Organizers       : OrganizersReducer,
-    Leaderboard           : LeaderboardReducer,
+    Leaderboard      : LeaderboardReducer,
     TalksPage        : TalksPageReducer, 
     MeetupsReducer   : MeetupsReducer,
     Newsletters      : NewslettersReducer,
+    PlayerProfile     : PlayerProfileReducer
 });
 
 export default rootReducer; 

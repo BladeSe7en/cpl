@@ -17,6 +17,7 @@ $off-white: #fbfbfb;
 @import 'faq';
 @import 'rules';
 @import 'leaderboard';
+@import 'playerProfile';
 
 html{
     -webkit-font-smoothing: antialiased;
@@ -41,5 +42,6 @@ body {
         text-transform: uppercase;
         font-weight: normal;
         letter-spacing: 1px;
+        width: 100%;
     }
 }

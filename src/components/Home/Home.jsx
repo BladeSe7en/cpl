@@ -12,6 +12,7 @@ class Home extends Component {
 			<div>
 				<Navbar />
 				<div className='banner'>
+				<div className='banner-opacity'>
 					<h1>Civiliation Players League</h1>
 					<p>The number one community to play competitive, no quitting Civiliation IV</p>
 					<div className='media'>
@@ -25,6 +26,7 @@ class Home extends Component {
 							<li><a href='https://www.youtube.com/user/TheCanuckSoldier' target='_blank'><img className='link-icon' src='/pics/youtube_icon.png'></img></a></li>
 							<li><a href='https://steamcommunity.com/gid/103582791431089902' target='_blank'><img className='link-icon' src='/pics/Steam_icon.png'></img></a></li>
 						</ul>
+					</div>
 					</div>
 				</div>
 			</div>
