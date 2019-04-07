@@ -4,7 +4,8 @@ const initialstate = {
     sortBy: "careerSkill",
     data: [],
     profile: {},
-    sortOrder: true
+    sortOrder: true,
+    playerProfile: []
 }
 
 export default function LeaderboardReducer(state = initialstate, action) {
@@ -13,9 +14,6 @@ export default function LeaderboardReducer(state = initialstate, action) {
     switch(type) {
         
         case 'CHANGE_GAME_TYPE': {
-
-            console.log('how many times am i here: ');
-            console.log('this is payload: ',payload);
             return {
                 ...state,
                 ...payload
@@ -37,20 +35,20 @@ export default function LeaderboardReducer(state = initialstate, action) {
         }
 
         case 'GET_DATA_FULFILLED': {
-            console.log('this is main data: ', payload)
             return {
                 ...state,
                 data: payload
             }
         }
 
-        case 'GET_DATA_FULFILLED': {
-            console.log('4')
+        case 'UPDATE_PROFILE_ID': {
+            console.log('3: ', payload)
             return {
                 ...state,
-                profile: payload
+                ...payload
             }
         }
+
         default: {
             return state
         }
