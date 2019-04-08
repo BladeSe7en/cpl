@@ -1,47 +1,9 @@
 {
   "name": "player",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
-  },
-  "properties": {
-    "name": {
-      "type": "string",
-      "required": true
-    },
-    "careerSkill": {
-      "type": "number",
-      "required": true,
-      "default": 1500
-    },
-    "careerHighestSkill": {
-      "type": "number",
-      "default": 1500
-    },
-    "careerWins": {
-      "type": "number",
-      "required": true,
-      "default": 1500
-    },
-    "careerLosses": {
-      "type": "number",
-      "default": 0
-    },
-    "careerPercent": {
-      "type": "number",
-      "default": 0
-    },
-    "careerBestLeader": {
-      "type": "string",
-      "required": true,
-      "default": ""
-    },
-    "careerAllLeader": {
-      "type": "array",
-      "required": true,
-      "default": []
-    }
   },
   "careerSeasonWins": {
     "type": "number",
@@ -80,11 +42,11 @@
   "teamBestLeader": {
     "type": "string",
     "required": true,
-    "default": ""
+    "default": "none"
   },
   "teamAllLeader": {
     "type": "array",
-    "default": []
+    "default": ["none"]
   },
   "teamSeasonWins": {
     "type": "number",
@@ -121,11 +83,11 @@
   "duelBestLeader": {
     "type": "string",
     "required": true,
-    "default": ""
+    "default": "none"
   },
   "duelAllLeader": {
     "type": "array",
-    "default": []
+    "default": ["none"]
   },
   "duelSeasonWins": {
     "type": "number",
@@ -162,11 +124,11 @@
   "ffaBestLeader": {
     "type": "string",
     "required": true,
-    "default": ""
+    "default": "none"
   },
   "ffaAllLeader": {
     "type": "array",
-    "default": []
+    "default": ["none"]
   },
   "ffaSeasonWins": {
     "type": "number",
@@ -180,8 +142,56 @@
     "type": "number",
     "default": 0
   },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "default": "name"
+    },
+    "careerSkill": {
+      "type": "number",
+      "required": true,
+      "default": 1500
+    },
+    "careerHighestSkill": {
+      "type": "number",
+      "default": 1500
+    },
+    "careerWins": {
+      "type": "number",
+      "required": true,
+      "default": 1500
+    },
+    "careerLosses": {
+      "type": "number",
+      "default": 0
+    },
+    "careerPercent": {
+      "type": "number",
+      "default": 0
+    },
+    "careerBestLeader": {
+      "type": "string",
+      "required": true,
+      "default": "none"
+    },
+    "careerAllLeader": {
+      "type": "array",
+      "required": true,
+      "default": ["none"]
+    }
+  },
   "validations": [],
   "relations": {},
-  "acls": [],
-  "methods": {}
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "getPlayerStats"
+    }
+  ],
+  "methods": {
+  }
 }
