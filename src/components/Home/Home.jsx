@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
+//import { getPlayerStats } from '../../../common/models/player'
 
 class Home extends Component {
 	constructor(props) {
@@ -9,7 +10,8 @@ class Home extends Component {
 
 	componentDidMount() {
 		let civs = document.querySelectorAll(".civ");
-
+		// const names = [ 'player0', 'player1', 'player2' ]
+		// getPlayerStats(names)
 		for (let i = 0; i < 45; i++) {
 			let civ = civs[i];
 			animateCivs(civ);
