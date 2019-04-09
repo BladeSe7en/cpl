@@ -102,6 +102,7 @@
     margin-top: 80px;
     background-attachment: fixed;
     background-image: url('/pics/cpl_logo_5.jpg');
+    background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
     display: block;
@@ -129,16 +130,17 @@
     .banner-opacity {
         content: "";
     background-color: rgb(0, 0, 0, 0.1);
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        position: absolute;
-        z-index: -1; 
-    }
-    .banner-opacity-home {
-        content: "";
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1; 
+}
+.banner-opacity-home {
+    content: "";
     background-color: rgb(0, 0, 0, 0.1);
+    background-attachment: fixed;
         top: 0;
         left: 0;
         bottom: 0;
