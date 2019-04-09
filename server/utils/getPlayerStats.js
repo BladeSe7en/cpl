@@ -1,6 +1,7 @@
 const app = require('../server')
 
 function getPlayerStats(names) {
+  debugger
     console.log('names: ', names)
     return new Promise((resolve, reject) => {
         const { Player } = app.models;
@@ -8,7 +9,7 @@ function getPlayerStats(names) {
 
             console.log('single name: ', name)
             const defaultSkill = 1500;
-            Player.findOrCreate({ where: { name: name } },
+          return  Player.findOrCreate({ where: { name: name } },
                 {
                     "name": name,
                     "careerSkill": defaultSkill,
