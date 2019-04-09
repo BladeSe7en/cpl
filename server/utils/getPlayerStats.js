@@ -7,7 +7,7 @@ function getPlayerStats(names) {
     const playerData = names.map(name => {
       console.log('single name: ', name);
       const defaultSkill = 1500;
-      Player.findOrCreate(
+      return Player.findOrCreate(
         { where: { name: name } },
         {
           name: name,
@@ -57,21 +57,11 @@ function getPlayerStats(names) {
           duelHighSkill: defaultSkill,
           ffaHighSkill: defaultSkill
         }
-      )
-        .then(([data, isCreated]) => {
-          console.log(resolve(data));
-          resolve(data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      );
     });
-    // Promise.all(playerData)
-    //   .then(results => {
-    //     console.log(resolve(results));
-    //     resolve(results);
-    //   })
-    //   .catch(err => reject(new Error('could not return results')));
+    Promise.all(playerData)
+      .then(results => resolve(results))
+      .catch(err => reject(new Error('could not return results')));
   });
 }
 
