@@ -12,7 +12,9 @@ class Newsletters extends Component {
         <div>
         <Navbar />
         <div className='banner'>
+        <div className='banner-opacity'>
             <h1>Nothing here yet</h1>
+        </div>
         </div>
     </div>
       )

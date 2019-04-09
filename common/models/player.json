@@ -1,60 +1,197 @@
 {
   "name": "player",
-  "plural": "n",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
+  "careerSeasonWins": {
+    "type": "number",
+    "required": true,
+    "default": 0
+  },
+  "careerSeasonLosses": {
+    "type": "number",
+    "required": true,
+    "default": 0
+  },
+  "careerSeasonPercent": {
+    "type": "number",
+    "default": 0
+  },
+  "teamSkill": {
+    "type": "number",
+    "default": 1500
+  },
+  "teamHighestSkill": {
+    "type": "number",
+    "default": 1500
+  },
+  "teamWins": {
+    "type": "number",
+    "default": 1500
+  },
+  "teamLosses": {
+    "type": "number",
+    "default": 0
+  },
+  "teamPercent": {
+    "type": "number",
+    "default": 0
+  },
+  "teamBestLeader": {
+    "type": "string",
+    "required": true,
+    "default": "none"
+  },
+  "teamAllLeader": {
+    "type": "array",
+    "default": ["none"]
+  },
+  "teamSeasonWins": {
+    "type": "number",
+    "default": 0
+  },
+  "teamSeasonLosses": {
+    "type": "number",
+    "default": 0
+  },
+  "teamSeasonPercent": {
+    "type": "number",
+    "default": 0
+  },
+  "duelSkill": {
+    "type": "number",
+    "default": 1500
+  },
+  "duelHighestSkill": {
+    "type": "number",
+    "default": 1500
+  },
+  "duelWins": {
+    "type": "number",
+    "default": 1500
+  },
+  "duelLosses": {
+    "type": "number",
+    "default": 0
+  },
+  "duelPercent": {
+    "type": "number",
+    "default": 0
+  },
+  "duelBestLeader": {
+    "type": "string",
+    "required": true,
+    "default": "none"
+  },
+  "duelAllLeader": {
+    "type": "array",
+    "default": ["none"]
+  },
+  "duelSeasonWins": {
+    "type": "number",
+    "default": 0
+  },
+  "duelSeasonLosses": {
+    "type": "number",
+    "default": 0
+  },
+  "duelSeasonPercent": {
+    "type": "number",
+    "default": 0
+  },
+  "ffaSkill": {
+    "type": "number",
+    "default": 1500
+  },
+  "ffaHighestSkill": {
+    "type": "number",
+    "default": 1500
+  },
+  "ffaWins": {
+    "type": "number",
+    "default": 1500
+  },
+  "ffaLosses": {
+    "type": "number",
+    "default": 0
+  },
+  "ffaPercent": {
+    "type": "number",
+    "default": 0
+  },
+  "ffaBestLeader": {
+    "type": "string",
+    "required": true,
+    "default": "none"
+  },
+  "ffaAllLeader": {
+    "type": "array",
+    "default": ["none"]
+  },
+  "ffaSeasonWins": {
+    "type": "number",
+    "default": 0
+  },
+  "ffaSeasonLosses": {
+    "type": "number",
+    "default": 0
+  },
+  "ffaSeasonPercent": {
+    "type": "number",
+    "default": 0
+  },
   "properties": {
-    "careerStats": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "default": "name"
+    },
+    "careerSkill": {
       "type": "number",
       "required": true,
       "default": 1500
     },
-    "name": {
-      "type": "string",
-      "required": true
-    },
-    "teamStats": {
-      "type": "number",
-      "default": 1500
-    },
-    "duelStats": {
+    "careerHighestSkill": {
       "type": "number",
       "default": 1500
     },
     "careerWins": {
       "type": "number",
       "required": true,
-      "default": 0
+      "default": 1500
     },
     "careerLosses": {
       "type": "number",
       "default": 0
     },
-    "highestSkill": {
+    "careerPercent": {
       "type": "number",
-      "default": 1500
+      "default": 0
     },
-    "bestLeader": {
+    "careerBestLeader": {
+      "type": "string",
+      "required": true,
+      "default": "none"
+    },
+    "careerAllLeader": {
       "type": "array",
       "required": true,
-      "default": []
-    },
-    "seasonWins": {
-      "type": "number",
-      "required": true,
-      "default": 0
-    },
-    "seasonLosses": {
-      "type": "number",
-      "required": true,
-      "default": 0
+      "default": ["none"]
     }
   },
   "validations": [],
   "relations": {},
-  "acls": [],
-  "methods": {}
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "getPlayerStats"
+    }
+  ],
+  "methods": {
+  }
 }

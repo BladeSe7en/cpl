@@ -1,56 +1,56 @@
 
-
 .leaderboard {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  display: flex;
+  padding-left: auto;
+  padding-right: auto;
+  .leaderboard-header {
+    margin: 25px 50px 0px;
+    padding: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    justify-content: center;
     display: flex;
-    padding-left: auto;
-    padding-right: auto;
-    .leaderboard-header {
-      margin: 25px 50px 0px;
-      padding: 8px;
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.75);
-      color: white;
-      justify-content: center;
-      display: flex;
-      width: 100%;
-       .item {
-            margin: auto;
-            width: 5%;
-        }
-    }
-  }
-  .leaderboard {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
     width: 100%;
-    display: flex;
-    padding-left: auto;
-    padding-right: auto;
-    .leaderboard-child {
-      border: 1px solid #ddd;
-      margin: 0px 50px;
-      padding: 8px;
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-       .item {
-            margin: auto;
-            width: 5%;
-        }
-    }
+     .item {
+          margin: auto;
+          width: 5%;
+      }
   }
-  .leaderboard-child tr:nth-child(even){background-color: rgba(0, 0, 0, 0.75);}
-  .leaderboard-child:hover {background-color: black;}
+}
+.leaderboard {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  display: flex;
+  padding-left: auto;
+  padding-right: auto;
+  .leaderboard-child {
+    border: 1px solid #ddd;
+    margin: 0px 50px;
+    padding: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+     .item {
+          margin: auto;
+          width: 5%;
+      }
+  }
+}
+.leaderboard-child tr:nth-child(even){background-color: rgba(0, 0, 0, 0.75);}
+.leaderboard-child:hover {background-color: black;}
+  
 
   .btn {
     border: none;
@@ -75,7 +75,7 @@
 .dropbtn {
     background-color: #1884c3;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     margin: 0px;
     padding: 5px;
   }
@@ -94,12 +94,14 @@
     display: none;
     position: absolute;
     background-color: rgb(204, 32, 32);
-    max-width: 5%;
+    max-width: 7%;
     margin: 0px;
     padding: 5px;
-    min-width: 160px;
+    min-width: 56px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    max-height:255px;
+    overflow:auto;
   }
   
   /* Change color of dropdown links on hover */
@@ -111,7 +113,29 @@
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdown:hover .dropbtn {background-color: rgb(204, 32, 32); border-color: rgb(204, 32, 32); color: black}
   
-  
+  #chevron_down {
+    height:10px;
+  }
 
+  #chevron_up {
+    height:10px;
+  }
 
-  
+  .header {
+    border: none;
+    text-align: center;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    margin: 0px;
+    padding: 5px;
+  }
+
+  .header:hover {border: 1px solid #ddd; font-weight: 800}
+
+  .leaderIcon {
+    height: 40px;
+  }
