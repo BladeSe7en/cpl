@@ -1,24 +1,63 @@
 'use strict';
 
 const { getPlayerStats } = require('../../server/utils/getPlayerStats');
+const { glicko } = require('../../server/utils/glicko');
+module.exports = function (Player) {
 
-module.exports = function(Player) {
-
-    Player.getPlayerStats = function (names, cb) {
+	Player.getPlayerStats = function (names, cb) {
 		getPlayerStats(names)
 			.then(response => cb(null, response))
 			.catch(err => cb(err))
 	}
 
 
-    Player.remoteMethod('getPlayerStats', {
-        description: 'Gets all of the players data.',
-        accepts: {
+
+	Player.remoteMethod('getPlayerStats', {
+		description: 'Gets all of the players data.',
+		accepts: {
 			arg: 'names',
 			type: 'array'
 		},
 		http: {
 			path: '/getPlayersStats',
+			verb: 'get'
+		},
+		returns: {
+			arg: 'data',
+			type: 'array',
+			root: true
+		}
+	})
+
+	Player.glicko = function (allPlayersStats, names, matches, gameType, cb) {
+		glicko(allPlayersStats, names, matches, gameType)
+			.then(response => cb(null, response))
+			.catch(err => cb(err))
+	}
+
+	Player.remoteMethod('glicko', {
+		description: 'Calculate the players new ELO scores.',
+		accepts:
+		[
+			{
+				arg: 'allPlayersStats',
+				type: 'array'
+			},
+			{
+				arg: 'names',
+				type: 'array'
+			},
+			{
+				arg: 'matches',
+				type: 'array'
+			},
+			{
+				arg: 'gameType',
+				type: 'string'
+			}
+		],
+		http: {
+			path: '/glicko',
 			verb: 'get'
 		},
 		returns: {

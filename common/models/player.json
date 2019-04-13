@@ -190,6 +190,13 @@
       "principalId": "$everyone",
       "permission": "ALLOW",
       "property": "getPlayerStats"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "glicko"
     }
   ],
   "methods": {
