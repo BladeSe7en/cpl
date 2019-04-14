@@ -3,7 +3,7 @@ import Forum from './Forum';
 
 function mapStoreToProps(store){
     return {
-     
+     something: store.Forum.something
     };
 }
 
