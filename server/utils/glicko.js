@@ -6,38 +6,106 @@
 
 var glicko2 = require('glicko2');
 
-function glicko(allPlayerStats, names, matches, gameType) {
-    console.log('allPlayerStats: ',allPlayerStats)
-    console.log('matches: ',matches)
-    console.log('gameType: ',gameType)
-    console.log('allPlayerStats: ', allPlayerStats);
-        var settings = {
-            tau: 0.5,
-            rating: 1500,
-            rd: 200,
-            vol: 0.06
-        };
+function glicko(allPlayerStats, matches, gameType) {
+    var settings = {
+        tau: 0.5,
+        rating: 1500,
+        rd: 200,
+        vol: 0.06
+    };
 
-        var ranking = new glicko2.Glicko2(settings);
-       
-        ranking.updateRatings(matches);
+    var ranking = new glicko2.Glicko2(settings);
+    const madePlayers = [];
 
-        if (gameType === 'ffa') {
-            console.log('im in ffa gametype')
+    console.log('allPlayerStats: ', allPlayerStats)
+    console.log('matches: ', matches)
+    console.log('gameType: ', gameType)
 
-            allPlayerStats.map(filtered => (
-                [name] = ranking.makePlayer(filtered[careerSkill], filtered[ratingDiviation], [volatility]),
-                console.log('filtered============', [name] = ranking.makePlayer(filtered[careerSkill], filtered[ratingDiviation], [volatility]))
-            )).names.map(player => {
-                console.log(`${player} new rating: ` + player.getRating());
-                console.log(`${player} new rating deviation: ` + player.getRd());
-                console.log(`${player} new volatility: ` + player.getVol());
-                updatedStats[ffaSkill] = player.getRating(),
-                updatedStats[ratingDeviation] = player.getRd(),
-                updatedStats[volatility] = player.getVol();
-            })
+    if (gameType === 'ffa') {
+        makeTheFfaPlayers();
+        function makeTheFfaPlayers() {
+            allPlayerStats.map((playerName, i) => {
+                let singlePlayerStats = {
+                    user: playerName[0].name, value: ranking.makePlayer(playerName[0].ffaSkill, playerName[0].ffaRatingDiviation, playerName[0].ffaVolatility)
+                }
+                madePlayers.push(singlePlayerStats)
+            });
         }
-}
-module.exports = { glicko };
+        evaluate(madePlayers)
+    }
 
-//[[{"name":"player0","careerSkill":2080,"careerHighestSkill":1500,"careerWins":260,"careerLosses":100,"careerPercent":72,"careerBestLeader":"ZuluShaka","careerAllLeader":["ZuluShaka","SwedenKristina","SumeriaGilgamesh","ZuluShaka","SwedenKristina","SumeriaGilgamesh","ZuluShaka"],"id":3,"highestCareerSkill":1770,"careerSeasonWins":210,"careerSeasonLosses":21,"careerSeasonPercent":91,"teamSkill":1780,"highestTeamSkill":1500,"teamWins":210,"teamLosses":10,"teamPercent":95,"teamBestLeader":"IndiaGandhi","teamAllLeader":["ZuluShaka","SwedenKristina","GeorgiaTamar","SumeriaGilgamesh","ZuluShaka","SwedenKristina","SumeriaGilgamesh","ZuluShaka","MapucheLautaro","MaoriKupe","ChinaQinShiHuang","CanadaWilfrid","BrazilPedroII","AztecMontezuma","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","KhmerJayavarmanVII","JapanHojoTokimune","AustraliaJohnCurtin","HungaryMatthias","GreecePericles","GreeceGorgo","MaoriKupe","MaliMansa","MacedonAlexander","FranceCatherinedeMedici","EnglandVictoria","EnglandFranceEleanor","EgyptCleopatra","DutchWilhelmina","CreePoundmaker","ChinaQinShiHuang","CanadaWilfrid","BrazilPedroII","AztecMontezuma","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","KhmerJayavarmanVII","JapanHojoTokimune","IndiaGandhi","IndiaChandragupta","IncaPachacuti","HungaryMatthias","GreecePericles","GreeceGorgo","GermanyFrederickBarbarossa","GermanyFrederickBarbarossa"],"teamSeasonWins":20,"teamSeasonLosses":2,"teamSeasonPercent":91,"duelSkill":1780,"highestDuelSkill":1500,"duelWins":10,"duelLosses":45,"duelPercent":72,"duelBestLeader":"HungaryMatthias","duelAllLeader":["ZuluShaka","SwedenKristina","SumeriaGilgamesh","ZuluShaka","KhmerJayavarmanVII","JapanHojoTokimune","IndonesiaGitarja","IndiaGandhi","IndiaChandragupta","IncaPachacuti","HungaryMatthias","GreecePericles","GreeceGorgo","ZuluShaka","SwedenKristina","SumeriaGilgamesh","ZuluShaka","SwedenKristina","SumeriaGilgamesh","ZuluShaka","MapucheLautaro","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","KhmerJayavarmanVII","IndiaGandhi","IndiaGandhi","IndiaGandhi","IndiaGandhi","IndiaGandhi","IndiaChandragupta","IncaPachacuti","HungaryMatthias","GreecePericles","GreeceGorgo","GermanyFrederickBarbarossa","GermanyFrederickBarbarossa"],"duelSeasonWins":210,"duelSeasonLosses":21,"duelSeasonPercent":91,"ffaSkill":1980,"highestffaSkill":1500,"ffaWins":230,"ffaLosses":109,"ffaPercent":67,"ffaBestLeader":"MapucheLautaro","ffaAllLeader":["ZuluShaka","SwedenKristina","SumeriaGilgamesh","ZuluShaka","SwedenKristina","SumeriaGilgamesh","ZuluShaka","MapucheLautaro","MaoriKupe","MaliMansa","ChinaQinShiHuang","CanadaWilfrid","KoreaSeondeok","KongoMvembaANzinga","KongoMvembaANzinga","KhmerJayavarmanVII","JapanHojoTokimune","IndonesiaGitarja","IndiaGandhi","IndiaChandragupta","IncaPachacuti","HungaryMatthias","GreecePericles","GreeceGorgo","ZuluShaka","MapucheLautaro","MaoriKupe","MaliMansa","MacedonAlexander","FranceCatherinedeMedici","EnglandVictoria","EnglandFranceEleanor","EgyptCleopatra","DutchWilhelmina","CreePoundmaker","ChinaQinShiHuang","CanadaWilfrid","BrazilPedroII","AztecMontezuma","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","KhmerJayavarmanVII","JapanHojoTokimune","JapanHojoTokimune","JapanHojoTokimune","JapanHojoTokimune","JapanHojoTokimune","IndiaGandhi","IndiaChandragupta","IncaPachacuti","HungaryMatthias","GreecePericles","GreeceGorgo","GermanyFrederickBarbarossa","GermanyFrederickBarbarossa"],"ffaSeasonWins":25,"ffaSeasonLosses":54,"ffaSeasonPercent":72,"careerHighSkill":2180,"teamHighSkill":1780,"duelHighSkill":1880,"ffaHighSkill":1980},false],[{"name":"player1","careerSkill":2080,"careerHighestSkill":1500,"careerWins":78,"careerLosses":80,"careerPercent":49,"careerBestLeader":"SwedenKristina","careerAllLeader":["ZuluShaka","SwedenKristina","SumeriaGilgamesh","ZuluShaka","SwedenKristina","SumeriaGilgamesh","ZuluShaka","MapucheLautaro","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","KhmerJayavarmanVII","JapanHojoTokimune","IndonesiaGitarja","IndiaGandhi","IndiaChandragupta","IncaPachacuti","HungaryMatthias","GreecePericles","GreeceGorgo","GermanyFrederickBarbarossa","FranceCatherinedeMedici","EnglandVictoria","EnglandFranceEleanor","EgyptCleopatra","DutchWilhelmina","CreePoundmaker","ChinaQinShiHuang","CanadaWilfrid","BrazilPedroII","AztecMontezuma","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","KhmerJayavarmanVII","JapanHojoTokimune","IndonesiaGitarja","IndiaGandhi","IndiaChandragupta","IncaPachacuti","HungaryMatthias","GreecePericles","GreeceGorgo","GermanyFrederickBarbarossa","GermanyFrederickBarbarossa"],"id":4,"highestCareerSkill":1330,"careerSeasonWins":40,"careerSeasonLosses":28,"careerSeasonPercent":59,"teamSkill":1990,"highestTeamSkill":1500,"teamWins":65,"teamLosses":87,"teamPercent":42,"teamBestLeader":"KoreaSeondeok","teamAllLeader":["ZuluShaka","SwedenKristina","SumeriaGilgamesh","ZuluShaka","SwedenKristina","SumeriaGilgamesh","ChinaQinShiHuang","AztecMontezuma","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","ChinaQinShiHuang","CanadaWilfrid","BrazilPedroII","AztecMontezuma","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","KongoMvembaANzinga","KhmerJayavarmanVII","JapanHojoTokimune","IndonesiaGitarja","IndiaGandhi","IndiaChandragupta","IncaPachacuti","HungaryMatthias","GreecePericles","GreeceGorgo","GermanyFrederickBarbarossa","KhmerJayavarmanVII","JapanHojoTokimune","AustraliaJohnCurtin","HungaryMatthias","GreecePericles","GreeceGorgo","GermanyFrederickBarbarossa","GermanyFrederickBarbarossa","ZuluShaka","SwedenKristina","SumeriaGilgamesh","ZuluShaka","SwedenKristina","SumeriaGilgamesh","ZuluShaka","MapucheLautaro","MaoriKupe","MaliMansa","MacedonAlexander","FranceCatherinedeMedici","EnglandVictoria","EnglandFranceEleanor","EgyptCleopatra","DutchWilhelmina","CreePoundmaker","ChinaQinShiHuang","CanadaWilfrid","BrazilPedroII","AztecMontezuma","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","KhmerJayavarmanVII","JapanHojoTokimune","IndiaGandhi","IndiaChandragupta","IncaPachacuti","HungaryMatthias","GreecePericles","GreeceGorgo"],"teamSeasonWins":54,"teamSeasonLosses":43,"teamSeasonPercent":56,"duelSkill":1300,"highestDuelSkill":1500,"duelWins":21,"duelLosses":11,"duelPercent":63,"duelBestLeader":"AztecMontezuma","duelAllLeader":["ZuluShaka","SwedenKristina","SumeriaGilgamesh","SwedenKristina","SumeriaGilgamesh","MapucheLautaro","MaoriKupe","MaliMansa","ChinaQinShiHuang","AztecMontezuma","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","ChinaQinShiHuang","CanadaWilfrid","BrazilPedroII","AztecMontezuma","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","KongoMvembaANzinga","KhmerJayavarmanVII","JapanHojoTokimune","IndonesiaGitarja","IndiaGandhi","IndiaChandragupta","IncaPachacuti","HungaryMatthias","GreecePericles","GreeceGorgo","GermanyFrederickBarbarossa","KhmerJayavarmanVII","JapanHojoTokimune","AustraliaJohnCurtin","HungaryMatthias","GreecePericles","GreeceGorgo","SumeriaGilgamesh","BrazilPedroII","AztecMontezuma","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","KhmerJayavarmanVII","IndonesiaGitarja","AustraliaJohnCurtin","IndiaGandhi","IndiaChandragupta","IncaPachacuti","HungaryMatthias","GreecePericles","GreeceGorgo"],"duelSeasonWins":34,"duelSeasonLosses":76,"duelSeasonPercent":31,"ffaSkill":1770,"highestffaSkill":1500,"ffaWins":90,"ffaLosses":23,"ffaPercent":80,"ffaBestLeader":"BrazilPedroII","ffaAllLeader":["SwedenKristina","SumeriaGilgamesh","SwedenKristina","SumeriaGilgamesh","MapucheLautaro","MaoriKupe","MaliMansa","ChinaQinShiHuang","CanadaWilfrid","BrazilPedroII","AztecMontezuma","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","ChinaQinShiHuang","CanadaWilfrid","BrazilPedroII","AztecMontezuma","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","KongoMvembaANzinga","KhmerJayavarmanVII","AustraliaJohnCurtin","HungaryMatthias","GreecePericles","GreeceGorgo","SwedenKristina","GeorgiaTamar","SumeriaGilgamesh","SwedenKristina","SumeriaGilgamesh","MapucheLautaro","MaoriKupe","MaliMansa","MacedonAlexander","GeorgiaTamar","FranceCatherinedeMedici","EnglandVictoria","EnglandFranceEleanor","EgyptCleopatra","DutchWilhelmina","CreePoundmaker","ChinaQinShiHuang","CanadaWilfrid","BrazilPedroII","AztecMontezuma","MaoriKupe","MaliMansa","MacedonAlexander","KoreaSeondeok","KongoMvembaANzinga","KhmerJayavarmanVII","AustraliaJohnCurtin","IndiaGandhi","IndiaChandragupta","IncaPachacuti","HungaryMatthias","GreecePericles","GreeceGorgo"],"ffaSeasonWins":22,"ffaSeasonLosses":15,"ffaSeasonPercent":60,"careerHighSkill":2080,"teamHighSkill":1990,"duelHighSkill":1300,"ffaHighSkill":1780},false],[{"name":"player2","careerSkill":1680,"careerHighestSkill":1500,"careerWins":84,"careerLosses":32,"careerPercent":72,"careerBestLeader":"GreeceGorgo","careerAllLeader": [  "SwedenKristina",  "GeorgiaTamar",  "SumeriaGilgamesh",  "SwedenKristina",  "SumeriaGilgamesh",  "MapucheLautaro",  "MaoriKupe",  "MaliMansa",  "MacedonAlexander",  "KoreaSeondeok",  "KongoMvembaANzinga",  "KhmerJayavarmanVII",  "JapanHojoTokimune",  "IndonesiaGitarja",  "IndiaGandhi",  "IndiaChandragupta",  "IncaPachacuti",  "HungaryMatthias",  "GreecePericles",  "GreeceGorgo",  "GermanyFrederickBarbarossa",  "GeorgiaTamar",  "FranceCatherinedeMedici",  "EnglandVictoria",  "EnglandFranceEleanor",  "EgyptCleopatra",  "DutchWilhelmina",  "CreePoundmaker",  "ChinaQinShiHuang",  "CanadaWilfrid",  "BrazilPedroII",  "AztecMontezuma",  "MaoriKupe",  "MaliMansa",  "MacedonAlexander",  "KoreaSeondeok",  "KongoMvembaANzinga",  "KhmerJayavarmanVII",  "JapanHojoTokimune",  "AustraliaJohnCurtin",  "IndiaGandhi",  "IndiaChandragupta",  "IncaPachacuti",  "HungaryMatthias",  "GreecePericles",  "GreeceGorgo"],"id": 9,"highestCareerSkill": 1760,"careerSeasonWins": 260,"careerSeasonLosses": 62,"careerSeasonPercent": 80,"teamSkill": 1890,"highestTeamSkill": 1500,"teamWins": 65,"teamLosses": 44,"teamPercent": 60,"teamBestLeader": "ChinaQinShiHuang","teamAllLeader": [  "SwedenKristina",  "GeorgiaTamar",  "SumeriaGilgamesh",  "SwedenKristina",  "KongoMvembaANzinga",  "ChinaQinShiHuang",  "CanadaWilfrid",  "BrazilPedroII",  "AztecMontezuma",  "MaoriKupe",  "MaliMansa",  "MacedonAlexander",  "KoreaSeondeok",  "KongoMvembaANzinga",  "KongoMvembaANzinga",  "KhmerJayavarmanVII",  "JapanHojoTokimune",  "IndonesiaGitarja",  "IndiaGandhi",  "IndiaChandragupta",  "IncaPachacuti",  "HungaryMatthias",  "GreecePericles",  "GreeceGorgo",  "GermanyFrederickBarbarossa",  "KhmerJayavarmanVII",  "JapanHojoTokimune",  "AustraliaJohnCurtin",  "HungaryMatthias",  "GreecePericles",  "GreeceGorgo",  "SwedenKristina",  "GeorgiaTamar",  "SumeriaGilgamesh",  "SwedenKristina",  "SumeriaGilgamesh",  "MapucheLautaro",  "MaoriKupe",  "MaliMansa",  "MacedonAlexander",  "GeorgiaTamar",  "FranceCatherinedeMedici",  "EnglandVictoria",  "EnglandFranceEleanor",  "EgyptCleopatra",  "DutchWilhelmina",  "CreePoundmaker",  "ChinaQinShiHuang",  "CanadaWilfrid",  "BrazilPedroII",  "AztecMontezuma",  "MaoriKupe",  "MaliMansa",  "MacedonAlexander",  "KoreaSeondeok",  "KongoMvembaANzinga",  "KhmerJayavarmanVII",  "IndonesiaGitarja",  "AustraliaJohnCurtin",  "IndiaGandhi",  "IndiaChandragupta",  "IncaPachacuti",  "HungaryMatthias",  "GreecePericles",  "GreeceGorgo"],"teamSeasonWins": 203,"teamSeasonLosses": 28,"teamSeasonPercent": 88,"duelSkill": 1580,"highestDuelSkill": 1500,"duelWins": 10,"duelLosses": 21,"duelPercent": 32,"duelBestLeader": "KongoMvembaANzinga","duelAllLeader": [  "SwedenKristina",  "GeorgiaTamar",  "SumeriaGilgamesh",  "SwedenKristina",  "SumeriaGilgamesh",  "MacedonAlexander",  "KoreaSeondeok",  "KongoMvembaANzinga",  "ChinaQinShiHuang",  "CanadaWilfrid",  "BrazilPedroII",  "AztecMontezuma",  "MaoriKupe",  "MaliMansa",  "MacedonAlexander",  "KoreaSeondeok",  "KongoMvembaANzinga",  "KongoMvembaANzinga",  "KhmerJayavarmanVII",  "JapanHojoTokimune",  "IndonesiaGitarja",  "IndiaGandhi",  "IndiaChandragupta",  "IncaPachacuti",  "HungaryMatthias",  "GreecePericles",  "GreeceGorgo",  "GermanyFrederickBarbarossa",  "KhmerJayavarmanVII",  "JapanHojoTokimune",  "AustraliaJohnCurtin",  "HungaryMatthias",  "GreecePericles",  "GreeceGorgo",  "SwedenKristina",  "GeorgiaTamar",  "SumeriaGilgamesh",  "SwedenKristina",  "SumeriaGilgamesh",  "MapucheLautaro",  "MaoriKupe",  "MaliMansa",  "MacedonAlexander",  "GeorgiaTamar",  "FranceCatherinedeMedici",  "EnglandVictoria",  "EnglandFranceEleanor",  "EgyptCleopatra",  "DutchWilhelmina",  "CreePoundmaker",  "ChinaQinShiHuang",  "CanadaWilfrid",  "BrazilPedroII",  "AztecMontezuma",  "MaoriKupe",  "MaliMansa",  "MacedonAlexander",  "KoreaSeondeok",  "KongoMvembaANzinga",  "KhmerJayavarmanVII",  "AustraliaJohnCurtin",  "AustraliaJohnCurtin",  "AustraliaJohnCurtin",  "AustraliaJohnCurtin",  "IndonesiaGitarja",  "AustraliaJohnCurtin",  "IndiaGandhi",  "IndiaChandragupta",  "IncaPachacuti",  "HungaryMatthias",  "GreecePericles",  "GreeceGorgo"],"duelSeasonWins": 10,"duelSeasonLosses": 32,"duelSeasonPercent": 24,"ffaSkill": 1550,"highestffaSkill": 1500,"ffaWins": 70,"ffaLosses": 59,"ffaPercent": 54,"ffaBestLeader": "MacedonAlexander","ffaAllLeader": [  "SwedenKristina",  "GeorgiaTamar",  "SumeriaGilgamesh",  "SwedenKristina",  "SumeriaGilgamesh",  "MacedonAlexander",  "KoreaSeondeok",  "KongoMvembaANzinga",  "ChinaQinShiHuang",  "CanadaWilfrid",  "BrazilPedroII",  "AztecMontezuma",  "MaoriKupe",  "MaliMansa",  "MacedonAlexander",  "KoreaSeondeok",  "KongoMvembaANzinga",  "KongoMvembaANzinga",  "KhmerJayavarmanVII",  "JapanHojoTokimune",  "IndonesiaGitarja",  "IndiaGandhi",  "IndiaChandragupta",  "IncaPachacuti",  "HungaryMatthias",  "GreecePericles",  "GreeceGorgo",  "GermanyFrederickBarbarossa",  "KhmerJayavarmanVII",  "JapanHojoTokimune",  "AustraliaJohnCurtin",  "HungaryMatthias",  "GreecePericles",  "GreeceGorgo",  "SwedenKristina",  "GeorgiaTamar",  "SumeriaGilgamesh",  "SwedenKristina",  "SumeriaGilgamesh",  "MapucheLautaro",  "MaoriKupe",  "MaliMansa",  "MacedonAlexander",  "GeorgiaTamar",  "FranceCatherinedeMedici",  "EnglandVictoria",  "EnglandFranceEleanor",  "EgyptCleopatra",  "DutchWilhelmina",  "CreePoundmaker",  "ChinaQinShiHuang",  "CanadaWilfrid",  "BrazilPedroII",  "AztecMontezuma",  "MaoriKupe",  "MaliMansa",  "MacedonAlexander",  "KoreaSeondeok",  "KongoMvembaANzinga",  "KhmerJayavarmanVII",  "IndonesiaGitarja",  "AustraliaJohnCurtin",  "IndiaGandhi",  "IndiaChandragupta",  "IncaPachacuti",  "HungaryMatthias",  "GreecePericles",  "GreeceGorgo"],"ffaSeasonWins": 43,"ffaSeasonLosses": 26,"ffaSeasonPercent": 62,"careerHighSkill": 1787,"teamHighSkill": 1890,"duelHighSkill": 1580,"ffaHighSkill": 1780},false]]
+    if (gameType === 'team') {
+        makeTheTeamPlayers();
+        function makeTheTeamPlayers() {
+            allPlayerStats.map((playerName, i) => {
+                let singlePlayerStats = {
+                    user: playerName[0].name, value: ranking.makePlayer(playerName[0].teamSkill, playerName[0].teamRatingDiviation, playerName[0].teamVolatility)
+                }
+                madePlayers.push(singlePlayerStats)
+            });
+        }
+        evaluate(madePlayers)
+    }
+
+    if (gameType === 'duel') {
+        makeTheDuelPlayers();
+        function makeTheDuelPlayers() {
+            allPlayerStats.map((playerName, i) => {
+                let singlePlayerStats = {
+                    user: playerName[0].name, value: ranking.makePlayer(playerName[0].duelSkill, playerName[0].duelRatingDiviation, playerName[0].duelVolatility)
+                }
+                madePlayers.push(singlePlayerStats)
+            });
+        }
+        evaluate(madePlayers)
+    }
+
+    if (gameType === 'ffa') {
+        makeTheFfaPlayers();
+        function makeTheFfaPlayers() {
+            allPlayerStats.map((playerName, i) => {
+                let singlePlayerStats = {
+                    user: playerName[0].name, value: ranking.makePlayer(playerName[0].ffaSkill, playerName[0].ffaRatingDiviation, playerName[0].ffaVolatility)
+                }
+                madePlayers.push(singlePlayerStats)
+            });
+        }
+        evaluate(madePlayers)
+    }
+
+    function evaluate(madePlayers) {
+        console.log('madePlayers----', madePlayers),
+            console.log('madePlayers[0].value---: ', madePlayers[0].value)
+
+
+        let matches = []
+
+        madePlayers.forEach((player, index) => {
+            const otherPlayers = madePlayers.slice(index)
+            const matchesForPlayer = []
+            otherPlayers.forEach(otherPlayer => {
+                matchesForPlayer.push([
+                    player.value,
+                    otherPlayer.value,
+                    1
+                ])
+            })
+
+            matches = [...matches, ...matchesForPlayer]
+        })
+
+        console.log('this is matches: ', matches)
+        ranking.updateRatings(matches)
+
+        return madePlayers.map((playerName, i) => (
+            console.log('not another log!: ', playerName),
+            console.log('yes another log!: ', playerName.value),
+            console.log(`${playerName.user} player new rating: ` + madePlayers[i].value.getRating()),
+            console.log(`${playerName.user} new rating deviation: ` + madePlayers[i].value.getRd()),
+            console.log(`${playerName.user} new volatility: ` + madePlayers[i].value.getVol())
+        ));
+    }
+    var players = ranking.getPlayers();
+    console.log('this is players:-------',players)
+}
+module.exports = { glicko }
