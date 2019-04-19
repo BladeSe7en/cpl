@@ -10,7 +10,7 @@ import ConfirmOrCancel from './components/ConfirmOrCancel';
 import TalksPage       from './components/TalksPage';
 import Organizers      from './components/Organizers';
 import Leaderboard     from './components/Leaderboard';
-import Forum           from './components/Forum';
+import ForumMain       from './components/ForumMain';
 import Newsletters     from './components/Newsletters';
 import Faq             from './components/Faq/Faq';
 import Rules           from './components/Rules/Rules';
@@ -29,7 +29,7 @@ class App extends Component {
         <Route path='/ConfirmOrCancel' component={ConfirmOrCancel} />
         <Route path='/Organizers'      component={Organizers} />
         <Route path='/Leaderboard'     component={Leaderboard} />
-        <Route path='/Forum'           component={Forum} />
+        <Route path='/ForumMain'       component={ForumMain} />
         <Route path='/Newsletters'     component={Newsletters} />
 				<Route path='/Faq'             component={Faq} />
         <Route path='/Rules'           component={Rules} />

@@ -23,7 +23,7 @@ const Navbar = props => {
                     <Link to='/Leaderboard' className={location.pathname === '/Leaderboard' ? 'nav-item w--current' : 'nav-item'}>
                         LEADERBOARD
                     </Link>
-                    <Link to='/Forum' className={location.pathname === '/Forum' ? 'nav-item w--current' : 'nav-item'}>
+                    <Link to='/ForumMain' className={location.pathname === '/ForumMain' ? 'nav-item w--current' : 'nav-item'}>
                         FORUM
                     </Link>
                     <Link to='/Newsletters' className={location.pathname === '/Newsletters' ? 'nav-item w--current' : 'nav-item'}>
