@@ -3,7 +3,9 @@ import ForumMain from './ForumMain';
 
 function mapStoreToProps(store){
     return {
-     something: store.ForumMain.something
+     newTopic    : store.ForumMain.newTopic,
+     newTopicBody: store.ForumMain.newTopicBody
+
     };
 }
 
