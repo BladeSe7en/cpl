@@ -9,9 +9,9 @@ class Newsletters extends Component {
   }
   componentDidMount() {
     var settings = {
-      tau: 0.5,
+      tau: 0.2,
       rating: 1500,
-      rd: 200,
+      rd: 250,
       vol: 0.06
     };
 

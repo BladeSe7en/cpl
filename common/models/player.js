@@ -10,8 +10,6 @@ module.exports = function (Player) {
 			.catch(err => cb(err))
 	}
 
-
-
 	Player.remoteMethod('getPlayerStats', {
 		description: 'Gets all of the players data.',
 		accepts: {
@@ -44,10 +42,6 @@ module.exports = function (Player) {
 				type: 'array'
 			},
 			{
-				arg: 'names',
-				type: 'array'
-			},
-			{
 				arg: 'matches',
 				type: 'array'
 			},
@@ -66,6 +60,18 @@ module.exports = function (Player) {
 			root: true
 		}
 	})
+
+	Player.beforeRemote('glicko', async function (ctx) {
+        const names = ctx.allNamesSet;
+        console.log('this is names in before remote: ',names)
+        getPlayerStats(names)
+        .then(() => next())
+        .catch(err => {
+            next(new Error(err.message));
+        })
+    });
+
+
 };
 
 

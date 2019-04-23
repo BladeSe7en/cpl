@@ -5,6 +5,62 @@
   "options": {
     "validateUpsert": true
   },
+  "careerSkill": {
+    "type": "number",
+    "required": true,
+    "default": 1500
+  },
+  "careerSkillRatingDiviation": {
+    "type": "number",
+    "default": 2500
+  },
+  "careerSkillVolatility":{
+    "type": "number",
+    "default": 0.06
+  },
+  "careerHighestSkill": {
+    "type": "number",
+    "default": 1500
+  },
+  "careerWins": {
+    "type": "number",
+    "required": true,
+    "default": 1500
+  },
+  "careerLosses": {
+    "type": "number",
+    "default": 0
+  },
+  "careerPercent": {
+    "type": "number",
+    "default": 0
+  },
+  "careerBestLeader": {
+    "type": "string",
+    "required": true,
+    "default": "none"
+  },
+  "careerAllLeader": {
+    "type": "array",
+    "required": true,
+    "default": [
+      "none"
+    ]
+  },
+
+  "careerSeasonSkill": {
+    "type": "number",
+    "required": true,
+    "default": 1500
+  },
+  "careerSeasonSkillRatingDiviation": {
+    "type": "number",
+    "default": 2500
+  },
+  "careerSeasonSkillVolatility":{
+    "type": "number",
+    "default": 0.06
+  },
   "careerSeasonWins": {
     "type": "number",
     "required": true,
@@ -19,9 +75,18 @@
     "type": "number",
     "default": 0
   },
+
   "teamSkill": {
     "type": "number",
     "default": 1500
+  },
+  "teamSkillRatingDiviation": {
+    "type": "number",
+    "default": 2500
+  },
+  "teamSkillVolatility":{
+    "type": "number",
+    "default": 0.06
   },
   "teamHighestSkill": {
     "type": "number",
@@ -46,7 +111,22 @@
   },
   "teamAllLeader": {
     "type": "array",
-    "default": ["none"]
+    "default": [
+      "none"
+    ]
+  },
+
+  "teamSeasonSkill": {
+    "type": "number",
+    "default": 1500
+  },
+  "teamSeasonSkillRatingDiviation": {
+    "type": "number",
+    "default": 2500
+  },
+  "teamSeasonSkillVolatility":{
+    "type": "number",
+    "default": 0.06
   },
   "teamSeasonWins": {
     "type": "number",
@@ -60,9 +140,18 @@
     "type": "number",
     "default": 0
   },
+
   "duelSkill": {
     "type": "number",
     "default": 1500
+  },
+  "duelSkillRatingDiviation": {
+    "type": "number",
+    "default": 2500
+  },
+  "duelSkillVolatility":{
+    "type": "number",
+    "default": 0.06
   },
   "duelHighestSkill": {
     "type": "number",
@@ -87,7 +176,22 @@
   },
   "duelAllLeader": {
     "type": "array",
-    "default": ["none"]
+    "default": [
+      "none"
+    ]
+  },
+
+  "duelSeasonSkill": {
+    "type": "number",
+    "default": 1500
+  },
+  "duelSeasonSkillRatingDiviation": {
+    "type": "number",
+    "default": 2500
+  },
+  "duelSeasonSkillVolatility":{
+    "type": "number",
+    "default": 0.06
   },
   "duelSeasonWins": {
     "type": "number",
@@ -101,9 +205,18 @@
     "type": "number",
     "default": 0
   },
+
   "ffaSkill": {
     "type": "number",
     "default": 1500
+  },
+  "ffaSkillRatingDiviation": {
+    "type": "number",
+    "default": 2500
+  },
+  "ffaSkillVolatility":{
+    "type": "number",
+    "default": 0.06
   },
   "ffaHighestSkill": {
     "type": "number",
@@ -128,7 +241,22 @@
   },
   "ffaAllLeader": {
     "type": "array",
-    "default": ["none"]
+    "default": [
+      "none"
+    ]
+  },
+
+  "ffaSeasonSkill": {
+    "type": "number",
+    "default": 1500
+  },
+  "ffaSeasonSkillRatingDiviation": {
+    "type": "number",
+    "default": 2500
+  },
+  "ffaSeasonSkillVolatility":{
+    "type": "number",
+    "default": 0.06
   },
   "ffaSeasonWins": {
     "type": "number",
@@ -142,45 +270,7 @@
     "type": "number",
     "default": 0
   },
-  "properties": {
-    "name": {
-      "type": "string",
-      "required": true,
-      "default": "name"
-    },
-    "careerSkill": {
-      "type": "number",
-      "required": true,
-      "default": 1500
-    },
-    "careerHighestSkill": {
-      "type": "number",
-      "default": 1500
-    },
-    "careerWins": {
-      "type": "number",
-      "required": true,
-      "default": 1500
-    },
-    "careerLosses": {
-      "type": "number",
-      "default": 0
-    },
-    "careerPercent": {
-      "type": "number",
-      "default": 0
-    },
-    "careerBestLeader": {
-      "type": "string",
-      "required": true,
-      "default": "none"
-    },
-    "careerAllLeader": {
-      "type": "array",
-      "required": true,
-      "default": ["none"]
-    }
-  },
+  
   "validations": [],
   "relations": {},
   "acls": [
@@ -199,6 +289,5 @@
       "property": "glicko"
     }
   ],
-  "methods": {
-  }
+  "methods": {}
 }
