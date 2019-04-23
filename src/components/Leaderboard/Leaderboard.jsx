@@ -148,7 +148,7 @@ class Leaderboard extends Component {
                                         <div className='item'>{stat.careerWins}</div>
                                         <div className='item'>{stat.careerLosses}</div>
                                         <div className='item'>{stat.careerPercent}%</div>
-                                        <div className='item'>{stat.careerHighSkill}</div>
+                                        <div className='item'>{stat.careerHighestSkill}</div>
                                         <div className='item'><img className='leaderIcon' src={` ./pics/civ_icons/${stat.careerBestLeader}.png`} /></div>
                                         <div className='item'>{stat.careerSeasonWins}</div>
                                         <div className='item'>{stat.careerSeasonLosses}</div>
@@ -173,7 +173,7 @@ class Leaderboard extends Component {
                                         <div className='item'>{stat.teamWins}</div>
                                         <div className='item'>{stat.teamLosses}</div>
                                         <div className='item'>{stat.teamPercent}%</div>
-                                        <div className='item'>{stat.teamHighSkill}</div>
+                                        <div className='item'>{stat.teamHighestSkill}</div>
                                         <div className='item'><img className='leaderIcon' src={` ./pics/civ_icons/${stat.teamBestLeader}.png`} /></div>
                                         <div className='item'>{stat.teamSeasonWins}</div>
                                         <div className='item'>{stat.teamSeasonLosses}</div>
@@ -198,7 +198,7 @@ class Leaderboard extends Component {
                                         <div className='item'>{stat.duelWins}</div>
                                         <div className='item'>{stat.duelLosses}</div>
                                         <div className='item'>{stat.duelPercent}%</div>
-                                        <div className='item'>{stat.duelHighSkill}</div>
+                                        <div className='item'>{stat.duelHighestSkill}</div>
                                         <div className='item'><img className='leaderIcon' src={` ./pics/civ_icons/${stat.duelBestLeader}.png`} /></div>
                                         <div className='item'>{stat.duelSeasonWins}</div>
                                         <div className='item'>{stat.duelSeasonLosses}</div>
@@ -223,7 +223,7 @@ class Leaderboard extends Component {
                                         <div className='item'>{stat.ffaWins}</div>
                                         <div className='item'>{stat.ffaLosses}</div>
                                         <div className='item'>{stat.ffaPercent}%</div>
-                                        <div className='item'>{stat.ffaHighSkill}</div>
+                                        <div className='item'>{stat.ffaHighestSkill}</div>
                                         <div className='item'><img className='leaderIcon' src={` ./pics/civ_icons/${stat.ffaBestLeader}.png`} /></div>
                                         <div className='item'>{stat.ffaSeasonWins}</div>
                                         <div className='item'>{stat.ffaSeasonLosses}</div>
