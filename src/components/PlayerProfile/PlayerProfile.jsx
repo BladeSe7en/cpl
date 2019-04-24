@@ -39,7 +39,7 @@ class PlayerProfile extends Component {
                                             <div className='career-2'> {stat.careerWins}</div>
                                             <div className='career-3'> {stat.careerLosses}</div>
                                             <div className='career-4'>  {stat.careerPercent}%</div>
-                                            <div className='career-5'> {stat.careerHighSkill}</div>
+                                            <div className='career-5'> {stat.careerHighestSkill}</div>
                                             <div className='career-6'>  <img className='leaderIcon' src={` ./pics/civ_icons/${stat.careerBestLeader}.png`} /></div>
                                             <div className='career-7'>  {stat.careerSeasonWins}</div>
                                             <div className='career-8'>  {stat.careerSeasonLosses}</div>
@@ -50,7 +50,7 @@ class PlayerProfile extends Component {
                                             <div className='team-2'> {stat.teamWins}</div>
                                             <div className='team-3'> {stat.teamLosses}</div>
                                             <div className='team-4'> {stat.teamPercent}%</div>
-                                            <div className='team-5'> {stat.teamHighSkill}</div>
+                                            <div className='team-5'> {stat.teamHighestSkill}</div>
                                             <div className='team-6'> <img className='leaderIcon' src={` ./pics/civ_icons/${stat.teamBestLeader}.png`} /></div>
                                             <div className='team-7'> {stat.teamSeasonWins}</div>
                                             <div className='team-8'> {stat.teamSeasonLosses}</div>
@@ -61,7 +61,7 @@ class PlayerProfile extends Component {
                                             <div className='duel-2'> {stat.duelWins}</div>
                                             <div className='duel-3'> {stat.duelLosses}</div>
                                             <div className='duel-4'> {stat.duelPercent}%</div>
-                                            <div className='duel-5'> {stat.duelHighSkill}</div>
+                                            <div className='duel-5'> {stat.duelHighestSkill}</div>
                                             <div className='duel-6'> <img className='leaderIcon' src={` ./pics/civ_icons/${stat.duelBestLeader}.png`} /></div>
                                             <div className='duel-7'> {stat.duelSeasonWins}</div>
                                             <div className='duel-8'> {stat.duelSeasonLosses}</div>
@@ -72,7 +72,7 @@ class PlayerProfile extends Component {
                                             <div className='ffa-2'> {stat.ffaWins}</div>
                                             <div className='ffa-3'> {stat.ffaLosses}</div>
                                             <div className='ffa-4'> {stat.ffaPercent}%</div>
-                                            <div className='ffa-5'> {stat.ffaHighSkill}</div>
+                                            <div className='ffa-5'> {stat.ffaHighestSkill}</div>
                                             <div className='ffa-6'> <img className='leaderIcon' src={` ./pics/civ_icons/${stat.ffaBestLeader}.png`} /></div>
                                             <div className='ffa-7'> {stat.ffaSeasonWins}</div>
                                             <div className='ffa-8'> {stat.ffaSeasonLosses}</div>

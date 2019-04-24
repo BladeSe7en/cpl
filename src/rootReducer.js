@@ -1,7 +1,7 @@
 import { combineReducers }     from 'redux';
 import AdminLoginReducer       from './components/AdminLogin/AdminLoginReducer';
 import ConfimOrCancelReducer   from './components/ConfirmOrCancel/ConfirmOrCancelReducer';
-import ForumReducer            from './components/Forum/ForumReducer'
+import ForumMainReducer        from './components/ForumMain/ForumMainReducer'
 import OrganizersReducer       from './components/Organizers/OrganizersReducer';
 import LeaderboardReducer      from './components/Leaderboard/LeaderboardReducer';
 import TalksPageReducer        from './components/TalksPage/TalksPageReducer';
@@ -12,13 +12,13 @@ import PlayerProfileReducer    from './components/PlayerProfile/PlayerProfileRed
 const rootReducer = combineReducers({
     AdminLogin       : AdminLoginReducer,
     ConfirmOrCancel  : ConfimOrCancelReducer,
-    Forum            : ForumReducer,
+    ForumMain        : ForumMainReducer,
     Organizers       : OrganizersReducer,
     Leaderboard      : LeaderboardReducer,
     TalksPage        : TalksPageReducer, 
     MeetupsReducer   : MeetupsReducer,
     Newsletters      : NewslettersReducer,
-    PlayerProfile     : PlayerProfileReducer
+    PlayerProfile    : PlayerProfileReducer
 });
 
 export default rootReducer; 

@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import Forum from './Forum';
+import ForumTopics from './ForumTopics';
 
 function mapStoreToProps(store){
     return {
-     
+
     };
 }
 
-export default connect(mapStoreToProps)(Forum);
+export default connect(mapStoreToProps)(ForumTopics);
