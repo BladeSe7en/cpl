@@ -21,8 +21,8 @@ class Forum extends Component {
 		return (
 			<div className='container'>>
 				<Navbar />
-				<div className='banner'>
-					<div className='banner-opacity'>
+				<div className='banner-forum'>
+					<div className='banner-opacity-forum'>
 						<div className='panel'>
 							{/* <ForumLogin />
 					<ForumTopics /> */}

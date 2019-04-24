@@ -183,6 +183,47 @@
   z-index: -1;
 }
 
+.banner-home {
+  margin-top: 80px;
+  background-image: url("/pics/cpl_logo_5.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  display: block;
+  margin-left: 0;
+  margin-right: 0;
+  height: 91vh;
+  width: 100%;
+  color: white;
+  position: relative;
+}
+.banner-home h1 {
+  font-size: 60px;
+  margin-bottom: 10px;
+  height: auto;
+  text-align: center;
+  z-index: 1;
+}
+.banner-home p {
+  font-size: 24px;
+  padding-bottom: 15px;
+  text-align: center;
+  z-index: 1;
+}
+.banner-home .banner-opacity-home {
+  content: "";
+  background-color: rgba(255, 255, 255, 0.3);
+  background-attachment: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: 0;
+  width: 100vw;
+  height: 91vh;
+  overflow: hidden;
+}
+
 .navbar {
   position: fixed;
   left: 0px;
@@ -706,6 +747,10 @@ label {
   border-bottom: 5px solid white;
 }
 
+.banner-opacity-faq {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
 .rules-content {
   margin-left: auto;
   margin-right: auto;
@@ -909,6 +954,10 @@ label {
 
 .leaderIcon {
   height: 40px;
+}
+
+.banner-opacity-leaderboard {
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .loading {
@@ -1152,6 +1201,29 @@ label {
 
 .container {
   height: 100vh;
+}
+
+.banner-forum {
+  margin-top: 63px;
+  background-image: url(/pics/cpl_logo_5.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  display: block;
+  margin-left: 0;
+  margin-right: 0;
+  height: 90%;
+  width: 100%;
+  color: white;
+  position: relative;
+}
+
+.banner-opacity-forum {
+  background-color: rgba(255, 255, 255, 0.3);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
 }
 
 html {
