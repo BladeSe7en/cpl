@@ -6,7 +6,7 @@ export const toggleActive = (value) => {
 	return {
 		type: 'TOGGLE_ACTIVE',
 		payload: {
-			newTopicActive: !value
+			newTopicActive: value
 			
 		}
 	}

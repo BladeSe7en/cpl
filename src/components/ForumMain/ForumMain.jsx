@@ -14,7 +14,7 @@ class Forum extends Component {
 	}
 	handleNewTopic() {
 		const { dispatch, newTopicActive } = this.props;
-		dispatch(toggleActive(newTopicActive))
+		dispatch(toggleActive(!newTopicActive))
 	}
 
 	render() {
@@ -29,8 +29,8 @@ class Forum extends Component {
 								<button className='btn sign-in' onClick={this.signIn} >Sign In!</button>
 							</div>
 							{this.renderTopic()}
-							{/* <ForumLogin />
-					<ForumTopics /> */}
+							<ForumLogin />
+							<ForumTopics />
 						</div>
 					</div>
 				</div>
@@ -39,24 +39,25 @@ class Forum extends Component {
 	}
 	renderTopic() {
 		const { newTopic, newTopicBody, newTopicActive } = this.props;
-		if (!newTopicActive) {
-			return;
-		}
+		const showHide = newTopicActive ? 'add-new-topic' : 'notActiveTopic'
+		// if (!newTopicActive) {
+		// 	return;
+		// } 
 		return (
-				<div className='add-new-topic'>
-				<div className='close-btn' onclick={newTopicActive}></div>
-					<form onSubmit={this.submitSpeaker}>
-						<Field model='new-topic'>
-							<label htmlFor='new-topic'>Add New Topic: </label>
-							<input name='text' id='new-topic' value={newTopic} type='text' onChange={this.handleNewTopic} required />
-						</Field >
-						<Field model='new-topic-body'>
-							<label htmlFor='new-topic-body'>Content: </label>
-							<textarea type="text" name="new-topic-body" value={newTopicBody} required onChange={this.handlenewTopicBody} />
-						</Field>
-						<button className='btn' id='speaker-submit'>Submit!</button>
-					</form>
-				</div>
+			<div className={showHide}>
+				<img className='close-btn' src='./pics/xbutton.png' onClick={this.handleNewTopic} />
+				<form onSubmit={this.submitSpeaker}>
+					<Field model='new-topic'>
+						<label htmlFor='new-topic'>Add New Topic: </label>
+						<input name='text' id='new-topic' value={newTopic} type='text' onChange={this.handleNewTopic} required />
+					</Field >
+					<Field model='new-topic-body'>
+						<label htmlFor='new-topic-body'>Content: </label>
+						<textarea type="text" name="new-topic-body" value={newTopicBody} required onChange={this.handlenewTopicBody} />
+					</Field>
+					<button className='btn' id='speaker-submit'>Submit!</button>
+				</form>
+			</div>
 		)
 	}
 }

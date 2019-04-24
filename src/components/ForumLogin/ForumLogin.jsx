@@ -9,10 +9,8 @@ class ForumLogin extends Component {
         return (
             <div>
                 <Navbar />
-                <div className='banner'>
-                    <div className='banner-opacity-home'>
-                        <h1>Nothing here yet</h1>
-                    </div>
+                <div className='forum-login'>
+                        <h1>this is the forum login</h1>
                 </div>
             </div>
         )

@@ -9,15 +9,10 @@ class ForumTopics extends Component {
 
     render() {
         return (
-            <div>
-                <Navbar />
-                <div className='banner'>
-                    <div className='banner-opacity-home'>
+                <div className='topic'>
+                        <h1>this is a forum topic</h1>
                     <ForumThread />
-                        <h1>Nothing here yet</h1>
-                    </div>
                 </div>
-            </div>
         )
     }
 }

@@ -753,6 +753,27 @@ label {
   vertical-align: bottom;
 }
 
+a {
+  text-decoration: none;
+}
+
+.top-of-page {
+  width: 90px;
+  border: none;
+  text-align: center;
+  background-color: #1884c3;
+  color: white;
+  display: flex;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0px auto;
+  padding: 5px 0px;
+  transition-property: border, color, background-color;
+  transition-duration: 200ms, 200ms, 200ms;
+  transition-timing-function: ease, ease, ease;
+  transition-delay: 0s, 0s, 0s;
+}
+
 .leaderboard {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -1191,11 +1212,14 @@ label {
 
 .close-btn {
   position: absolute;
-  background-image: url("/pics/xbutton.png");
   top: 10px;
   right: 10px;
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 30px;
+}
+
+.notActiveTopic {
+  display: none;
 }
 
 html {
@@ -1220,6 +1244,10 @@ body {
   font-weight: normal;
   letter-spacing: 1px;
   width: 100%;
+}
+
+.btn {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=style.css.map */
