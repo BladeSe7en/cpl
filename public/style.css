@@ -125,7 +125,7 @@
 }
 .banner .banner-opacity-home {
   content: "";
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   background-attachment: fixed;
   top: 0;
   left: 0;
@@ -1165,12 +1165,22 @@ label {
 }
 
 .add-new-topic {
+  top: 70px;
   width: 90%;
   border: 3px solid white;
   background-color: gray;
   min-height: 50px;
-  bottom: 10px;
-  position: fixed;
+  position: absolute;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-new-topic form {
+  width: 100%;
+  align-content: center;
+  align-self: center;
+  display: inline-block;
+  text-align: center;
 }
 .add-new-topic textarea {
   margin-top: 10px;
@@ -1178,6 +1188,14 @@ label {
   width: 90%;
   padding-top: 10px;
   height: 36px;
+}
+.add-new-topic input {
+  width: 90%;
+  height: 20px;
+}
+.add-new-topic .btn {
+  width: 100px;
+  margin-bottom: 10px;
 }
 
 .post-btn {
@@ -1193,16 +1211,20 @@ label {
 }
 
 .new-topic-text {
+  top: 90px;
   width: 90%;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 20px;
+  border: 3px solid white;
+  background-color: gray;
+  min-height: 50px;
+  position: absolute;
+  display: inline-flex;
 }
 
 .container {
   height: 100vh;
 }
 
+<<<<<<< HEAD
 .banner-forum {
   margin-top: 63px;
   background-image: url(/pics/cpl_logo_5.jpg);
@@ -1224,6 +1246,29 @@ label {
   bottom: 0;
   right: 0;
   position: absolute;
+=======
+.forum-btns {
+  display: inline-block;
+  justify-content: space-between;
+  height: 50px;
+}
+.forum-btns .btn {
+  display: inline-block;
+  height: 50px;
+  width: 120px;
+  text-align: center;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.close-btn {
+  position: absolute;
+  background-image: url("/pics/x.png");
+  top: 10px;
+  right: 10px;
+  height: 20px;
+  width: 20px;
+>>>>>>> made changes to the forum component.
 }
 
 html {
