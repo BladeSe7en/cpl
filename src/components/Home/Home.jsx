@@ -56,7 +56,7 @@ class Home extends Component {
 		return (
 			<div>
 				<Navbar />
-				<div className='banner'>
+				<div className='banner-home'>
 					<div className='banner-opacity-home'>
 
 		<div><img className="civ" value="ZuluShaka" src=" ./pics/civ_icons/ZuluShaka.png"/></div>

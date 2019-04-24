@@ -73,7 +73,7 @@ class Leaderboard extends Component {
             <div>
                 <Navbar />
                 <div className='banner'>
-                 <div className='banner-opacity'>
+                 <div className='banner-opacity-leaderboard'>
                     <div className='leaderboard'>
                         <div className='leaderboard-header'>
                             <div className='item'>
