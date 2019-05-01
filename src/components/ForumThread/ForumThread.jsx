@@ -7,8 +7,8 @@ class ForumThread extends Component {
 
     render() {
         return (
-            <div className='container'>
-            <h1>NOTHING HERE YET</h1>
+            <div className='thread'>
+            <h1>this is a thread</h1>
                 {/* <Navbar />
                 <div className='banner'>
                     <div className='banner-opacity-home'>

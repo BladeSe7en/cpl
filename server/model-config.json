@@ -36,20 +36,10 @@
     "dataSource": "MongoDB",
     "public": false
   },
-  "organizer": {
-    "dataSource": "MongoDB",
-    "public": true
-  },
   "accessToken": {
     "dataSource": "MongoDB",
     "public": true,
-    "relations": {
-      "user": {
-        "type": "belongsTo",
-        "model": "organizer",
-        "foreignKey": "organizerId"
-      }
-    }
+    "relations": {}
   },
   "player": {
     "dataSource": "db",

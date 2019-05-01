@@ -11,7 +11,7 @@ export default function ForumReducer(state = initialstate, action) {
 		case 'TOGGLE_ACTIVE': {
 			return {
 				...state,
-				newTopicActive: payload
+				...payload
 			}
 		}
 	

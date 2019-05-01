@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import Navbar from '../Navbar/Navbar';
 import glicko2 from 'glicko2';
+import moment from 'moment';
 
 class Newsletters extends Component {
   constructor(props) {
@@ -14,7 +15,8 @@ class Newsletters extends Component {
       rd: 250,
       vol: 0.06
     };
-
+    const date = moment().format('lll');
+    console.log('this is date: ', date);
     var ranking = new glicko2.Glicko2(settings);
 
     var gameType = 'duel'

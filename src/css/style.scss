@@ -19,6 +19,8 @@ $off-white: #fbfbfb;
 @import 'leaderboard';
 @import 'playerProfile';
 @import 'forumMain';
+@import 'forumTopic';
+@import 'forumThread';
 
 html{
     -webkit-font-smoothing: antialiased;
@@ -45,4 +47,7 @@ body {
         letter-spacing: 1px;
         width: 100%;
     }
+}
+.btn {
+    cursor: pointer;
 }

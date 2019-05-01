@@ -8,11 +8,6 @@
   "properties": {},
   "validations": [],
   "relations": {
-    "organizer": {
-      "type": "belongsTo",
-      "model": "organizer",
-      "foreignKey": "userId"
-    },
     "speaker": {
       "type": "belongsTo",
       "model": "speaker",

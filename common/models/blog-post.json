@@ -1,0 +1,37 @@
+{
+  "name": "blogPost",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "blogTitle": {
+      "type": "string",
+      "required": true,
+      "default": ""
+    },
+    "blogBody": {
+      "type": "string",
+      "required": true,
+      "default": ""
+    },
+    "blogThread": {
+      "type": [
+        "string"
+      ]
+    },
+    "upVotes": {
+      "type": "number",
+      "default": 0
+    },
+    "blogId": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

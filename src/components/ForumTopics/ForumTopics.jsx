@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Navbar from '../Navbar/Navbar';
 import ForumThread from '../ForumThread';
 
 class ForumTopics extends Component {
@@ -8,16 +7,15 @@ class ForumTopics extends Component {
     }
 
     render() {
+        const { newTopicActive } = this.props;
+        const showHideTopic = newTopicActive ? 'topic-active' : 'topic';
         return (
-            <div>
-                <Navbar />
-                <div className='banner'>
-                    <div className='banner-opacity-home'>
+            <div className={showHideTopic}>
+            {console.log('this is showHideTopic: ',showHideTopic)}
+                        <h1>this is a forum topic title</h1>
+                            <p>this is where the body of the original posting goes</p>
                     <ForumThread />
-                        <h1>Nothing here yet</h1>
-                    </div>
                 </div>
-            </div>
         )
     }
 }
