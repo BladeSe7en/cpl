@@ -1,12 +1,12 @@
 .panel {
-    top: 60px;
+    top: 10px;
     width: 90%;
     border: 3px solid white;
     background-color: gray;
     height: 80vh;
     justify-content: center;
     padding-top: 10px;
-    display: flex;
+    display: block;
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -18,8 +18,8 @@
     border: 3px solid white;
     background-color: gray;
     min-height: 50px;
-    position: absolute;
-    display: inline-flex;
+    position: relative;
+    display: block;
     justify-content: center;
     align-items: center;
     form {

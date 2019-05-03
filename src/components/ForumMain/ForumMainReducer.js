@@ -1,7 +1,8 @@
 const initialstate = {
 	newTopic      : '',
     newTopicActive: false,
-     newTopicBody : ''
+	 newTopicBody : '',
+	 player       : {}
 
 }
 export default function ForumReducer(state = initialstate, action) {
@@ -13,10 +14,19 @@ export default function ForumReducer(state = initialstate, action) {
 				...state,
 				...payload
 			}
-		}
+		};
 	
+		case 'UPDATE_PLAYER_DATA': {
+			console.log('inside player data reducer')
+			return {
+				...state,
+				player: payload 
+			}
+		};
+
 		default: {
 			return state
-		}
+		};
+
 	}
 }

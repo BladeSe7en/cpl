@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import Navbar from '../Navbar/Navbar';
 import ForumTopics from '../ForumTopics';
-import { toggleActive, toggleSignIn } from './ForumMainActions'
+import { toggleActive, toggleSignIn, playerData } from './ForumMainActions'
+import Axios from 'axios';
 
 class Forum extends Component {
 	constructor(props) {
 		super(props);
 
-		this.handleNewTopic = this.handleNewTopic.bind(this);
-		this.handleSignIn   = this.handleSignIn  .bind(this);
-
+		this.handleNewTopic   = this.handleNewTopic  .bind(this);
+		this.handleSignIn     = this.handleSignIn    .bind(this);
+		this.handlePlayerData = this.handlePlayerData.bind(this);
 	}
 	handleNewTopic() {
 		const { dispatch, newTopicActive } = this.props;
@@ -20,6 +21,28 @@ class Forum extends Component {
 		const { dispatch } = this.props;
 		dispatch(toggleSignIn())
 	}
+	handlePlayerData(value) {
+		const { dispatch } = this.props;
+		dispatch(playerData(value))
+	}
+
+	componentDidMount() {
+		Axios.get('/ForumMain')
+		.then(response => {
+			if (response.data === 'not logged in') {
+				return
+			} else {
+				let player = {
+					id: response.data.steamid,
+					name: response.data.personaname,
+					profile: response.data.profileurl,
+					avatar: response.data.avatar,
+				}
+				this.handlePlayerData(player)
+			}
+		})
+
+}
 
 	render() {
 		return (
@@ -31,7 +54,7 @@ class Forum extends Component {
 							<div className='forum-btns'>
 								<button className='btn' onClick={this.handleNewTopic} >Add New Topic!</button>
 								<button className='btn sign-in' onClick={this.handleSignIn} >Sign In!</button>
-								<a href="/authenticate"><img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png"/></a>
+								<a href="/authenticate" ><img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png"/></a>
 							</div>
 							{this.renderTopic()}
 							<ForumTopics />

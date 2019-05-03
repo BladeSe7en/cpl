@@ -5,7 +5,8 @@ function mapStoreToProps(store){
     return {
      newTopic      : store.ForumMain.newTopic,
      newTopicActive: store.ForumMain.newTopicActive,
-     newTopicBody  : store.ForumMain.newTopicBody
+     newTopicBody  : store.ForumMain.newTopicBody,
+     player        : store.ForumMain.player
 
     };
 }

@@ -28,8 +28,6 @@ app.start = function () {
 
 const date = moment().format('lll');
 var steam = require('steam-login');
-const path = require('path');
-var Redirect = require('react-router');
 require("http");
 
 app.use(require('express-session')({ resave: false, saveUninitialized: false, secret: 'a secret' }));
@@ -39,19 +37,25 @@ app.use(steam.middleware({
   apiKey: process.env.STEAM_API_KEY
 }));
 
-app.get('/', function (req, res) {
-  res.send(req.user == null ? 'not logged in' : 'hello ' + req.user.username).end();
+app.get('/ForumMain', function(req, res) {
+  res.send(req.user == null ? 'not logged in' : req.user._json).end();
 });
 
 app.get('/authenticate', steam.authenticate(), function (req, res) {
-  console.log(req.user);
   // res.redirect('/ForumMain');
 });
 
 app.get('/verify', steam.verify(), function (req, res) {
-  fs.appendFile('log.csv', (' steam ID: ' + req.user._json.steamid) + '\t' + ('user name: ' + req.user._json.personaname) + '\t' + date + '\n', (err) => {
-      if (err) throw err;
-  res.redirect('/ForumMain')
+  //console.log(req.user);
+  
+
+ // const playerStringifed = JSON.stringify(player)
+
+ // console.log('this is player: ', player)
+  fs.appendFile('log.csv', (' steam ID: ' + req.user._json.steamid) + '\t' + ('name: ' + req.user._json.personaname) + '\t' + ('profile: ' + req.user.profile) + '\t' + ('avatar: ' + req.user.avatar.small) + '\t' + ('date: ' + date) + '\n', (err) => {
+    if (err) throw err;
+   // res.send(playerStringifed)
+    res.redirect('/#/ForumMain')
   });
 });
 
