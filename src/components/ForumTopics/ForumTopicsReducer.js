@@ -1,13 +1,14 @@
 const initialstate = {
+    viewingThread: false
 }
 
 export default function ForumTopicsReducer(state = initialstate, action) {
     const { payload, type } = action;
     switch (type){
-        case 'GET_EVENTS_FULFILLED':{
+        case 'TOGGLE_THREAD_VIEW':{
             return {
                 ...state,
-                eventInfo: payload
+               ...payload
             }
         }
         default: {

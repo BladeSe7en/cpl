@@ -1,23 +1,13 @@
-import React, { Component } from 'react';
-import Navbar from '../Navbar';
+import axios from 'axios';
 
-class ForumTopics extends Component {
-    constructor(props) {
-        super(props);
-    }
+export const thread = (value) => {
+	console.log('thread value: ', value)
 
-    render() {
-        return (
-            <div>
-                <Navbar />
-                <div className='banner'>
-                    <div className='banner-opacity-home'>
-                        <h1>Nothing here yet</h1>
-                    </div>
-                </div>
-            </div>
-        )
-    }
+	return {
+		type: 'TOGGLE_THREAD_VIEW',
+		payload: {
+		viewingThread: value
+
+		}
+	}
 }
-
-export default ForumTopics

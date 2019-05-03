@@ -3,7 +3,7 @@ import ForumTopics from './ForumTopics';
 
 function mapStoreToProps(store){
     return {
-        newTopicActive: store.ForumMain.newTopicActive
+       viewingThread: store.ForumTopics.viewingThread
     };
 }
 

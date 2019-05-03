@@ -54,7 +54,7 @@ class Forum extends Component {
 							<div className='forum-btns'>
 								<button className='btn' onClick={this.handleNewTopic} >Add New Topic!</button>
 								<button className='btn sign-in' onClick={this.handleSignIn} >Sign In!</button>
-								<a href="/authenticate" ><img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png"/></a>
+								<a href="/authenticate" ><img className='picture' src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png"/></a>
 							</div>
 							{this.renderTopic()}
 							<ForumTopics />

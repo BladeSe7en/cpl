@@ -3,16 +3,64 @@
     //position: absolute;
     position: relative;
     display: block;
-    top: 80px;
+    top: 15px;
     width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .topic-active {
     border: 3px solid white;
-   // position: absolute;
    position: relative;
    display: block;
-    //top: 270px;
+   margin-top: 20px;
+   margin-left: auto;
+   margin-right: auto;
     width: 90%;
 
+}
+
+.voting {
+    display: inline-block;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.up-vote {
+    height: 20px;
+    margin-left: 12%;
+    margin-right: 1%;
+}
+
+.down-vote {
+    height: 20px;
+    margin-left: 1%;
+}
+
+.comments {
+    margin: 0;
+    margin-left: 12%;
+    margin-right: 12%;
+
+}
+
+.footer {
+    display: inline-block;
+    width:90%;
+}
+
+.toggle-thread {
+    margin: 0;
+    margin-left: 12%;
+    margin-right: 12%;
+    text-decoration: none;
+    color: white;
+    font-size: 15px;
+}
+
+.vote-number {
+    margin: 0;
+    margin-left: 2%;
+    margin-right: 12%;
 }

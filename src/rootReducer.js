@@ -8,11 +8,13 @@ import TalksPageReducer        from './components/TalksPage/TalksPageReducer';
 import MeetupsReducer          from './components/Meetups/MeetupsReducer';
 import NewslettersReducer      from './components/Newsletters/NewslettersReducer';
 import PlayerProfileReducer    from './components/PlayerProfile/PlayerProfileReducer';
+import ForumTopicsReducer      from './components/ForumTopics/ForumTopicsReducer';
 
 const rootReducer = combineReducers({
     AdminLogin       : AdminLoginReducer,
     ConfirmOrCancel  : ConfimOrCancelReducer,
     ForumMain        : ForumMainReducer,
+    ForumTopics      : ForumTopicsReducer,
     Organizers       : OrganizersReducer,
     Leaderboard      : LeaderboardReducer,
     TalksPage        : TalksPageReducer, 
