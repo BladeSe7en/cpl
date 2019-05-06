@@ -46,6 +46,7 @@ export const playerData = (value) => {
 }
 
 
+
 // let player = {
 // 	id: response._json.steamid,
 // 	name: response._jsonusername,

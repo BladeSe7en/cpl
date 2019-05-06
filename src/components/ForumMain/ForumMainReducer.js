@@ -2,7 +2,8 @@ const initialstate = {
 	newTopic      : '',
     newTopicActive: false,
 	 newTopicBody : '',
-	 player       : {}
+	 player       : {},
+	
 
 }
 export default function ForumReducer(state = initialstate, action) {
@@ -23,6 +24,8 @@ export default function ForumReducer(state = initialstate, action) {
 				player: payload 
 			}
 		};
+
+	
 
 		default: {
 			return state

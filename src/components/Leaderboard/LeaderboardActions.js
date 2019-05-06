@@ -58,7 +58,7 @@ export const searchBy = (selected, typeOfGame, BestLeader) => {
 		payload: Axios({
 			method: 'get',
 			url: `http://localhost:3000/api/players?filter=%7B%22where%22%3A%20%7B%22${typeOfGame}${BestLeader}%22%3A%20%22${selected}%22%7D%7D&access_token=${accessToken}`
-		})
+		})											       
 			.then(response => {
 				return response.data
 			})

@@ -1,5 +1,8 @@
 const initialstate = {
-    viewingThread: false
+    viewingThread: false,
+    blogs        : [],
+    threads      : [],
+    id           : ''
 }
 
 export default function ForumTopicsReducer(state = initialstate, action) {
@@ -11,6 +14,22 @@ export default function ForumTopicsReducer(state = initialstate, action) {
                ...payload
             }
         }
+        case 'GET_BLOGS_FULFILLED': {
+			console.log('inside GET BLOG reducer')
+			return {
+				...state,
+				blogs: payload 
+			}
+        };
+        
+        case 'GET_THREADS_BY_ID_FULFILLED': {
+			console.log('inside GET BLOG reducer')
+			return {
+				...state,
+                threads: payload
+			}
+		};
+
         default: {
             return state
           }

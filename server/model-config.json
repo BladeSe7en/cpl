@@ -42,7 +42,19 @@
     "relations": {}
   },
   "player": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "blogPost": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "member": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "thread": {
+    "dataSource": "MongoDB",
     "public": true
   }
 }

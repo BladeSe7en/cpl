@@ -1,34 +1,38 @@
 {
-  "name": "blogPost",
+  "name": "thread",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "blogTitle": {
+    "comment": {
       "type": "string",
-      "required": true,
-      "default": ""
-    },
-    "blogBody": {
-      "type": "string",
-      "required": true,
-      "default": ""
+      "required": true
     },
     "date": {
       "type": "string",
-      "required": true,
-      "default": ""
+      "required": true
     },
-    "upVotes": {
-      "type": "number",
-      "default": 0
+    "wasEdited": {
+      "type": "boolean",
+      "required": true,
+      "default": false
     }
   },
   "validations": [],
   "relations": {
+    "blogPost": {
+      "type": "belongsTo",
+      "model": "blogPost",
+      "foreignKey": ""
+    },
     "member": {
+      "type": "belongsTo",
+      "model": "member",
+      "foreignKey": ""
+    },
+    "steamAvatar": {
       "type": "belongsTo",
       "model": "member",
       "foreignKey": ""

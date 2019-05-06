@@ -9,8 +9,8 @@ class Forum extends Component {
 	constructor(props) {
 		super(props);
 
-		this.handleNewTopic   = this.handleNewTopic  .bind(this);
-		this.handleSignIn     = this.handleSignIn    .bind(this);
+		this.handleNewTopic = this.handleNewTopic.bind(this);
+		this.handleSignIn = this.handleSignIn.bind(this);
 		this.handlePlayerData = this.handlePlayerData.bind(this);
 	}
 	handleNewTopic() {
@@ -19,42 +19,42 @@ class Forum extends Component {
 	}
 	handleSignIn() {
 		const { dispatch } = this.props;
-		dispatch(toggleSignIn())
+		dispatch(toggleSignIn());
 	}
 	handlePlayerData(value) {
 		const { dispatch } = this.props;
-		dispatch(playerData(value))
+		dispatch(playerData(value));
 	}
+
 
 	componentDidMount() {
 		Axios.get('/ForumMain')
-		.then(response => {
-			if (response.data === 'not logged in') {
-				return
-			} else {
-				let player = {
-					id: response.data.steamid,
-					name: response.data.personaname,
-					profile: response.data.profileurl,
-					avatar: response.data.avatar,
+			.then(response => {
+				if (response.data === 'not logged in') {
+					return
+				} else {
+					let player = {
+						id: response.data.steamid,
+						name: response.data.personaname,
+						profile: response.data.profileurl,
+						avatar: response.data.avatar,
+					}
+					this.handlePlayerData(player);
 				}
-				this.handlePlayerData(player)
-			}
-		})
+			})
 
-}
+	}
 
 	render() {
 		return (
-			<div className='container'>
+			<div>
 				<Navbar />
 				<div className='banner-forum'>
 					<div className='banner-opacity-forum'>
 						<div className='panel'>
 							<div className='forum-btns'>
 								<button className='btn' onClick={this.handleNewTopic} >Add New Topic!</button>
-								<button className='btn sign-in' onClick={this.handleSignIn} >Sign In!</button>
-								<a href="/authenticate" ><img className='picture' src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png"/></a>
+								<button className='btn sign-in'> <a href="/authenticate" ></a>Sign In!</button>
 							</div>
 							{this.renderTopic()}
 							<ForumTopics />

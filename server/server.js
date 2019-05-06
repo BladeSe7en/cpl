@@ -26,6 +26,8 @@ app.start = function () {
 //  steam login
 ///////////////
 
+// get your steam api key here: https://steamcommunity.com/dev/apikey
+
 const date = moment().format('lll');
 var steam = require('steam-login');
 require("http");

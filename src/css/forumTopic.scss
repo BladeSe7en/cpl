@@ -3,11 +3,12 @@
     //position: absolute;
     position: relative;
     display: block;
-    top: 15px;
     width: 90%;
+    margin-top: 15px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    min-height: 50px;
 }
 
 .topic-active {
@@ -17,8 +18,13 @@
    margin-top: 20px;
    margin-left: auto;
    margin-right: auto;
+   text-align: center;
     width: 90%;
 
+}
+
+.vote {
+    margin-right: 2%;
 }
 
 .voting {
@@ -29,14 +35,30 @@
 
 .up-vote {
     height: 20px;
-    margin-left: 12%;
-    margin-right: 1%;
+    margin-left: 3%;
+    margin-right: 0%;
+    position: absolute;
 }
 
 .down-vote {
     height: 20px;
-    margin-left: 1%;
+    margin-left: 0%;
+    position: absolute;
 }
+
+.toggle-thread:hover {
+    color: #1884c3;
+    border-color: #1884c3;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  .down-vote:hover {
+    border: 1px solid #1884c3;
+  }
+
+.up-vote:hover {
+    border: 1px solid #1884c3;
+  }
 
 .comments {
     margin: 0;
@@ -53,7 +75,7 @@
 .toggle-thread {
     margin: 0;
     margin-left: 12%;
-    margin-right: 12%;
+    margin-right: 24%;
     text-decoration: none;
     color: white;
     font-size: 15px;
@@ -64,3 +86,83 @@
     margin-left: 2%;
     margin-right: 12%;
 }
+
+.single-blog {
+    min-height: 100px;
+    display: block;
+    justify-content: center;
+    color: white;
+    border: 3px solid black;
+    h1 {
+        margin-top: 0;
+        justify-self: center;
+        width: 83%;
+    }
+}
+
+.footer {
+    display: inline-block;
+    justify-content: center;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.steam-name {
+    position: relative;
+    font-size: 14px;
+    float: left;
+    margin-bottom: 0;
+    padding-left: 10px;
+    h1 {
+        margin-top: 0;
+        justify-self: center;
+    }
+}
+
+.date {
+    position: relative;
+    justify-content: left;
+    left: 10px;
+    font-size: 14px;
+    margin-bottom: 0;
+    float: left;
+    h1 {
+        margin-top: 0;
+        justify-self: center;
+    }
+}
+.mapped-thread {
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.map-child:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .thread-avatar {
+    float: left;
+    padding: 3px;
+  }
+  .thread-name {
+    float: left;
+    padding: 3px;
+  }
+  .thread-date {
+    float: left;
+    padding: 3px;
+  }
+  .thread-edit {
+    float: right;
+    padding: 3px;
+    height:20px;
+  }
+  .thread-delete {
+    float: right;
+    padding: 3px;
+    height: 20px
+  }
+  .thread-comment {
+      text-align: center;
+      padding-top: 35px;
+  }
