@@ -3,11 +3,11 @@ import ForumMain from './ForumMain';
 
 function mapStoreToProps(store){
     return {
-     newTopic      : store.ForumMain.newTopic,
-     newTopicActive: store.ForumMain.newTopicActive,
-     newTopicBody  : store.ForumMain.newTopicBody,
-     player        : store.ForumMain.player,
-    
+     newTopic       : store.ForumMain.newTopic,
+     newTopicActive : store.ForumMain.newTopicActive,
+     newTopicBody   : store.ForumMain.newTopicBody,
+     signedIn       : store.ForumMain.signedIn,
+     popularityOrder: store.ForumMain.popularityOrder
     };
 }
 

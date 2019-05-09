@@ -24,6 +24,10 @@
     "upVotes": {
       "type": "number",
       "default": 0
+    },
+    "numComments": {
+      "type": "number",
+      "default": 0
     }
   },
   "validations": [],
@@ -36,6 +40,11 @@
     "steamName": {
       "type": "belongsTo",
       "model": "member",
+      "foreignKey": ""
+    },
+    "thread": {
+      "type": "belongsTo",
+      "model": "thread",
       "foreignKey": ""
     }
   },

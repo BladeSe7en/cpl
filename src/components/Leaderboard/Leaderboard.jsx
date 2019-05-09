@@ -21,6 +21,7 @@ class Leaderboard extends Component {
 
     componentDidMount() {
         const { dispatch, sortBy, sortOrder } = this.props;
+        console.log('hello')
         dispatch(getData(sortBy, sortOrder));
     }
 

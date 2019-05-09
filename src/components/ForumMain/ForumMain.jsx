@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import Navbar from '../Navbar/Navbar';
 import ForumTopics from '../ForumTopics';
-import { toggleActive, toggleSignIn, playerData } from './ForumMainActions'
+import { toggleActive, toggleSignIn, playerData, togglePopularity } from './ForumMainActions';
+import { sortByPopularity, getBlogs } from '../ForumTopics/ForumTopicsActions';
 import Axios from 'axios';
 
 class Forum extends Component {
 	constructor(props) {
 		super(props);
 
-		this.handleNewTopic = this.handleNewTopic.bind(this);
-		this.handleSignIn = this.handleSignIn.bind(this);
-		this.handlePlayerData = this.handlePlayerData.bind(this);
+		this.handleNewTopic         = this.handleNewTopic        .bind(this);
+		this.handleSignIn           = this.handleSignIn          .bind(this);
+		this.handlePlayerData       = this.handlePlayerData      .bind(this);
+		this.handleSortByPopularity = this.handleSortByPopularity.bind(this);
+		this.handlePopularity       = this.handlePopularity      .bind(this);
 	}
 	handleNewTopic() {
 		const { dispatch, newTopicActive } = this.props;
@@ -26,8 +29,27 @@ class Forum extends Component {
 		dispatch(playerData(value));
 	}
 
+	handleSortByPopularity() {
+		const { dispatch, popularityOrder } = this.props;
+		console.log('inside handle sort by popularity')
+		this.handlePopularity();
+		dispatch(sortByPopularity(popularityOrder));
+	}
+
+	handlePopularity() {
+		console.log('inside handle popularity')
+		const { dispatch, popularityOrder } = this.props;
+		dispatch(togglePopularity(popularityOrder));
+	}
+	
+	handleGetBlogs() {
+		const { dispatch } = this.props;
+		dispatch(getBlogs())
+	}
+
 
 	componentDidMount() {
+		console.log('in componendt did mount')
 		Axios.get('/ForumMain')
 			.then(response => {
 				if (response.data === 'not logged in') {
@@ -39,6 +61,7 @@ class Forum extends Component {
 						profile: response.data.profileurl,
 						avatar: response.data.avatar,
 					}
+					console.log('this is player in component did mount: ',player)
 					this.handlePlayerData(player);
 				}
 			})
@@ -46,6 +69,13 @@ class Forum extends Component {
 	}
 
 	render() {
+		const { signedIn, popularityOrder } = this.props;
+		console.log('signedIn.name: ',signedIn.name)
+		const whosSignedIn = signedIn.name === undefined ? 'Not Signed In' : `Signed in as ${signedIn.name}`
+		const signInBtn = whosSignedIn === 'Not Signed In' ? 'btn sign-in' : 'notActiveTopic'
+		const signOutBtn = whosSignedIn === 'Not Signed In' ? 'notActiveTopic' : 'btn sign-in'
+		const popularityBtn = popularityOrder ===  true ? 'View Popular Posts' : 'View Unpopular Posts'
+		console.log('this is whos signed in: ',whosSignedIn)
 		return (
 			<div>
 				<Navbar />
@@ -53,8 +83,12 @@ class Forum extends Component {
 					<div className='banner-opacity-forum'>
 						<div className='panel'>
 							<div className='forum-btns'>
-								<button className='btn' onClick={this.handleNewTopic} >Add New Topic!</button>
-								<button className='btn sign-in'> <a href="/authenticate" ></a>Sign In!</button>
+								<button className='btn add-new' onClick={this.handleNewTopic} >Add New Topic!</button>
+								<button className={`${signInBtn}`}> <a href="/authenticate" ></a>Sign In!</button>
+								<button className={`${signOutBtn}`}> <a href="/logout" ></a>Sign Out!</button>
+								<button className='btn view-new-posts' onClick={this.handleGetBlogs} >View Newest Posts</button>
+								<button className='btn view-popular-posts' onClick={this.handleSortByPopularity}>{popularityBtn}</button>
+								<h1 className='signed-in'>{whosSignedIn}</h1>
 							</div>
 							{this.renderTopic()}
 							<ForumTopics />

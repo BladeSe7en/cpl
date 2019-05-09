@@ -74,11 +74,13 @@
 
 .toggle-thread {
     margin: 0;
+    padding: 0;
     margin-left: 12%;
     margin-right: 24%;
     text-decoration: none;
     color: white;
     font-size: 15px;
+    width:100px;
 }
 
 .vote-number {
@@ -89,6 +91,8 @@
 
 .single-blog {
     min-height: 100px;
+    max-height: 1000px;
+    overflow: hidden;
     display: block;
     justify-content: center;
     color: white;
@@ -136,6 +140,11 @@
     position: relative;
 }
 
+.map-child {
+padding-top: 10px;
+padding-bottom: 10px;
+}
+
 .map-child:nth-child(odd) {
     background-color: rgba(0, 0, 0, 0.1);
   }
@@ -163,6 +172,46 @@
     height: 20px
   }
   .thread-comment {
-      text-align: center;
-      padding-top: 35px;
+    width: 90%;
+    text-align: center;
+    padding-top: 35px;
+    margin-left: 5%;
   }
+
+  .add-new-comment {
+    top: 15px;
+    width: 99%;
+    border: 3px solid white;
+    background-color: gray;
+    min-height: 50px;
+    position: relative;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    form {
+        width: 100%;
+        align-content: center;
+        align-self: center;
+        display: inline-block;
+        text-align: center;
+    }
+    textarea {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 90%;
+        padding-top: 10px;
+        height: 36px;
+        resize: vertical;
+    }
+    input {
+        width: 90%;
+        height: 20px;
+    }
+    .btn {
+        margin-bottom: 10px;
+        width: 75px;
+    }
+  }
+ 

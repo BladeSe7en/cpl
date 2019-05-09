@@ -397,7 +397,9 @@ label {
   margin: 5px;
 }
 .table .btn:hover {
-  background-color: #146fa5;
+  color: #1884c3;
+  border-color: #1884c3;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 .table .table-speakerEmail {
   font-size: 15px;
@@ -1221,8 +1223,8 @@ a {
   height: 20px;
 }
 .add-new-topic .btn {
-  width: 100px;
   margin-bottom: 10px;
+  width: 75px;
 }
 
 .post-btn {
@@ -1305,6 +1307,46 @@ a {
   height: 100%;
 }
 
+.sign-in a {
+  position: absolute;
+  z-index: 1;
+  padding: 2em;
+  margin: -2em;
+  width: 54%;
+}
+
+.signed-in {
+  font-size: 14px;
+  top: 15px;
+  position: absolute;
+  margin-left: 325px;
+}
+
+.view-new-posts {
+  height: 50px;
+  position: absolute;
+  right: 185px;
+}
+
+.view-popular-posts {
+  height: 50px;
+  position: absolute;
+  right: 57px;
+}
+
+.sign-in {
+  height: 50px;
+  position: absolute;
+  left: 185px;
+}
+
+.add-new {
+  height: 50px;
+  position: absolute;
+  left: 57px;
+  width: 75px;
+}
+
 .topic {
   border: 3px solid white;
   position: relative;
@@ -1378,11 +1420,13 @@ a {
 
 .toggle-thread {
   margin: 0;
+  padding: 0;
   margin-left: 12%;
   margin-right: 24%;
   text-decoration: none;
   color: white;
   font-size: 15px;
+  width: 100px;
 }
 
 .vote-number {
@@ -1393,6 +1437,8 @@ a {
 
 .single-blog {
   min-height: 100px;
+  max-height: 1000px;
+  overflow: hidden;
   display: block;
   justify-content: center;
   color: white;
@@ -1441,6 +1487,11 @@ a {
   position: relative;
 }
 
+.map-child {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 .map-child:nth-child(odd) {
   background-color: rgba(0, 0, 0, 0.1);
 }
@@ -1473,8 +1524,47 @@ a {
 }
 
 .thread-comment {
+  width: 90%;
   text-align: center;
   padding-top: 35px;
+  margin-left: 5%;
+}
+
+.add-new-comment {
+  top: 15px;
+  width: 99%;
+  border: 3px solid white;
+  background-color: gray;
+  min-height: 50px;
+  position: relative;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.add-new-comment form {
+  width: 100%;
+  align-content: center;
+  align-self: center;
+  display: inline-block;
+  text-align: center;
+}
+.add-new-comment textarea {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 90%;
+  padding-top: 10px;
+  height: 36px;
+  resize: vertical;
+}
+.add-new-comment input {
+  width: 90%;
+  height: 20px;
+}
+.add-new-comment .btn {
+  margin-bottom: 10px;
+  width: 75px;
 }
 
 .thread {

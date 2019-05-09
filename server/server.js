@@ -44,6 +44,7 @@ app.get('/ForumMain', function(req, res) {
 });
 
 app.get('/authenticate', steam.authenticate(), function (req, res) {
+  console.log('testing auth route')
   // res.redirect('/ForumMain');
 });
 

@@ -12,6 +12,18 @@ export const toggleActive = (value) => {
 	}
 }
 
+export const togglePopularity = (value) => {
+	console.log('toggle popularity value: ', value)
+	console.log('bang popularity value: ', !value)
+	return {
+		type: 'TOGGLE_POPULARITY',
+		payload: {
+			popularityOrder: !value
+
+		}
+	}
+}
+
 export const toggleSignIn = () => {
 	console.log('in toggle sign in action')
 	return {
@@ -27,7 +39,7 @@ export const toggleSignIn = () => {
 		})
 			.then((response) => {
 				return {
-					user: response.data
+					signedIn: response.data
 				}
 			})
 
@@ -40,7 +52,7 @@ export const playerData = (value) => {
 	return {
 		type: 'UPDATE_PLAYER_DATA',
 		payload: {
-			player: value
+			signedIn: value
 		}
 	}
 }

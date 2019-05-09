@@ -1,8 +1,9 @@
 const initialstate = {
-	newTopic      : '',
-    newTopicActive: false,
-	 newTopicBody : '',
-	 player       : {},
+	newTopic        : '',
+    newTopicActive  : false,
+	 newTopicBody   : '',
+	 signedIn       : {},
+	 popularityOrder: true
 	
 
 }
@@ -16,12 +17,27 @@ export default function ForumReducer(state = initialstate, action) {
 				...payload
 			}
 		};
-	
-		case 'UPDATE_PLAYER_DATA': {
-			console.log('inside player data reducer')
+
+		case 'TOGGLE_POPULARITY': {
+			console.log('inside toggle popularity fulfilled')
 			return {
 				...state,
-				player: payload 
+				...payload
+			}
+		};
+
+		case 'TOGGLE_SORT_ORDER_FULFILLED': {
+			return {
+				...state,
+				...payload
+			}
+		};
+	
+		case 'UPDATE_PLAYER_DATA': {
+			console.log('inside UPDATE_PLAYER_DATA reducer')
+			return {
+				...state,
+				...payload 
 			}
 		};
 

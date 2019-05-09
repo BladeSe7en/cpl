@@ -46,8 +46,8 @@
         height: 20px;
     }
     .btn {
-        width: 100px;
         margin-bottom: 10px;
+        width: 75px;
     }
 }
 
@@ -127,4 +127,46 @@
 
 .picture {
     height: 100%;
+}
+
+.sign-in {
+    a {
+        position: absolute;
+        z-index: 1;
+        padding: 2em;
+        margin: -2em;
+        width: 54%;
+    }
+}
+
+.signed-in {
+    font-size: 14px;
+    top: 15px;
+    position: absolute;
+    margin-left: 325px;
+}
+
+.view-new-posts {
+    height: 50px;
+    position: absolute;
+    right: 185px;
+}
+
+.view-popular-posts {
+    height: 50px;
+    position: absolute;
+    right: 57px;
+}
+
+.sign-in {
+    height: 50px;
+    position: absolute;
+    left: 185px;
+}
+
+.add-new {
+    height: 50px;
+    position: absolute;
+    left: 57px;
+    width: 75px;
 }

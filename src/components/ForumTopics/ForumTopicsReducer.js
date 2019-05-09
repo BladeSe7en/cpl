@@ -1,8 +1,13 @@
+import { commentCount } from "./ForumTopicsActions";
+
 const initialstate = {
     viewingThread: false,
     blogs        : [],
     threads      : [],
-    id           : ''
+    id           : '',
+    number       : 0,
+    comment      : '',
+    count        : []
 }
 
 export default function ForumTopicsReducer(state = initialstate, action) {
@@ -18,7 +23,7 @@ export default function ForumTopicsReducer(state = initialstate, action) {
 			console.log('inside GET BLOG reducer')
 			return {
 				...state,
-				blogs: payload 
+				blogs: payload
 			}
         };
         
@@ -28,10 +33,50 @@ export default function ForumTopicsReducer(state = initialstate, action) {
 				...state,
                 threads: payload
 			}
-		};
+        };
+        
+        case 'GET_COUNT_FULFILLED': {
+            // console.log('this is payload: ',payload)
+            // let countArray = []//[...state.count]
+            // countArray.push(payload.length+1)
+			// return {
+			// 	...state,
+            //    count: countArray
+			// }
+        };
+        
+        case 'ADD_COMMENT_FULFILLED': {
+           
+        };
+
+        case 'SORT_POPULARITY_FULFILLED': {
+            return {
+                ...state,
+                blogs: payload
+            }
+        }
+
+        case 'ON_CHANGE': {
+			return {
+				...state,
+				...payload
+			}
+        }
 
         default: {
             return state
           }
     }
 }
+
+4
+2
+2
+2
+1
+3
+1
+2
+2
+2
+1
