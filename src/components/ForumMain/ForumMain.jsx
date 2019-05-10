@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import Navbar from '../Navbar/Navbar';
 import ForumTopics from '../ForumTopics';
-import { toggleActive, toggleSignIn, playerData, togglePopularity } from './ForumMainActions';
-import { sortByPopularity, getBlogs } from '../ForumTopics/ForumTopicsActions';
+import { toggleActive, toggleSignIn, playerData, togglePopularity, blogsByDate, dateToggle } from './ForumMainActions';
+import { sortByPopularity,  } from '../ForumTopics/ForumTopicsActions';
 import Axios from 'axios';
 
 class Forum extends Component {
@@ -15,6 +15,8 @@ class Forum extends Component {
 		this.handlePlayerData       = this.handlePlayerData      .bind(this);
 		this.handleSortByPopularity = this.handleSortByPopularity.bind(this);
 		this.handlePopularity       = this.handlePopularity      .bind(this);
+		this.handleBlogsByDate      = this.handleBlogsByDate     .bind(this);
+		this.handleDateToggle		= this.handleDateToggle      .bind(this);
 	}
 	handleNewTopic() {
 		const { dispatch, newTopicActive } = this.props;
@@ -41,10 +43,17 @@ class Forum extends Component {
 		const { dispatch, popularityOrder } = this.props;
 		dispatch(togglePopularity(popularityOrder));
 	}
-	
-	handleGetBlogs() {
-		const { dispatch } = this.props;
-		dispatch(getBlogs())
+
+	handleBlogsByDate() {
+		const { dispatch, dateOrder } = this.props;
+		this.handleDateToggle();
+		dispatch(blogsByDate(dateOrder));
+	}
+
+	handleDateToggle() {
+		const { dispatch, dateOrder } = this.props;
+		console.log('this is dateOrder: ',dateOrder)
+		dispatch(dateToggle(dateOrder));
 	}
 
 
@@ -69,12 +78,13 @@ class Forum extends Component {
 	}
 
 	render() {
-		const { signedIn, popularityOrder } = this.props;
+		const { signedIn, popularityOrder, dateOrder } = this.props;
 		console.log('signedIn.name: ',signedIn.name)
 		const whosSignedIn = signedIn.name === undefined ? 'Not Signed In' : `Signed in as ${signedIn.name}`
-		const signInBtn = whosSignedIn === 'Not Signed In' ? 'btn sign-in' : 'notActiveTopic'
-		const signOutBtn = whosSignedIn === 'Not Signed In' ? 'notActiveTopic' : 'btn sign-in'
-		const popularityBtn = popularityOrder ===  true ? 'View Popular Posts' : 'View Unpopular Posts'
+		const signInBtn = whosSignedIn === 'Not Signed In' ? 'btn sign-in' : 'notActiveTopic';
+		const signOutBtn = whosSignedIn === 'Not Signed In' ? 'notActiveTopic' : 'btn sign-in';
+		const popularityBtn = popularityOrder ===  true ? 'View Popular Posts' : 'View Unpopular Posts';
+		const newestBtn = dateOrder === true ? 'View Newest Posts' : 'View Oldest Posts';
 		console.log('this is whos signed in: ',whosSignedIn)
 		return (
 			<div>
@@ -86,7 +96,7 @@ class Forum extends Component {
 								<button className='btn add-new' onClick={this.handleNewTopic} >Add New Topic!</button>
 								<button className={`${signInBtn}`}> <a href="/authenticate" ></a>Sign In!</button>
 								<button className={`${signOutBtn}`}> <a href="/logout" ></a>Sign Out!</button>
-								<button className='btn view-new-posts' onClick={this.handleGetBlogs} >View Newest Posts</button>
+								<button className='btn view-new-posts' onClick={this.handleBlogsByDate} >{newestBtn}</button>
 								<button className='btn view-popular-posts' onClick={this.handleSortByPopularity}>{popularityBtn}</button>
 								<h1 className='signed-in'>{whosSignedIn}</h1>
 							</div>

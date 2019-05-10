@@ -91,18 +91,15 @@ class ForumTopics extends Component {
                 {blogs && blogs.map((blog, i) => {
                     const viewCloseThread = blog.id === id && viewingThread ? 'Close Thread' : 'View Thread'
                     console.log('this is viewCLoseThread=======: ',viewCloseThread)
-                   // let commentNumber = 0;
-                    // if (count) {
-                    //     console.log('+++++++++++++testing count++++++++++++')
-                    //    commentNumber = count[i]
-                    //    console.log('updated count: ',commentNumber)
-                    // }
-                  //  console.log('this is commentCount: ',commentNumber)
-                    // this.handleCommentCount(blog.id);
+            
+                    let date = Number(blog.date);
+                   let newDate = moment(date).format('LLL')
+                  //  console.log('this is date: ',newDate)
                     return (
                         <div key={blog.id} className='single-blog'>
                             <h2 className='steam-name'>{blog.steamNameId}</h2>
-                            <h2 className='date'>{blog.date}</h2>
+                            
+                            <h2 className='date'>{moment(date).format('LLL')}</h2>
                             <h1>{blog.blogTitle}</h1>
                             <p>{blog.blogBody}</p>
                             <div className='footer'>

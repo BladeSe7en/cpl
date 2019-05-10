@@ -3,9 +3,9 @@ const initialstate = {
     newTopicActive  : false,
 	 newTopicBody   : '',
 	 signedIn       : {},
-	 popularityOrder: true
-	
-
+	 popularityOrder: true,
+	 newPostToggle  : true,
+	 dateOrder      : true
 }
 export default function ForumReducer(state = initialstate, action) {
 	const { payload, type } = action;
@@ -41,6 +41,21 @@ export default function ForumReducer(state = initialstate, action) {
 			}
 		};
 
+		case 'GET_BLOGS_BY_DATE_FULFILLED': {
+			return {
+				...state,
+				blogs: payload
+			}
+		};
+
+		case 'DATE_ORDER': {
+			return {
+				...state,
+				...payload
+			}
+		};
+
+		
 	
 
 		default: {

@@ -19,7 +19,6 @@ export const togglePopularity = (value) => {
 		type: 'TOGGLE_POPULARITY',
 		payload: {
 			popularityOrder: !value
-
 		}
 	}
 }
@@ -56,6 +55,37 @@ export const playerData = (value) => {
 		}
 	}
 }
+
+export const blogsByDate = (order) => {
+		console.log('inside blogsByDate order: ', order)
+		let bangOrder = order === true ? 'ASC' : 'DESC';
+		console.log('this is bangOrder: ', bangOrder)
+		return {
+			type: 'GET_BLOGS',
+			payload: axios({
+				method: 'get',
+				url: `/api/blogPosts/?filter=%7B%22order%22%3A%22date%20${bangOrder}%22%7D`
+			})
+			.then(response => {
+				return response.data
+			})
+			.catch(err => err)
+		}
+	}
+
+	export const dateToggle = (order) => {
+		console.log('toggle active value: ', order)
+	
+		return {
+			type: 'DATE_ORDER',
+			payload: {
+				dateOrder: !order
+	
+			}
+		}
+	}
+
+
 
 
 

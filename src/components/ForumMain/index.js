@@ -7,7 +7,9 @@ function mapStoreToProps(store){
      newTopicActive : store.ForumMain.newTopicActive,
      newTopicBody   : store.ForumMain.newTopicBody,
      signedIn       : store.ForumMain.signedIn,
-     popularityOrder: store.ForumMain.popularityOrder
+     popularityOrder: store.ForumMain.popularityOrder,
+     newPostToggle  : store.ForumMain.newPostToggle,
+     dateOrder      : store.ForumMain.dateOrder
     };
 }
 
