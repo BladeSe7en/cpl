@@ -92,7 +92,7 @@ export const addComment = (data, id) => {
             axios({
 			method: 'get',
 			url: `http://localhost:3000/api/threads?access_token=${accessToken}`,
-			data: data
+			data: stringifted
         })      
 		.then(response => {
             return response.data
@@ -104,6 +104,82 @@ export const addComment = (data, id) => {
 export const onChange = (key, value) => {
 	return {
 		type: 'ON_CHANGE',
+		payload: {
+			[key]: value
+		}
+	}
+}
+
+export const upVote = (id, voteCount, voteNames) => {
+	console.log('inside get blogs')
+	const accessToken ='5cc16624e810e7579a1581c1'
+	return {
+		type: 'UP_VOTE',
+		payload: axios({
+			method: 'get',
+			url: `/api/blogPosts/${id}?access_token=${accessToken}`
+		})
+		.then(response => {
+			let data = response.data
+			console.log('this should be original data: ',data)
+			let updatedData = {
+				blogBody: data.blogBody,
+				blogTitle: data.blogTitle,
+				date: data.date,
+				id: data.id,
+				memberId: data.memberId,
+				numComments: data.numComments,
+				steamNameId: data.steamNameId,
+				upVotes: +voteCount,
+				voteNames: voteNames
+			}
+
+			console.log('this is updated updatedData: ',updatedData)
+			let stringified = encodeURIComponent(JSON.stringify(updatedData))
+
+			console.log('this should be the updated stringified data: ',stringified)
+			axios({
+				method: 'put',
+				url: `/api/blogPosts?access_token=${accessToken}`,
+				data: stringified
+			})      
+			.then(response => {
+				console.log('this is response.data: ',response.data)
+				return response.data
+			})
+			.catch(err => err)
+		})
+		.catch(err => err)
+	}
+}
+
+// export const upVote = (id, voteCount, voteNames) => {
+// 	const accessToken ='5cc16624e810e7579a1581c1'
+// 	let data = {
+// 		"id":id,
+// 		"upVotes":voteCount,
+// 		"voteNames":voteNames
+// 	}
+// 	console.log('this is data: ',data)
+// 	let stringifted = JSON.stringify(data)
+// 	console.log('this is stringified: ',stringifted)
+// 	return {
+// 		type: 'UP_VOTE',
+// 		payload:
+//             axios({
+// 			method: 'put',
+// 			url: `http://localhost:3000/api/blogPosts?${stringifted}&access_token=${accessToken}`,
+//         })      
+// 		.then(response => {
+//             return response.data
+// 		})
+// 		.catch(err => err)
+// 		}
+// 	}
+
+export const downVote = (id, voteCount, voteNames, signedInId) => {
+	return {
+		type: 'DOWN_VOTE',
 		payload: {
 			[key]: value
 		}

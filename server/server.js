@@ -2,14 +2,13 @@
 
 var loopback = require('loopback');
 var boot = require('loopback-boot');
-var myBot = require('../server/utils/discordReportBot');
-var Discord = require('discord.js');
 const fs = require('fs');
 var moment = require('moment');
-//var bot = new Discord.Client();
-require('dotenv').config();
 var app = (module.exports = loopback());
 app.use(loopback.static('public'));
+require('../server/utils/discordReportBot');
+require('discord.js');
+require('dotenv').config();
 
 app.start = function () {
   return app.listen(function () {
@@ -22,9 +21,9 @@ app.start = function () {
     }
   });
 };
-///////////////
+///////////////////
 //  steam login
-///////////////
+///////////////////
 
 // get your steam api key here: https://steamcommunity.com/dev/apikey
 
@@ -44,21 +43,13 @@ app.get('/ForumMain', function(req, res) {
 });
 
 app.get('/authenticate', steam.authenticate(), function (req, res) {
-  console.log('testing auth route')
-  // res.redirect('/ForumMain');
+  console.log('testing auth route');
 });
 
 app.get('/verify', steam.verify(), function (req, res) {
-  //console.log(req.user);
-  
-
- // const playerStringifed = JSON.stringify(player)
-
- // console.log('this is player: ', player)
   fs.appendFile('log.csv', (' steam ID: ' + req.user._json.steamid) + '\t' + ('name: ' + req.user._json.personaname) + '\t' + ('profile: ' + req.user.profile) + '\t' + ('avatar: ' + req.user.avatar.small) + '\t' + ('date: ' + date) + '\n', (err) => {
     if (err) throw err;
-   // res.send(playerStringifed)
-    res.redirect('/#/ForumMain')
+    res.redirect('/#/ForumMain');
   });
 });
 

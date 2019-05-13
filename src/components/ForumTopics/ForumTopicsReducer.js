@@ -63,6 +63,14 @@ export default function ForumTopicsReducer(state = initialstate, action) {
 			}
         }
 
+        case 'UP_VOTE': {
+            console.log('inside upvote')
+			return {
+				...state,
+				...payload
+			}
+        }
+
         default: {
             return state
           }

@@ -28,6 +28,10 @@
     "numComments": {
       "type": "number",
       "default": 0
+    },
+    "voteNames": {
+      "type": "array",
+      "default": []
     }
   },
   "validations": [],
