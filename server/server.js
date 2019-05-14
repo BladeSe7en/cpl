@@ -9,6 +9,7 @@ app.use(loopback.static('public'));
 require('../server/utils/discordReportBot');
 require('discord.js');
 require('dotenv').config();
+require('../server/utils/mongoDbRealTimeUpdate');
 
 app.start = function () {
   return app.listen(function () {
@@ -57,6 +58,8 @@ app.get('/logout', steam.enforceLogin('/'), function (req, res) {
   req.logout();
   res.redirect('/');
 });
+
+
 
 boot(app, __dirname, function (err) {
   if (err) throw err;

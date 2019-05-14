@@ -23,7 +23,7 @@ export default function ForumTopicsReducer(state = initialstate, action) {
 			console.log('inside GET BLOG reducer')
 			return {
 				...state,
-				blogs: payload
+			    blogs: payload
 			}
         };
         
@@ -63,7 +63,7 @@ export default function ForumTopicsReducer(state = initialstate, action) {
 			}
         }
 
-        case 'UP_VOTE': {
+        case 'UP_VOTE_FULFILLED': {
             console.log('inside upvote')
 			return {
 				...state,

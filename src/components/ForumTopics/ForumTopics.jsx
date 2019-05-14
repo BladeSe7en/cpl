@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import ForumThread from '../ForumThread';
 import moment from 'moment';
-import { thread, getBlogs, getThreadsById, commentCount, addComment, onChange, sortByPopularity, upVote, downVote } from '../ForumTopics/ForumTopicsActions';
+import { thread, getBlogs, getThreadsById, commentCount, addComment, onChange, sortByPopularity, vote } from '../ForumTopics/ForumTopicsActions';
 class ForumTopics extends Component {
     constructor(props) {
         super(props);
@@ -12,8 +12,7 @@ class ForumTopics extends Component {
         this.handleCommentCount   = this.handleCommentCount  .bind(this);
         this.handleAddComment     = this.handleAddComment    .bind(this);
         this.handleChange         = this.handleChange        .bind(this);
-        this.handleUpVote         = this.handleUpVote        .bind(this);
-        this.handleDownVote       = this.handleDownVote      .bind(this);
+        this.handleVote           = this.handleVote          .bind(this);
 
     }
 
@@ -78,45 +77,26 @@ class ForumTopics extends Component {
         dispatch(onChange(e.target.name, e.target.value))
     }
 
-    handleUpVote(e) {
+    handleVote(e) {
         const { dispatch, signedIn } = this.props;
-        let voteNames = e.target.name;
-        console.log('this is voteNames: ', voteNames)
-        if(signedIn === undefined) {
+        let voteNames = e.target.name.split();
+        if (signedIn === undefined) {
             return alert('Please sign in to vote on blogs.')
         }
-        if(voteNames.includes(signedIn.id)) {
+        if (voteNames.includes(signedIn.id)) {
             return alert('You have already voted once on this topic.')
         }
-        let blogId = e.target.id;
-        console.log('this is original vote count: ', e.target.title)
-        let voteCount = (e.target.title);
-        console.log('this is new vote count: ',voteCount)
-       // let voteNames = e.target.name;
-        console.log('vote names: ',voteNames)
-        console.log('vote names.length: ',voteNames.length)
-        voteNames.push(signedIn.id);
-        dispatch(upVote(blogId, voteCount, voteNames));
-    }
-
-    handleDownVote(e) {
-        const { dispatch, signedIn } = this.props;
-        let voteNames = e.target.name;
-        if(signedIn === undefined) {
-            return alert('Please sign in to vote on blogs.')
+        if (e.target.className === 'up-vote') {
+            var voteCount = +(e.target.title) +1;
         }
-        if(voteNames.includes(signedIn.id)) {
-            return alert('You have already voted once on this topic.')
+        if (e.target.className === 'down-vote') {
+            var voteCount = +(e.target.title) -1;
         }
+        let signedInId = signedIn.id;
         let blogId = e.target.id;
-        let voteCount = e.target.title -1;
-        console.log('original vote names: ',voteNames)
-        voteNames.push(signedIn.id);
-        console.log('updated vote names: ', voteNames)
-        dispatch(downVote(blogId, voteCount, voteNames));
+        voteNames.push(signedInId);
+        dispatch(vote(blogId, voteCount, voteNames));
     }
-
-   
 
     render() {
         const { newTopicActive, viewingThread, id, blogs, count } = this.props;
@@ -125,6 +105,7 @@ class ForumTopics extends Component {
             <div className={showHideTopic}>
                 {console.log('blogs in Component: ', blogs)}
                 {blogs && blogs.map((blog, i) => {
+                    console.log('this should be a single blog: ',blog)
                     const viewCloseThread = blog.id === id && viewingThread ? 'Close Thread' : 'View Thread'
                     console.log('this is viewCLoseThread=======: ',viewCloseThread)
             
@@ -142,9 +123,9 @@ class ForumTopics extends Component {
                             {/* {console.log('this is blog.threadId-----: ',blog.threadId)} */}
                                 <span className='comments'> {blog.numComments} comments</span>
                                 <button className='btn toggle-thread' id={blog.id} onClick={this.handleGetThreadsById} >{viewCloseThread}</button>
-                                <img className='up-vote' title={blog.upVotes} name={blog.voteNames} id={blog.id} onClick={this.handleUpVote} src={'/pics/chevron_up.png'} />
+                                <img className='up-vote' title={blog.upVotes} name={blog.voteNames} id={blog.id} onClick={this.handleVote} src={'/pics/chevron_up.png'} />
                                 <span className='vote'>Vote</span>
-                                <img className='down-vote' title={blog.upVotes} name={blog.voteNames} id={blog.id} onClick={this.handleDownVote} src={'/pics/chevron_down.png'} />
+                                <img className='down-vote' title={blog.upVotes} name={blog.voteNames} id={blog.id} onClick={this.handleVote} src={'/pics/chevron_down.png'} />
                                 <span className='vote-number'>{blog.upVotes}</span>
                                 {/* {console.log('this is blog------------: ', blog)}
                                 {console.log('this is blog.steamNameId-------------: ', blog.steamNameId)}

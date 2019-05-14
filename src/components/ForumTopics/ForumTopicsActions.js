@@ -110,7 +110,8 @@ export const onChange = (key, value) => {
 	}
 }
 
-export const upVote = (id, voteCount, voteNames) => {
+export const vote = (id, voteCount, voteNames) => {
+	console.log('this is typeof vote count: ', typeof(voteCount))
 	console.log('inside get blogs')
 	const accessToken ='5cc16624e810e7579a1581c1'
 	return {
@@ -133,15 +134,10 @@ export const upVote = (id, voteCount, voteNames) => {
 				upVotes: +voteCount,
 				voteNames: voteNames
 			}
-
-			console.log('this is updated updatedData: ',updatedData)
-			let stringified = encodeURIComponent(JSON.stringify(updatedData))
-
-			console.log('this should be the updated stringified data: ',stringified)
 			axios({
 				method: 'put',
 				url: `/api/blogPosts?access_token=${accessToken}`,
-				data: stringified
+				data: updatedData
 			})      
 			.then(response => {
 				console.log('this is response.data: ',response.data)
@@ -153,61 +149,9 @@ export const upVote = (id, voteCount, voteNames) => {
 	}
 }
 
-// export const upVote = (id, voteCount, voteNames) => {
-// 	const accessToken ='5cc16624e810e7579a1581c1'
-// 	let data = {
-// 		"id":id,
-// 		"upVotes":voteCount,
-// 		"voteNames":voteNames
-// 	}
-// 	console.log('this is data: ',data)
-// 	let stringifted = JSON.stringify(data)
-// 	console.log('this is stringified: ',stringifted)
-// 	return {
-// 		type: 'UP_VOTE',
-// 		payload:
-//             axios({
-// 			method: 'put',
-// 			url: `http://localhost:3000/api/blogPosts?${stringifted}&access_token=${accessToken}`,
-//         })      
-// 		.then(response => {
-//             return response.data
-// 		})
-// 		.catch(err => err)
-// 		}
-// 	}
-
-export const downVote = (id, voteCount, voteNames, signedInId) => {
-	return {
-		type: 'DOWN_VOTE',
-		payload: {
-			[key]: value
-		}
-	}
-}
-
 // {"where":{"id":5cce56488722dd4aedf1adf8}}
 // `%7B%22where%22%3A%7B%22id%22%3A${id}%7D%7D`
 
 // {"where":{"blogPostId":"5cce532f8722dd4aedf1ade7"}}
 // {"order":"upVote ASC"}
 // %7B%22order%22%3A%22date%20ASC%22%7D
-
-
-
-
-[
-	{
-	  "date": "1556850960000",
-	  "date": "1556850960000",
-	  "date": "1556894400000",
-	  "date": "1556898180",
-	  "date": "1556898180000",
-	  "date": "1556899800000",
-	  "date": "1556961600000",
-	  "date": "1557008100000",
-	  "date": "1557023760000",
-	  "date": "1557045180000",
-	  "date": "1557141300000",
-	}
-  ]
