@@ -46,8 +46,6 @@ export const toggleSignIn = () => {
 }
 
 export const playerData = (value) => {
-	console.log('inside player data action')
-	console.log('value: ', value)
 	return {
 		type: 'UPDATE_PLAYER_DATA',
 		payload: {
@@ -81,6 +79,40 @@ export const blogsByDate = (order) => {
 			payload: {
 				dateOrder: !order
 	
+			}
+		}
+	}
+
+	export const topicSubmit = (date, newTopic, newTopicBody, memberId) => {
+		console.log('inside topicSubmit action')
+		return {
+			type: 'TOPIC_SUBMIT',
+			payload: axios({
+				method: 'post',
+				url: `/api/blogPosts`,
+				data: {
+						"blogTitle": newTopic,
+						"blogBody": newTopicBody,
+						"date": date,
+						"upVotes": 0,
+						"numComments": 0,
+						"voteNames": [],
+						"memberId": memberId,
+						"steamNameId": "string"
+				}
+			})
+			.then(response => {
+				return response.data
+			})
+			.catch(err => err)
+		}
+	}
+
+	export const onChange = (key, value) => {
+		return {
+			type: 'ON_CHANGE',
+			payload: {
+				[key]: value
 			}
 		}
 	}

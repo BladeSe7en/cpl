@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import Navbar from '../Navbar/Navbar';
 import ForumTopics from '../ForumTopics';
-import { toggleActive, toggleSignIn, playerData, togglePopularity, blogsByDate, dateToggle } from './ForumMainActions';
+import { toggleActive, toggleSignIn, playerData, togglePopularity, blogsByDate, dateToggle, onChange, topicSubmit } from './ForumMainActions';
 import { sortByPopularity,  } from '../ForumTopics/ForumTopicsActions';
 import Axios from 'axios';
+import moment from 'moment';
 
 class Forum extends Component {
 	constructor(props) {
@@ -17,6 +18,8 @@ class Forum extends Component {
 		this.handlePopularity       = this.handlePopularity      .bind(this);
 		this.handleBlogsByDate      = this.handleBlogsByDate     .bind(this);
 		this.handleDateToggle		= this.handleDateToggle      .bind(this);
+		this.handleChange           = this.handleChange          .bind(this);
+		this.handleTopicSubmit      = this.handleTopicSubmit     .bind(this);
 	}
 	handleNewTopic() {
 		const { dispatch, newTopicActive } = this.props;
@@ -56,9 +59,25 @@ class Forum extends Component {
 		dispatch(dateToggle(dateOrder));
 	}
 
+	handleChange(e) { 
+		const { dispatch } = this.props;
+		dispatch(onChange(e.target.name, e.target.value))
+	}
+	
+	handleTopicSubmit(e) {
+		const { dispatch, newTopic, newTopicBody, signedIn } = this.props;
+		e.preventDefault();
+		if (signedIn.id === undefined) {
+			 return alert('Please Sign In To Post A Topic.')
+		} else {
+			var memberId = signedIn.id;
+		}
+		const date = moment().format('x');
+		dispatch(topicSubmit(date, newTopic, newTopicBody, memberId))
+	}
+
 
 	componentDidMount() {
-		console.log('in componendt did mount')
 		Axios.get('/ForumMain')
 			.then(response => {
 				if (response.data === 'not logged in') {
@@ -114,14 +133,14 @@ class Forum extends Component {
 		return (
 			<div className={showHide}>
 				<img className='close-btn' src='./pics/xbutton.png' onClick={this.handleNewTopic} />
-				<form onSubmit={this.submitSpeaker}>
+				<form onSubmit={this.handleTopicSubmit}>
 					<Field model='new-topic'>
 						<label htmlFor='new-topic'>Add New Topic: </label>
-						<input name='text' id='new-topic' value={newTopic} type='text' onChange={this.handleNewTopic} required />
+						<input name='newTopic' id='new-topic' value={newTopic} type='text' onChange={this.handleChange} required />
 					</Field >
 					<Field model='new-topic-body'>
 						<label htmlFor='new-topic-body'>Content: </label>
-						<textarea type="text" name="new-topic-body" value={newTopicBody} required onChange={this.handlenewTopicBody} />
+						<textarea type="text" name="newTopicBody" value={newTopicBody} required onChange={this.handleChange} />
 					</Field>
 					<button className='btn' id='speaker-submit'>Submit!</button>
 				</form>

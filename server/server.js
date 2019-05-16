@@ -9,7 +9,9 @@ app.use(loopback.static('public'));
 require('../server/utils/discordReportBot');
 require('discord.js');
 require('dotenv').config();
-require('../server/utils/mongoDbRealTimeUpdate');
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
 
 app.start = function () {
   return app.listen(function () {
@@ -57,6 +59,17 @@ app.get('/verify', steam.verify(), function (req, res) {
 app.get('/logout', steam.enforceLogin('/'), function (req, res) {
   req.logout();
   res.redirect('/');
+});
+
+
+io.on('connection', function (socket) {
+    console.log('a user connected');
+    socket.on('disconnect', function () {
+        console.log('user disconnected');
+    });
+    socket.on('sendMessage', function (val) {
+        postMessageToDiscord(val)
+    });
 });
 
 

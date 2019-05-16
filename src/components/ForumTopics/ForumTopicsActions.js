@@ -13,7 +13,6 @@ export const thread = (value, id) => {
 	}
 }
 export const getBlogs = () => {
-    console.log('inside get blogs')
 	return {
 		type: 'GET_BLOGS',
 		payload: axios({
@@ -28,10 +27,7 @@ export const getBlogs = () => {
 }
 
 export const sortByPopularity = (popularityOrder) => {
-	console.log('inside sort by popularity')
-	console.log('this is popularityOrder: ',popularityOrder)
 	const order = popularityOrder?'DESC':'ASC';
-	console.log('this is order: ',order)
 	return {
 		type: 'SORT_POPULARITY',
 		payload: axios({
@@ -81,18 +77,17 @@ export const commentCount = (id) => {
     }
 }
 
-export const addComment = (data, id) => {
-    console.log('inside addComment: ',id)
+export const addComment = (data) => {
 	const accessToken ='5cc16624e810e7579a1581c1'
-	const stringifted = JSON.stringify(data);
-	console.log('this is stringified data: ',stringifted)
+	//const stringifted = JSON.stringify(data);
+	//console.log('this is stringified data: ',stringifted)
 	return {
 		type: 'ADD_COMMENT',
 		payload: 
             axios({
-			method: 'get',
+			method: 'post',
 			url: `http://localhost:3000/api/threads?access_token=${accessToken}`,
-			data: stringifted
+			data: data
         })      
 		.then(response => {
             return response.data
@@ -101,7 +96,7 @@ export const addComment = (data, id) => {
     }
 }
 
-export const onChange = (key, value) => {
+export const onCommentChange = (key, value) => {
 	return {
 		type: 'ON_CHANGE',
 		payload: {

@@ -40,12 +40,12 @@ class AdminLogin extends Component {
 		dispatch(rememberMe(checked));
 	}
 
-	submitLogin(e) {
-		e.preventDefault();
-		const { dispatch, remember, username, password } = this.props;
-		if (remember) dispatch(postLoginPersist({ username, password, ttl: 60 * 60 }));
-		else dispatch(postLogin({ username, password, ttl: 60 * 60 }));
-	}
+	// submitLogin(e) {
+	// 	e.preventDefault();
+	// 	const { dispatch, remember, username, password } = this.props;
+	// 	if (remember) dispatch(postLoginPersist({ username, password, ttl: 60 * 60 }));
+	// 	else dispatch(postLogin({ username, password, ttl: 60 * 60 }));
+	// }
 
 	render() {
 		const { username, password, authorized } = this.props;

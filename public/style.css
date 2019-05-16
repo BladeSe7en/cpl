@@ -1401,10 +1401,12 @@ a {
 
 .down-vote:hover {
   border: 1px solid #1884c3;
+  cursor: pointer;
 }
 
 .up-vote:hover {
   border: 1px solid #1884c3;
+  cursor: pointer;
 }
 
 .comments {
@@ -1517,10 +1519,27 @@ a {
   height: 20px;
 }
 
+.thread-edit:hover {
+  float: right;
+  padding: 3px;
+  height: 18px;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
 .thread-delete {
   float: right;
   padding: 3px;
   height: 20px;
+  cursor: pointer;
+}
+
+.thread-delete:hover {
+  float: right;
+  padding: 3px;
+  height: 18px;
+  cursor: pointer;
+  border: 1px solid black;
 }
 
 .thread-comment {

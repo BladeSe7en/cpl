@@ -15,10 +15,10 @@ class AdminNavbar extends Component {
 		dispatch(checkToken(accessToken));
 	}
 
-    handleLogout() {
-        const { dispatch, accessToken } = this.props;
-        dispatch(postLogout(accessToken));
-    }
+    // handleLogout() {
+    //     const { dispatch, accessToken } = this.props;
+    //     dispatch(postLogout(accessToken));
+    // }
 
     render() {
         const { location } = this.props;

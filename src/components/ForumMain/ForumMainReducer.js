@@ -34,7 +34,6 @@ export default function ForumReducer(state = initialstate, action) {
 		};
 	
 		case 'UPDATE_PLAYER_DATA': {
-			console.log('inside UPDATE_PLAYER_DATA reducer')
 			return {
 				...state,
 				...payload 
@@ -55,9 +54,21 @@ export default function ForumReducer(state = initialstate, action) {
 			}
 		};
 
+		 case 'ON_CHANGE': {
+			return {
+				...state,
+				...payload
+			}
+		}
 		
+		case 'TOPIC_SUBMIT_FULFILLED': {
+			return {
+				...state,
+				newTopic: '',
+				newTopicBody: ''
+			}
+        }
 	
-
 		default: {
 			return state
 		};

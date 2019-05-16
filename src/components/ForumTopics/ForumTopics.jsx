@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import ForumThread from '../ForumThread';
 import moment from 'moment';
-import { thread, getBlogs, getThreadsById, commentCount, addComment, onChange, sortByPopularity, vote } from '../ForumTopics/ForumTopicsActions';
+import { thread, getBlogs, getThreadsById, commentCount, addComment, onCommentChange, sortByPopularity, vote } from '../ForumTopics/ForumTopicsActions';
 class ForumTopics extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +11,7 @@ class ForumTopics extends Component {
         this.handleGetThreadsById = this.handleGetThreadsById.bind(this);
         this.handleCommentCount   = this.handleCommentCount  .bind(this);
         this.handleAddComment     = this.handleAddComment    .bind(this);
-        this.handleChange         = this.handleChange        .bind(this);
+        this.handleCommentChange  = this.handleCommentChange .bind(this);
         this.handleVote           = this.handleVote          .bind(this);
 
     }
@@ -48,33 +48,32 @@ class ForumTopics extends Component {
 
     handleAddComment(e) {
         console.log('add comment triggered')
+        e.preventDefault();
         const { dispatch, comment, signedIn } = this.props;
         const date = moment().format('x');
         let blogId = e.target.name;
-        if (signedIn === {} ) {
-            console.log('should trigger alert')
-            alert('Error: Please Sign In To Post Comments')
+        if (signedIn.id === undefined ) {
+           return alert('Please Sign In To Post Comments');
         }
         console.log('this is blogId inside add comment: ',blogId)
         console.log('this is signedIn in add comment: ',signedIn)
         console.log('this is signedIn.id: ',signedIn.id)
+        console.log('this is comment: ',comment)
+        console.log('this is date: ',date)
+        console.log('signedIn.avatar: ', signedIn.avatar)
+        console.log('signedIn.name: ',signedIn.name)
         const data = {
             "comment": comment,
             "date": date,
             "wasEdited": false,
-            "blogPostId": postId,
+            "blogPostId": blogId,
             "memberId": signedIn.id,
-            "steamAvatarId": signedIn.steamAvatarId,
+            "steamAvatarId": signedIn.avatar,
             "steamNameId": signedIn.name
           }
           console.log('this is data: ', data)
-        dispatch(addComment(data, blogId));
+        dispatch(addComment(data));
 
-    }
-
-    handleChange(e) {
-        const { dispatch } = this.props;
-        dispatch(onChange(e.target.name, e.target.value))
     }
 
     handleVote(e) {
@@ -98,42 +97,49 @@ class ForumTopics extends Component {
         dispatch(vote(blogId, voteCount, voteNames));
     }
 
+    handleCommentChange(e) { 
+		const { dispatch } = this.props;
+		dispatch(onCommentChange(e.target.name, e.target.value))
+	}
+	
+	handleCommentSubmit(e) {
+        const { dispatch, newTopic, newTopicBody, signedIn } = this.props;
+        console.log('inside comment submit')
+		e.preventDefault();
+		if (signedIn.id === undefined) {
+			 return alert('Please Sign In To Post A Topic.')
+		} else {
+			var memberId = signedIn.id;
+		}
+		const date = moment().format('x');
+		dispatch(topicSubmit(date, newTopic, newTopicBody, memberId))
+	}
+
     render() {
         const { newTopicActive, viewingThread, id, blogs, count } = this.props;
         const showHideTopic = newTopicActive ? 'topic-active' : 'topic';
         return (
             <div className={showHideTopic}>
-                {console.log('blogs in Component: ', blogs)}
-                {blogs && blogs.map((blog, i) => {
-                    console.log('this should be a single blog: ',blog)
+                {blogs && blogs.map(blog => {
                     const viewCloseThread = blog.id === id && viewingThread ? 'Close Thread' : 'View Thread'
-                    console.log('this is viewCLoseThread=======: ',viewCloseThread)
-            
                     let date = Number(blog.date);
                    let newDate = moment(date).format('LLL')
                   //  console.log('this is date: ',newDate)
                     return (
                         <div key={blog.id} className='single-blog'>
                             <h2 className='steam-name'>{blog.steamNameId}</h2>
-                            
                             <h2 className='date'>{moment(date).format('LLL')}</h2>
                             <h1>{blog.blogTitle}</h1>
                             <p>{blog.blogBody}</p>
+                                <img className='thread-edit' src={'/pics/edit-icon.png'} onClick={this.handleThreadEdit} />
+                                <img className='thread-delete' id={thread.id} src={'/pics/trash-icon.png'} onClick={this.handleThreadDelete} />
                             <div className='footer'>
-                            {/* {console.log('this is blog.threadId-----: ',blog.threadId)} */}
                                 <span className='comments'> {blog.numComments} comments</span>
                                 <button className='btn toggle-thread' id={blog.id} onClick={this.handleGetThreadsById} >{viewCloseThread}</button>
                                 <img className='up-vote' title={blog.upVotes} name={blog.voteNames} id={blog.id} onClick={this.handleVote} src={'/pics/chevron_up.png'} />
                                 <span className='vote'>Vote</span>
                                 <img className='down-vote' title={blog.upVotes} name={blog.voteNames} id={blog.id} onClick={this.handleVote} src={'/pics/chevron_down.png'} />
                                 <span className='vote-number'>{blog.upVotes}</span>
-                                {/* {console.log('this is blog------------: ', blog)}
-                                {console.log('this is blog.steamNameId-------------: ', blog.steamNameId)}
-                                {console.log('this is date-----------: ', blog.date)}
-                                {console.log('this is blogTitle---------: ', blog.blogTitle)}
-                                {console.log('this is blogBody-----------: ', blog.blogBody)}
-                                {console.log('this is blog.id-----------: ', blog.id)}
-                                {console.log('this is blog.upVotes---------: ', blog.upVotes)} */}
                             </div>
                             {this.renderThread(blog.id)}
                         </div>
@@ -156,25 +162,13 @@ class ForumTopics extends Component {
                             <img className='thread-edit' src={'/pics/edit-icon.png'} onClick={this.handleThreadEdit} />
                             <img className='thread-delete' id={thread.id} src={'/pics/trash-icon.png'} onClick={this.handleThreadDelete} />
                             <div className='thread-comment'>{thread.comment}</div>
-                                {/* {console.log('this is thread: ', thread)}
-                                {console.log('this is steamAvatarId: ', thread.steamAvatarId)}
-                                {console.log('this is steamNameId: ', thread.steamNameId)}
-                                {console.log('this is date: ', thread.date)}
-                                {console.log('this is steamAvatarId: ', thread.steamAvatarId)}
-                                {console.log('this is thread.id: ', thread.id)}
-                                {console.log('this is thread.comment: ', thread.comment)} */}
-
-
-
-
-
                         </div>
                     ))}
                     <div className='add-new-comment'>
                         <form name={blogId} onSubmit={this.handleAddComment}>
                             <Field model='new-topic-body'>
                                 <label htmlFor='new-topic-body'>Add New Comment: </label>
-                                <textarea type="text" name="comment" value={comment} required onChange={this.handleChange} />
+                                <textarea type="text" name="comment" value={comment} required onChange={this.handleCommentChange} />
                             </Field>
                             <button className='btn' id='speaker-submit'>Submit!</button>
                         </form>

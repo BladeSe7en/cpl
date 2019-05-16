@@ -20,7 +20,6 @@ export default function ForumTopicsReducer(state = initialstate, action) {
             }
         }
         case 'GET_BLOGS_FULFILLED': {
-			console.log('inside GET BLOG reducer')
 			return {
 				...state,
 			    blogs: payload
@@ -46,7 +45,10 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         };
         
         case 'ADD_COMMENT_FULFILLED': {
-           
+            return {
+				...state,
+				comment: ''
+			}
         };
 
         case 'SORT_POPULARITY_FULFILLED': {
@@ -64,7 +66,7 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         }
 
         case 'UP_VOTE_FULFILLED': {
-            console.log('inside upvote')
+            console.log('inside upvote fullfilled payload: ', payload)
 			return {
 				...state,
 				...payload
