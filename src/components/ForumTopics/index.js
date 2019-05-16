@@ -11,7 +11,7 @@ function mapStoreToProps(store){
        signedIn      : store.ForumMain  .signedIn,
        comment       : store.ForumTopics.comment,
        count         : store.ForumTopics.count,
-       sortOrder     : store.Leaderboard.sortOrder
+       sortOrder     : store.Leaderboard.sortOrder,
     };
 }
 

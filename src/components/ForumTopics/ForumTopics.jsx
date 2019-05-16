@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import ForumThread from '../ForumThread';
 import moment from 'moment';
-import { thread, getBlogs, getThreadsById, commentCount, addComment, onCommentChange, sortByPopularity, vote } from '../ForumTopics/ForumTopicsActions';
+import { thread, getBlogs, getThreadsById, commentCount, addComment, onCommentChange, sortByPopularity, vote, threadDelete } from '../ForumTopics/ForumTopicsActions';
 class ForumTopics extends Component {
     constructor(props) {
         super(props);
@@ -13,6 +13,7 @@ class ForumTopics extends Component {
         this.handleAddComment     = this.handleAddComment    .bind(this);
         this.handleCommentChange  = this.handleCommentChange .bind(this);
         this.handleVote           = this.handleVote          .bind(this);
+        this.handleThreadDelete   = this.handleThreadDelete  .bind(this);
 
     }
 
@@ -99,7 +100,7 @@ class ForumTopics extends Component {
 
     handleCommentChange(e) { 
 		const { dispatch } = this.props;
-		dispatch(onCommentChange(e.target.name, e.target.value))
+		dispatch(onCommentChange(e.target.name, e.target.value));
 	}
 	
 	handleCommentSubmit(e) {
@@ -113,7 +114,13 @@ class ForumTopics extends Component {
 		}
 		const date = moment().format('x');
 		dispatch(topicSubmit(date, newTopic, newTopicBody, memberId))
-	}
+    }
+    
+    handleThreadDelete(e) {
+        const { dispatch } = this.props;
+        const deleteId = e.target.id;
+        dispatch(threadDelete(deleteId))
+    }
 
     render() {
         const { newTopicActive, viewingThread, id, blogs, count } = this.props;
@@ -151,6 +158,19 @@ class ForumTopics extends Component {
 
     renderThread(blogId) {
         const { threads, id, viewingThread, comment } = this.props;
+        if (threads.length === 0) {
+            <div className='mapped-thread'>
+                    <div className='add-new-comment'>
+                        <form name={blogId} onSubmit={this.handleAddComment}>
+                            <Field model='new-topic-body'>
+                                <label htmlFor='new-topic-body'>Add New Comment: </label>
+                                <textarea type="text" name="comment" value={comment} required onChange={this.handleCommentChange} />
+                            </Field>
+                            <button className='btn' id='speaker-submit'>Submit!</button>
+                        </form>
+                    </div>
+                </div>
+        } 
         if (blogId === id && viewingThread) {
             return (
                 <div className='mapped-thread'>

@@ -144,6 +144,24 @@ export const vote = (id, voteCount, voteNames) => {
 	}
 }
 
+export const threadDelete = (deleteId) => {
+	const accessToken ='5cc16624e810e7579a1581c1'
+	console.log('this is threadId inside action: ', deleteId)
+	return {
+		type: 'DELETE_THREAD',
+		payload: 
+            axios({
+			method: 'delete',
+			url: `http://localhost:3000/api/threads/${deleteId}?access_token=${accessToken}`,
+			//   `http://localhost:3000/api/threads/${deleteId}?access_token=${accessToken}`,
+        })
+		.then(response => {
+            return response.data
+		})
+		.catch(err => err)
+    }
+}
+
 // {"where":{"id":5cce56488722dd4aedf1adf8}}
 // `%7B%22where%22%3A%7B%22id%22%3A${id}%7D%7D`
 

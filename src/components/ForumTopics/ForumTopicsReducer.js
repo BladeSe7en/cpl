@@ -27,21 +27,10 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         };
         
         case 'GET_THREADS_BY_ID_FULFILLED': {
-			console.log('inside GET BLOG reducer')
 			return {
 				...state,
                 threads: payload
 			}
-        };
-        
-        case 'GET_COUNT_FULFILLED': {
-            // console.log('this is payload: ',payload)
-            // let countArray = []//[...state.count]
-            // countArray.push(payload.length+1)
-			// return {
-			// 	...state,
-            //    count: countArray
-			// }
         };
         
         case 'ADD_COMMENT_FULFILLED': {
@@ -66,7 +55,13 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         }
 
         case 'UP_VOTE_FULFILLED': {
-            console.log('inside upvote fullfilled payload: ', payload)
+			return {
+				...state,
+				...payload
+			}
+        }
+
+        case 'THREAD_DELETE_FULFILLED': {
 			return {
 				...state,
 				...payload
@@ -78,15 +73,3 @@ export default function ForumTopicsReducer(state = initialstate, action) {
           }
     }
 }
-
-4
-2
-2
-2
-1
-3
-1
-2
-2
-2
-1
