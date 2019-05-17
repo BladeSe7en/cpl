@@ -178,16 +178,15 @@ export const topicDelete = (deleteId) => {
     }
 }
 
-export const commentSubmit = (date, comment, memberId) => {
+export const commentSubmit = (date, comment, memberId, blogId, avatar, steamName) => {
 	const accessToken ='5cc16624e810e7579a1581c1'
-	console.log('this is threadId inside topic delete action: ', deleteId)
 	let data = {
-		"blogPostId": "5cddd0f06f9812fd03ef019a",
-		"comment": "adding one more",
-		"date": 1557984001571,
-		"memberId": "76561198304352606",
-		"steamAvatarId": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/8c/8ce8d4325808f6a8030da27cb3d15302b3abd6ce.jpg",
-		"steamNameId": "BladeSe7en [ICON_RESOURCE_FURS]",
+		"blogPostId": blogId,
+		"comment": comment,
+		"date": date,
+		"memberId": memberId,
+		"steamAvatarId": avatar,
+		"steamNameId": steamName,
 		"wasEdited": false
 		}
 	return {

@@ -6,14 +6,14 @@ class ForumTopics extends Component {
     constructor(props) {
         super(props);
 
-        this.handleThread         = this.handleThread        .bind(this);
+        this.handleThread = this.handleThread.bind(this);
         this.handleGetThreadsById = this.handleGetThreadsById.bind(this);
-        this.handleCommentCount   = this.handleCommentCount  .bind(this);
-        this.handleAddComment     = this.handleAddComment    .bind(this);
-        this.handleCommentChange  = this.handleCommentChange .bind(this);
-        this.handleVote           = this.handleVote          .bind(this);
-        this.handleThreadDelete   = this.handleThreadDelete  .bind(this);
-        this.handleTopicDelete    = this.handleTopicDelete   .bind(this);
+        this.handleCommentCount = this.handleCommentCount.bind(this);
+        this.handleAddComment = this.handleAddComment.bind(this);
+        this.handleCommentChange = this.handleCommentChange.bind(this);
+        this.handleVote = this.handleVote.bind(this);
+        this.handleThreadDelete = this.handleThreadDelete.bind(this);
+        this.handleTopicDelete = this.handleTopicDelete.bind(this);
 
     }
 
@@ -52,16 +52,16 @@ class ForumTopics extends Component {
         const { dispatch, comment, signedIn } = this.props;
         const date = moment().format('x');
         let blogId = e.target.name;
-        if (signedIn.id === undefined ) {
-           return alert('Please Sign In To Post Comments');
+        if (signedIn.id === undefined) {
+            return alert('Please Sign In To Post Comments');
         }
-        console.log('this is blogId inside add comment: ',blogId)
-        console.log('this is signedIn in add comment: ',signedIn)
-        console.log('this is signedIn.id: ',signedIn.id)
-        console.log('this is comment: ',comment)
-        console.log('this is date: ',date)
+        console.log('this is blogId inside add comment: ', blogId)
+        console.log('this is signedIn in add comment: ', signedIn)
+        console.log('this is signedIn.id: ', signedIn.id)
+        console.log('this is comment: ', comment)
+        console.log('this is date: ', date)
         console.log('signedIn.avatar: ', signedIn.avatar)
-        console.log('signedIn.name: ',signedIn.name)
+        console.log('signedIn.name: ', signedIn.name)
         const data = {
             "comment": comment,
             "date": date,
@@ -70,8 +70,8 @@ class ForumTopics extends Component {
             "memberId": signedIn.id,
             "steamAvatarId": signedIn.avatar,
             "steamNameId": signedIn.name
-          }
-          console.log('this is data: ', data)
+        }
+        console.log('this is data: ', data)
         dispatch(addComment(data));
 
     }
@@ -86,10 +86,10 @@ class ForumTopics extends Component {
             return alert('You have already voted once on this topic.')
         }
         if (e.target.className === 'up-vote') {
-            var voteCount = +(e.target.title) +1;
+            var voteCount = +(e.target.title) + 1;
         }
         if (e.target.className === 'down-vote') {
-            var voteCount = +(e.target.title) -1;
+            var voteCount = +(e.target.title) - 1;
         }
         let signedInId = signedIn.id;
         let blogId = e.target.id;
@@ -97,25 +97,27 @@ class ForumTopics extends Component {
         dispatch(vote(blogId, voteCount, voteNames));
     }
 
-    handleCommentChange(e) { 
-		const { dispatch } = this.props;
-		dispatch(onCommentChange(e.target.name, e.target.value));
-	}
-	
-	handleCommentSubmit(e) {
+    handleCommentChange(e) {
+        const { dispatch } = this.props;
+        dispatch(onCommentChange(e.target.name, e.target.value));
+    }
+
+    handleCommentSubmit(e) {
         const { dispatch, comment, signedIn } = this.props;
         console.log('inside comment submit')
-		e.preventDefault();
-		if (signedIn.id === undefined) {
-			 return alert('Please Sign In To Post A Topic.')
-		} else {
-			var memberId = signedIn.id;
+        e.preventDefault();
+        if (signedIn.id === undefined) {
+            return alert('Please Sign In To Post A Topic.')
+        } else {
+            var memberId = signedIn.id;
         }
         const blogId = e.target.name;
-		const date = moment().format('x');
-		dispatch(commentSubmit(date, comment, memberId))
+        const date = moment().format('x');
+        const avatar = signedIn.avatar;
+        const steamName = signedIn.name;
+        dispatch(commentSubmit(date, comment, memberId, blogId, avatar, steamName))
     }
-    
+
     handleThreadDelete(e) {
         const { dispatch } = this.props;
         const deleteId = e.target.id;
@@ -125,7 +127,7 @@ class ForumTopics extends Component {
     handleTopicDelete(e) {
         const { dispatch } = this.props;
         const topicDeleteId = e.target.id;
-        console.log('this is e.target.id: ',e.target.id)
+        console.log('this is e.target.id: ', e.target.id)
         dispatch(topicDelete(topicDeleteId))
     }
 
@@ -137,16 +139,16 @@ class ForumTopics extends Component {
                 {blogs && blogs.map(blog => {
                     const viewCloseThread = blog.id === id && viewingThread ? 'Close Thread' : 'View Thread'
                     let date = Number(blog.date);
-                   let newDate = moment(date).format('LLL')
-                  //  console.log('this is date: ',newDate)
+                    let newDate = moment(date).format('LLL')
+                    //  console.log('this is date: ',newDate)
                     return (
                         <div key={blog.id} className='single-blog'>
                             <h2 className='steam-name'>{blog.steamNameId}</h2>
                             <h2 className='date'>{moment(date).format('LLL')}</h2>
                             <h1>{blog.blogTitle}</h1>
                             <p>{blog.blogBody}</p>
-                                <img className='thread-edit' src={'/pics/edit-icon.png'} onClick={this.handleThreadEdit} />
-                                <img className='thread-delete' id={blog.id} src={'/pics/trash-icon.png'} onClick={this.handleTopicDelete} />
+                            <img className='thread-edit' src={'/pics/edit-icon.png'} onClick={this.handleThreadEdit} />
+                            <img className='thread-delete' id={blog.id} src={'/pics/trash-icon.png'} onClick={this.handleTopicDelete} />
                             <div className='footer'>
                                 <span className='comments'> {blog.numComments} comments</span>
                                 <button className='btn toggle-thread' id={blog.id} onClick={this.handleGetThreadsById} >{viewCloseThread}</button>
@@ -168,30 +170,33 @@ class ForumTopics extends Component {
 
         if (threads.length === 0) {
             <div className='mapped-thread'>
-                    <div className='add-new-comment'>
-                        <form name={blogId} onSubmit={this.handleAddComment}>
-                            <Field model='new-topic-body'>
-                                <label htmlFor='new-topic-body'>Add New Comment: </label>
-                                <textarea type="text" name="comment" value={comment} required onChange={this.handleCommentChange} />
-                            </Field>
-                            <button className='btn' id='speaker-submit'>Submit!</button>
-                        </form>
-                    </div>
+                <div className='add-new-comment'>
+                    <form name={blogId} onSubmit={this.handleAddComment}>
+                        <Field model='new-topic-body'>
+                            <label htmlFor='new-topic-body'>Add New Comment: </label>
+                            <textarea type="text" name="comment" value={comment} required onChange={this.handleCommentChange} />
+                        </Field>
+                        <button className='btn' id='speaker-submit'>Submit!</button>
+                    </form>
                 </div>
-        } 
+            </div>
+        }
         if (blogId === id && viewingThread) {
             return (
                 <div className='mapped-thread'>
-                    {threads && threads.map(thread => (
-                        <div key={thread.id} className='map-child'>
-                            <div className='thread-avatar'><img src={thread.steamAvatarId} /> </div>
-                            <div className='thread-name'> {thread.steamNameId} </div>
-                            <div className='thread-date'> {moment(thread.date).format('LLL')} </div>
-                            <img className='thread-edit' src={'/pics/edit-icon.png'} onClick={this.handleThreadEdit} />
-                            <img className='thread-delete' id={thread.id} src={'/pics/trash-icon.png'} onClick={this.handleThreadDelete} />
-                            <div className='thread-comment'>{thread.comment}</div>
-                        </div>
-                    ))}
+                    {threads && threads.map(thread => {
+                        let date = Number(thread.date);
+                return (
+                    <div key={thread.id} className='map-child'>
+                        <div className='thread-avatar'><img src={thread.steamAvatarId} /> </div>
+                        <div className='thread-name'> {thread.steamNameId} </div>
+                        <div className='thread-date'> {moment(date).format('LLL')} </div>
+                        <img className='thread-edit' src={'/pics/edit-icon.png'} onClick={this.handleThreadEdit} />
+                        <img className='thread-delete' id={thread.id} src={'/pics/trash-icon.png'} onClick={this.handleThreadDelete} />
+                        <div className='thread-comment'>{thread.comment}</div>
+                    </div>
+                    )
+                })}
                     <div className='add-new-comment'>
                         <form name={blogId} onSubmit={this.handleAddComment}>
                             <Field model='new-topic-body'>
