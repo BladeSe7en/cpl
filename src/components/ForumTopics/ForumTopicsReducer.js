@@ -61,7 +61,14 @@ export default function ForumTopicsReducer(state = initialstate, action) {
 			}
         }
 
-        case 'THREAD_DELETE_FULFILLED': {
+        case 'DELETE_THREAD_FULFILLED': {
+			return {
+				...state,
+				...payload
+			}
+        }
+
+        case 'DELETE_TOPIC_FULFILLED': {
 			return {
 				...state,
 				...payload

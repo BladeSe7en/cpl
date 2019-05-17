@@ -153,7 +153,49 @@ export const threadDelete = (deleteId) => {
             axios({
 			method: 'delete',
 			url: `http://localhost:3000/api/threads/${deleteId}?access_token=${accessToken}`,
-			//   `http://localhost:3000/api/threads/${deleteId}?access_token=${accessToken}`,
+        })
+		.then(response => {
+            return response.data
+		})
+		.catch(err => err)
+    }
+}
+
+export const topicDelete = (deleteId) => {
+	const accessToken ='5cc16624e810e7579a1581c1'
+	console.log('this is threadId inside topic delete action: ', deleteId)
+	return {
+		type: 'DELETE_TOPIC',
+		payload: 
+            axios({
+			method: 'delete',
+			url: `http://localhost:3000/api/blogPosts/${deleteId}?access_token=${accessToken}`,
+        })
+		.then(response => {
+            return response.data
+		})
+		.catch(err => err)
+    }
+}
+
+export const commentSubmit = (date, comment, memberId) => {
+	const accessToken ='5cc16624e810e7579a1581c1'
+	console.log('this is threadId inside topic delete action: ', deleteId)
+	let data = {
+		"blogPostId": "5cddd0f06f9812fd03ef019a",
+		"comment": "adding one more",
+		"date": 1557984001571,
+		"memberId": "76561198304352606",
+		"steamAvatarId": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/8c/8ce8d4325808f6a8030da27cb3d15302b3abd6ce.jpg",
+		"steamNameId": "BladeSe7en [ICON_RESOURCE_FURS]",
+		"wasEdited": false
+		}
+	return {
+		type: 'DELETE_TOPIC',
+		payload: 
+            axios({
+			method: 'delete',
+			url: `http://localhost:3000/api/threads?access_token=${accessToken}`,
         })
 		.then(response => {
             return response.data

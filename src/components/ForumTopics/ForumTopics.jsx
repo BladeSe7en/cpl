@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
-import ForumThread from '../ForumThread';
 import moment from 'moment';
-import { thread, getBlogs, getThreadsById, commentCount, addComment, onCommentChange, sortByPopularity, vote, threadDelete } from '../ForumTopics/ForumTopicsActions';
+import { thread, getBlogs, getThreadsById, commentCount, addComment, onCommentChange, sortByPopularity, vote, threadDelete, topicDelete, commentSubmit } from '../ForumTopics/ForumTopicsActions';
 class ForumTopics extends Component {
     constructor(props) {
         super(props);
@@ -14,12 +13,12 @@ class ForumTopics extends Component {
         this.handleCommentChange  = this.handleCommentChange .bind(this);
         this.handleVote           = this.handleVote          .bind(this);
         this.handleThreadDelete   = this.handleThreadDelete  .bind(this);
+        this.handleTopicDelete    = this.handleTopicDelete   .bind(this);
 
     }
 
     handleSortByPopularity() {
         const { dispatch, sortOrder } = this.props;
-        console.log('this is sort order in handle sortby popularity: ',sortOrder)
         dispatch(sortByPopularity(sortOrder));
     }
 
@@ -104,22 +103,30 @@ class ForumTopics extends Component {
 	}
 	
 	handleCommentSubmit(e) {
-        const { dispatch, newTopic, newTopicBody, signedIn } = this.props;
+        const { dispatch, comment, signedIn } = this.props;
         console.log('inside comment submit')
 		e.preventDefault();
 		if (signedIn.id === undefined) {
 			 return alert('Please Sign In To Post A Topic.')
 		} else {
 			var memberId = signedIn.id;
-		}
+        }
+        const blogId = e.target.name;
 		const date = moment().format('x');
-		dispatch(topicSubmit(date, newTopic, newTopicBody, memberId))
+		dispatch(commentSubmit(date, comment, memberId))
     }
     
     handleThreadDelete(e) {
         const { dispatch } = this.props;
         const deleteId = e.target.id;
         dispatch(threadDelete(deleteId))
+    }
+
+    handleTopicDelete(e) {
+        const { dispatch } = this.props;
+        const topicDeleteId = e.target.id;
+        console.log('this is e.target.id: ',e.target.id)
+        dispatch(topicDelete(topicDeleteId))
     }
 
     render() {
@@ -139,7 +146,7 @@ class ForumTopics extends Component {
                             <h1>{blog.blogTitle}</h1>
                             <p>{blog.blogBody}</p>
                                 <img className='thread-edit' src={'/pics/edit-icon.png'} onClick={this.handleThreadEdit} />
-                                <img className='thread-delete' id={thread.id} src={'/pics/trash-icon.png'} onClick={this.handleThreadDelete} />
+                                <img className='thread-delete' id={blog.id} src={'/pics/trash-icon.png'} onClick={this.handleTopicDelete} />
                             <div className='footer'>
                                 <span className='comments'> {blog.numComments} comments</span>
                                 <button className='btn toggle-thread' id={blog.id} onClick={this.handleGetThreadsById} >{viewCloseThread}</button>
@@ -158,6 +165,7 @@ class ForumTopics extends Component {
 
     renderThread(blogId) {
         const { threads, id, viewingThread, comment } = this.props;
+
         if (threads.length === 0) {
             <div className='mapped-thread'>
                     <div className='add-new-comment'>
@@ -178,7 +186,7 @@ class ForumTopics extends Component {
                         <div key={thread.id} className='map-child'>
                             <div className='thread-avatar'><img src={thread.steamAvatarId} /> </div>
                             <div className='thread-name'> {thread.steamNameId} </div>
-                            <div className='thread-date'> {thread.date} </div>
+                            <div className='thread-date'> {moment(thread.date).format('LLL')} </div>
                             <img className='thread-edit' src={'/pics/edit-icon.png'} onClick={this.handleThreadEdit} />
                             <img className='thread-delete' id={thread.id} src={'/pics/trash-icon.png'} onClick={this.handleThreadDelete} />
                             <div className='thread-comment'>{thread.comment}</div>
