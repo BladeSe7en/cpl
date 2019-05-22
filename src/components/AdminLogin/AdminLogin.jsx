@@ -69,5 +69,3 @@ class AdminLogin extends Component {
 }
 
 export default AdminLogin;
-
-
