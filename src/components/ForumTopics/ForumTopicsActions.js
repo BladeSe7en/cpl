@@ -2,11 +2,13 @@ import axios from 'axios';
 
 export const thread = (value, id) => {
 	console.log('thread value: ', value)
+	console.log('this is id in thread action: ',id)
 
 	return {
 		type: 'TOGGLE_THREAD_VIEW',
 		payload: {
-        viewingThread: value,
+		viewingThread: value,
+		viewingThreadId: id,
         id: id
 
 		}
@@ -79,8 +81,6 @@ export const commentCount = (id) => {
 
 export const addComment = (data) => {
 	const accessToken ='5cc16624e810e7579a1581c1'
-	//const stringifted = JSON.stringify(data);
-	//console.log('this is stringified data: ',stringifted)
 	return {
 		type: 'ADD_COMMENT',
 		payload: 
@@ -202,6 +202,17 @@ export const commentSubmit = (date, comment, memberId, blogId, avatar, steamName
 		.catch(err => err)
     }
 }
+
+export const liveChangeBlogs = (value) => {
+	console.log('testing live change blogs action value.data: ', value.data)
+	return {
+		type: 'LIVE_CHANGE_BLOGS',
+		payload: {
+			blogs: value.data
+		}
+	}
+}
+
 
 // {"where":{"id":5cce56488722dd4aedf1adf8}}
 // `%7B%22where%22%3A%7B%22id%22%3A${id}%7D%7D`

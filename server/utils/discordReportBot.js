@@ -70,7 +70,7 @@
 //       console.log('this is allNamesSet: ', allNamesSet)
 //       console.log('this is game type: ',gameType)
 //       var allPlayerStats = [];
-      //glicko(allPlayerStats, allNamesSet, gameType)
+//       glicko(allPlayerStats, allNamesSet, gameType)
 //     })
 //   }
 // }

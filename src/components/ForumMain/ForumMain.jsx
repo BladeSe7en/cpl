@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import Navbar from '../Navbar/Navbar';
 import ForumTopics from '../ForumTopics';
-import { toggleActive, toggleSignIn, playerData, togglePopularity, blogsByDate, dateToggle, onChange, topicSubmit } from './ForumMainActions';
-import { sortByPopularity,  } from '../ForumTopics/ForumTopicsActions';
+import { toggleActive, toggleSignIn, playerData, togglePopularity, blogsByDate, dateToggle, onChange, topicSubmit, liveChangeBlogs } from './ForumMainActions';
+import { sortByPopularity, } from '../ForumTopics/ForumTopicsActions';
 import Axios from 'axios';
 import moment from 'moment';
 
@@ -17,7 +17,7 @@ class Forum extends Component {
 		this.handleSortByPopularity = this.handleSortByPopularity.bind(this);
 		this.handlePopularity       = this.handlePopularity      .bind(this);
 		this.handleBlogsByDate      = this.handleBlogsByDate     .bind(this);
-		this.handleDateToggle		= this.handleDateToggle      .bind(this);
+		this.handleDateToggle       = this.handleDateToggle      .bind(this);
 		this.handleChange           = this.handleChange          .bind(this);
 		this.handleTopicSubmit      = this.handleTopicSubmit     .bind(this);
 	}
@@ -55,27 +55,27 @@ class Forum extends Component {
 
 	handleDateToggle() {
 		const { dispatch, dateOrder } = this.props;
-		console.log('this is dateOrder: ',dateOrder)
 		dispatch(dateToggle(dateOrder));
 	}
 
-	handleChange(e) { 
+	handleChange(e) {
 		const { dispatch } = this.props;
 		dispatch(onChange(e.target.name, e.target.value))
 	}
-	
+
 	handleTopicSubmit(e) {
+		console.log('this is e: ',e)
 		const { dispatch, newTopic, newTopicBody, signedIn } = this.props;
 		e.preventDefault();
 		if (signedIn.id === undefined) {
-			 return alert('Please Sign In To Post A Topic.')
+			return alert('Please Sign In To Post A Topic.')
 		} else {
 			var memberId = signedIn.id;
 		}
 		const date = moment().format('x');
-		dispatch(topicSubmit(date, newTopic, newTopicBody, memberId))
+		const name = signedIn.name;
+		dispatch(topicSubmit(date, newTopic, newTopicBody, memberId, name))
 	}
-
 
 	componentDidMount() {
 		Axios.get('/ForumMain')
@@ -89,7 +89,6 @@ class Forum extends Component {
 						profile: response.data.profileurl,
 						avatar: response.data.avatar,
 					}
-					console.log('this is player in component did mount: ',player)
 					this.handlePlayerData(player);
 				}
 			})
@@ -98,13 +97,11 @@ class Forum extends Component {
 
 	render() {
 		const { signedIn, popularityOrder, dateOrder } = this.props;
-		console.log('signedIn.name: ',signedIn.name)
 		const whosSignedIn = signedIn.name === undefined ? 'Not Signed In' : `Signed in as ${signedIn.name}`
 		const signInBtn = whosSignedIn === 'Not Signed In' ? 'btn sign-in' : 'notActiveTopic';
 		const signOutBtn = whosSignedIn === 'Not Signed In' ? 'notActiveTopic' : 'btn sign-in';
-		const popularityBtn = popularityOrder ===  true ? 'View Popular Posts' : 'View Unpopular Posts';
+		const popularityBtn = popularityOrder === true ? 'View Popular Posts' : 'View Unpopular Posts';
 		const newestBtn = dateOrder === true ? 'View Newest Posts' : 'View Oldest Posts';
-		console.log('this is whos signed in: ',whosSignedIn)
 		return (
 			<div>
 				<Navbar />

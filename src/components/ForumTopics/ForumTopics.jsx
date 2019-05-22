@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import moment from 'moment';
-import { thread, getBlogs, getThreadsById, commentCount, addComment, onCommentChange, sortByPopularity, vote, threadDelete, topicDelete, commentSubmit } from '../ForumTopics/ForumTopicsActions';
+import { thread, getBlogs, getThreadsById, commentCount, addComment, onCommentChange, sortByPopularity, vote, threadDelete, topicDelete, commentSubmit, liveChangeBlogs, viewingThreadId } from '../ForumTopics/ForumTopicsActions';
 class ForumTopics extends Component {
     constructor(props) {
         super(props);
@@ -14,6 +14,7 @@ class ForumTopics extends Component {
         this.handleVote = this.handleVote.bind(this);
         this.handleThreadDelete = this.handleThreadDelete.bind(this);
         this.handleTopicDelete = this.handleTopicDelete.bind(this);
+        this.handleNewThread = this.handleNewThread.bind(this);
 
     }
 
@@ -28,15 +29,45 @@ class ForumTopics extends Component {
         dispatch(thread(!viewingThread, id));
     }
 
-    componentDidMount(e) {
-        const { dispatch } = this.props;
+    componentDidMount() {
+        const { dispatch, viewingThreadId } = this.props;
+        let urlToChangeStream = '/api/blogPosts/change-stream?_format=event-stream';
+        let src = new EventSource(urlToChangeStream);
+        src.addEventListener('data', function (msg) {
+            let data = JSON.parse(msg.data);
+            setTimeout(() => {
+                dispatch(liveChangeBlogs(data));
+            }, 1000);
+        });
+
+        const newThread = this.handleNewThread
+        let urlToChangeStream2 = '/api/threads/change-stream?_format=event-stream';
+        let src2 = new EventSource(urlToChangeStream2);
+        src2.addEventListener('data', function (msg) {
+            newThread(msg)
+        });
         dispatch(getBlogs());
+    }
+
+    handleNewThread(msg) {
+        const { dispatch, viewingThreadId } = this.props;
+        let data2 = JSON.parse(msg.data);
+        console.log('this is data2: ', data2)
+        let id = data2.data.blogPostId
+        setTimeout(() => {
+            if (viewingThreadId === id) {
+                dispatch(getThreadsById(id));
+            } else {
+                return
+            }
+        }, 1000);
     }
 
     handleGetThreadsById(e) {
         this.handleThread(e)
         const id = e.target.id;
         const { dispatch } = this.props;
+        this.handleThread(e)
         dispatch(getThreadsById(id));
     }
 
@@ -55,13 +86,7 @@ class ForumTopics extends Component {
         if (signedIn.id === undefined) {
             return alert('Please Sign In To Post Comments');
         }
-        console.log('this is blogId inside add comment: ', blogId)
-        console.log('this is signedIn in add comment: ', signedIn)
-        console.log('this is signedIn.id: ', signedIn.id)
-        console.log('this is comment: ', comment)
-        console.log('this is date: ', date)
-        console.log('signedIn.avatar: ', signedIn.avatar)
-        console.log('signedIn.name: ', signedIn.name)
+
         const data = {
             "comment": comment,
             "date": date,
@@ -71,7 +96,7 @@ class ForumTopics extends Component {
             "steamAvatarId": signedIn.avatar,
             "steamNameId": signedIn.name
         }
-        console.log('this is data: ', data)
+        console.log('this is data from add comment: ', data)
         dispatch(addComment(data));
 
     }
@@ -132,8 +157,10 @@ class ForumTopics extends Component {
     }
 
     render() {
-        const { newTopicActive, viewingThread, id, blogs, count } = this.props;
+        const { newTopicActive, viewingThread, viewingThreadId, id, blogs, count } = this.props;
         const showHideTopic = newTopicActive ? 'topic-active' : 'topic';
+        console.log('this is id: ', id)
+        console.log('this is viewingThreadId in render: ', viewingThreadId)
         return (
             <div className={showHideTopic}>
                 {blogs && blogs.map(blog => {
@@ -141,6 +168,7 @@ class ForumTopics extends Component {
                     let date = Number(blog.date);
                     let newDate = moment(date).format('LLL')
                     //  console.log('this is date: ',newDate)
+
                     return (
                         <div key={blog.id} className='single-blog'>
                             <h2 className='steam-name'>{blog.steamNameId}</h2>
@@ -157,6 +185,7 @@ class ForumTopics extends Component {
                                 <img className='down-vote' title={blog.upVotes} name={blog.voteNames} id={blog.id} onClick={this.handleVote} src={'/pics/chevron_down.png'} />
                                 <span className='vote-number'>{blog.upVotes}</span>
                             </div>
+
                             {this.renderThread(blog.id)}
                         </div>
                     )
@@ -166,7 +195,8 @@ class ForumTopics extends Component {
     }
 
     renderThread(blogId) {
-        const { threads, id, viewingThread, comment } = this.props;
+        const { threads, id, viewingThread, viewingThreadId, comment } = this.props;
+
 
         if (threads.length === 0) {
             <div className='mapped-thread'>
@@ -186,17 +216,17 @@ class ForumTopics extends Component {
                 <div className='mapped-thread'>
                     {threads && threads.map(thread => {
                         let date = Number(thread.date);
-                return (
-                    <div key={thread.id} className='map-child'>
-                        <div className='thread-avatar'><img src={thread.steamAvatarId} /> </div>
-                        <div className='thread-name'> {thread.steamNameId} </div>
-                        <div className='thread-date'> {moment(date).format('LLL')} </div>
-                        <img className='thread-edit' src={'/pics/edit-icon.png'} onClick={this.handleThreadEdit} />
-                        <img className='thread-delete' id={thread.id} src={'/pics/trash-icon.png'} onClick={this.handleThreadDelete} />
-                        <div className='thread-comment'>{thread.comment}</div>
-                    </div>
-                    )
-                })}
+                        return (
+                            <div key={thread.id} className='map-child'>
+                                <div className='thread-avatar'><img src={thread.steamAvatarId} /> </div>
+                                <div className='thread-name'> {thread.steamNameId} </div>
+                                <div className='thread-date'> {moment(date).format('LLL')} </div>
+                                <img className='thread-edit' src={'/pics/edit-icon.png'} onClick={this.handleThreadEdit} />
+                                <img className='thread-delete' id={thread.id} src={'/pics/trash-icon.png'} onClick={this.handleThreadDelete} />
+                                <div className='thread-comment'>{thread.comment}</div>
+                            </div>
+                        )
+                    })}
                     <div className='add-new-comment'>
                         <form name={blogId} onSubmit={this.handleAddComment}>
                             <Field model='new-topic-body'>

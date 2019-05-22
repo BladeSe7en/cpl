@@ -19,7 +19,6 @@ export default function ForumReducer(state = initialstate, action) {
 		};
 
 		case 'TOGGLE_POPULARITY': {
-			console.log('inside toggle popularity fulfilled')
 			return {
 				...state,
 				...payload
@@ -67,7 +66,15 @@ export default function ForumReducer(state = initialstate, action) {
 				newTopic: '',
 				newTopicBody: ''
 			}
-        }
+		}
+		
+		// case 'LIVE_CHANGE_BLOGS': {
+		// 	console.log('inside lovechange blogs reducer')
+		// 	return {
+		// 		...state,
+		// 		blogs: payload
+		// 	}
+		// }
 	
 		default: {
 			return state

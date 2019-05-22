@@ -1,13 +1,14 @@
-import { commentCount } from "./ForumTopicsActions";
 
 const initialstate = {
-    viewingThread: false,
-    blogs        : [],
-    threads      : [],
-    id           : '',
-    number       : 0,
-    comment      : '',
-    count        : []
+    viewingThread  : false,
+    viewingThreadId: 0,
+    blogs          : [],
+    threads        : [],
+    id             : '',
+    number         : 0,
+    comment        : '',
+    count          : []
+    
 }
 
 export default function ForumTopicsReducer(state = initialstate, action) {
@@ -74,6 +75,19 @@ export default function ForumTopicsReducer(state = initialstate, action) {
 				...payload
 			}
         }
+
+        case 'LIVE_CHANGE_BLOGS': {
+            let oldBlogs = [...state.blogs]
+            let newBlogs = oldBlogs
+            let newObj = payload.blogs
+            newBlogs.push(newObj)
+			return {
+				...state,
+				blogs: newBlogs
+			}
+        }
+        
+       
 
         default: {
             return state
