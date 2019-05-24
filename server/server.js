@@ -37,7 +37,7 @@ require("http");
 app.use(require('express-session')({ resave: false, saveUninitialized: false, secret: 'a secret' }));
 app.use(steam.middleware({
   realm: process.env.PORT || 'http://localhost:3000/',
-  verify: process.env.PORT+'/verify' || 'http://localhost:3000/verify',
+  verify: 'https://civplayers-website.herokuapp.com/verify',
   apiKey: process.env.STEAM_API_KEY
 }));
 
