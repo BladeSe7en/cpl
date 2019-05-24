@@ -36,8 +36,8 @@ require("http");
 
 app.use(require('express-session')({ resave: false, saveUninitialized: false, secret: 'a secret' }));
 app.use(steam.middleware({
-  realm: 'http://localhost:3000/',
-  verify: 'http://localhost:3000/verify',
+  realm: process.env.PORT || 'http://localhost:3000/',
+  verify: process.env.PORT+'/verify' || 'http://localhost:3000/verify',
   apiKey: process.env.STEAM_API_KEY
 }));
 

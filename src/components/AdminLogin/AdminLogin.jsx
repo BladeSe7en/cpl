@@ -10,7 +10,7 @@ class AdminLogin extends Component {
 		this.handleUsername = this.handleUsername.bind(this);
 		this.handlePassword = this.handlePassword.bind(this);
 		this.handleRemember = this.handleRemember.bind(this);
-		this.submitLogin = this.submitLogin.bind(this);
+		this.submitLogin    = this.submitLogin   .bind(this);
 	}
 
 	componentDidMount() {

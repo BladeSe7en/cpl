@@ -53,7 +53,7 @@ export const getThreadsById = (id) => {
 		payload: 
             axios({
 			method: 'get',
-            url: `http://localhost:3000/api/threads/?filter=%7B%22where%22%3A%7B%22blogPostId%22%3A%22${id}%22%7D%7D&access_token=${accessToken}`
+            url: `api/threads/?filter=%7B%22where%22%3A%7B%22blogPostId%22%3A%22${id}%22%7D%7D&access_token=${accessToken}`
         })      
 		.then(response => {
             return response.data
@@ -70,7 +70,7 @@ export const commentCount = (id) => {
 		payload: 
             axios({
 			method: 'get',
-            url: `http://localhost:3000/api/threads/?filter=%7B%22where%22%3A%7B%22blogPostId%22%3A%22${id}%22%7D%7D&access_token=${accessToken}`
+            url: `api/threads/?filter=%7B%22where%22%3A%7B%22blogPostId%22%3A%22${id}%22%7D%7D&access_token=${accessToken}`
         })      
 		.then(response => {
             return response.data
@@ -86,7 +86,7 @@ export const addComment = (data) => {
 		payload: 
             axios({
 			method: 'post',
-			url: `http://localhost:3000/api/threads?access_token=${accessToken}`,
+			url: `api/threads?access_token=${accessToken}`,
 			data: data
         })      
 		.then(response => {
@@ -152,7 +152,7 @@ export const threadDelete = (deleteId) => {
 		payload: 
             axios({
 			method: 'delete',
-			url: `http://localhost:3000/api/threads/${deleteId}?access_token=${accessToken}`,
+			url: `api/threads/${deleteId}?access_token=${accessToken}`,
         })
 		.then(response => {
             return response.data
@@ -169,7 +169,7 @@ export const topicDelete = (deleteId) => {
 		payload: 
             axios({
 			method: 'delete',
-			url: `http://localhost:3000/api/blogPosts/${deleteId}?access_token=${accessToken}`,
+			url: `api/blogPosts/${deleteId}?access_token=${accessToken}`,
         })
 		.then(response => {
             return response.data
@@ -194,7 +194,7 @@ export const commentSubmit = (date, comment, memberId, blogId, avatar, steamName
 		payload: 
             axios({
 			method: 'delete',
-			url: `http://localhost:3000/api/threads?access_token=${accessToken}`,
+			url: `api/threads?access_token=${accessToken}`,
         })
 		.then(response => {
             return response.data

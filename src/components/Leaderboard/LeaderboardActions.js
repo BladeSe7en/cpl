@@ -38,8 +38,8 @@ export const getData = (sortBy, sortOrder) => {
 		type: 'GET_DATA',
 		payload: Axios({
 			method: 'get',
-			url: `http://localhost:3000/api/players?filter=%7B%20%22order%22%3A%20%22${sortBy}%20${order}%22%20%7D&access_token=${accessToken}`
-			//url: `http://localhost:3000/api/players?filter=%7B%20%22order%22%3A%20%22careerSkill%20DESC%22%20%7D&access_token=ZHWTGJ9sPahvLeQ8M97jtO7XwSlRGYJ4XZSMhprA8GzGNM5AXNcdJDtM67MHEIPx`
+			url: `api/players?filter=%7B%20%22order%22%3A%20%22${sortBy}%20${order}%22%20%7D&access_token=${accessToken}`
+			//url: `api/players?filter=%7B%20%22order%22%3A%20%22careerSkill%20DESC%22%20%7D&access_token=ZHWTGJ9sPahvLeQ8M97jtO7XwSlRGYJ4XZSMhprA8GzGNM5AXNcdJDtM67MHEIPx`
 
 		})
 			.then(response => {
@@ -52,12 +52,12 @@ export const getData = (sortBy, sortOrder) => {
 export const searchBy = (selected, typeOfGame, BestLeader) => {
 	const accessToken = 'ZHWTGJ9sPahvLeQ8M97jtO7XwSlRGYJ4XZSMhprA8GzGNM5AXNcdJDtM67MHEIPx'
 	console.log('selected in searchBy: ',selected)
-	console.log('this is url: ',`http://localhost:3000/api/players?access_token=${accessToken}&filter[where][${typeOfGame}${BestLeader}]=${selected}`)
+	console.log('this is url: ',`api/players?access_token=${accessToken}&filter[where][${typeOfGame}${BestLeader}]=${selected}`)
 	return {
 		type: 'GET_DATA',
 		payload: Axios({
 			method: 'get',
-			url: `http://localhost:3000/api/players?filter=%7B%22where%22%3A%20%7B%22${typeOfGame}${BestLeader}%22%3A%20%22${selected}%22%7D%7D&access_token=${accessToken}`
+			url: `api/players?filter=%7B%22where%22%3A%20%7B%22${typeOfGame}${BestLeader}%22%3A%20%22${selected}%22%7D%7D&access_token=${accessToken}`
 		})											       
 			.then(response => {
 				return response.data
