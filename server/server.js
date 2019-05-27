@@ -36,8 +36,11 @@ require("http");
 
 app.use(require('express-session')({ resave: false, saveUninitialized: false, secret: 'a secret' }));
 app.use(steam.middleware({
-  realm:'https://civplayers-website.herokuapp.com',
-  verify: 'https://civplayers-website.herokuapp.com/verify',
+  // if youre using the website locally 
+  realm: 'http://localhost:3000',
+  verify: 'http://localhost:3000/verify',
+  // realm:'https://civplayers-website.herokuapp.com',
+  // verify: 'https://civplayers-website.herokuapp.com/verify',
   apiKey: process.env.STEAM_API_KEY
 }));
 
@@ -61,14 +64,18 @@ app.get('/logout', steam.enforceLogin('/'), function (req, res) {
   res.redirect('/');
 });
 
+/////////////
+// socket.io
+/////////////
+
 
 io.on('connection', function (socket) {
     console.log('a user connected');
     socket.on('disconnect', function () {
         console.log('user disconnected');
     });
-    socket.on('sendMessage', function (val) {
-        postMessageToDiscord(val)
+    socket.on('addNewComment', function(msg){
+      io.emit('addNewComment', msg);
     });
 });
 

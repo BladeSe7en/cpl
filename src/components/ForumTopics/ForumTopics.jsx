@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import moment from 'moment';
-import { thread, getBlogs, getThreadsById, commentCount, addComment, onCommentChange, sortByPopularity, vote, threadDelete, topicDelete, commentSubmit, liveChangeBlogs, viewingThreadId } from '../ForumTopics/ForumTopicsActions';
+import { thread, getBlogs, getThreadsById, commentCount, addComment, onCommentChange, sortByPopularity, vote, threadDelete, topicDelete, commentSubmit, liveChangeBlogs, updateCommentNum } from '../ForumTopics/ForumTopicsActions';
 class ForumTopics extends Component {
     constructor(props) {
         super(props);
 
-        this.handleThread = this.handleThread.bind(this);
+        this.handleThread         = this.handleThread        .bind(this);
         this.handleGetThreadsById = this.handleGetThreadsById.bind(this);
-        this.handleCommentCount = this.handleCommentCount.bind(this);
-        this.handleAddComment = this.handleAddComment.bind(this);
-        this.handleCommentChange = this.handleCommentChange.bind(this);
-        this.handleVote = this.handleVote.bind(this);
-        this.handleThreadDelete = this.handleThreadDelete.bind(this);
-        this.handleTopicDelete = this.handleTopicDelete.bind(this);
-        this.handleNewThread = this.handleNewThread.bind(this);
+        this.handleCommentCount   = this.handleCommentCount  .bind(this);
+        this.handleAddComment     = this.handleAddComment    .bind(this);
+        this.handleCommentChange  = this.handleCommentChange .bind(this);
+        this.handleVote           = this.handleVote          .bind(this);
+        this.handleThreadDelete   = this.handleThreadDelete  .bind(this);
+        this.handleTopicDelete    = this.handleTopicDelete   .bind(this);
+        this.handleNewThread      = this.handleNewThread     .bind(this);
 
     }
 
@@ -78,15 +78,20 @@ class ForumTopics extends Component {
     }
 
     handleAddComment(e) {
-        console.log('add comment triggered')
         e.preventDefault();
         const { dispatch, comment, signedIn } = this.props;
         const date = moment().format('x');
         let blogId = e.target.name;
+        let numComments = +(e.target.id);
+        console.log('typeof: ', typeof(+numComments))
+        console.log('this is numComments: ', +numComments)
+        let newNum = (numComments+1);
+        console.log('newNum: ', newNum)
         if (signedIn.id === undefined) {
             return alert('Please Sign In To Post Comments');
         }
-
+        console.log('blogId---',blogId)
+        //updateCommentNum(newNum, blogId);
         const data = {
             "comment": comment,
             "date": date,
@@ -97,7 +102,7 @@ class ForumTopics extends Component {
             "steamNameId": signedIn.name
         }
         console.log('this is data from add comment: ', data)
-        dispatch(addComment(data));
+        dispatch(addComment(data, newNum));
 
     }
 
@@ -159,8 +164,6 @@ class ForumTopics extends Component {
     render() {
         const { newTopicActive, viewingThread, viewingThreadId, id, blogs, count } = this.props;
         const showHideTopic = newTopicActive ? 'topic-active' : 'topic';
-        console.log('this is id: ', id)
-        console.log('this is viewingThreadId in render: ', viewingThreadId)
         return (
             <div className={showHideTopic}>
                 {blogs && blogs.map(blog => {
@@ -168,7 +171,6 @@ class ForumTopics extends Component {
                     let date = Number(blog.date);
                     let newDate = moment(date).format('LLL')
                     //  console.log('this is date: ',newDate)
-
                     return (
                         <div key={blog.id} className='single-blog'>
                             <h2 className='steam-name'>{blog.steamNameId}</h2>
@@ -186,7 +188,7 @@ class ForumTopics extends Component {
                                 <span className='vote-number'>{blog.upVotes}</span>
                             </div>
 
-                            {this.renderThread(blog.id)}
+                            {this.renderThread(blog.id, blog.numComments)}
                         </div>
                     )
                 })}
@@ -194,14 +196,12 @@ class ForumTopics extends Component {
         )
     }
 
-    renderThread(blogId) {
+    renderThread(blogId, numComments) {
         const { threads, id, viewingThread, viewingThreadId, comment } = this.props;
-
-
         if (threads.length === 0) {
             <div className='mapped-thread'>
                 <div className='add-new-comment'>
-                    <form name={blogId} onSubmit={this.handleAddComment}>
+                    <form name={blogId} id={numComments} onSubmit={this.handleAddComment}>
                         <Field model='new-topic-body'>
                             <label htmlFor='new-topic-body'>Add New Comment: </label>
                             <textarea type="text" name="comment" value={comment} required onChange={this.handleCommentChange} />
@@ -228,7 +228,7 @@ class ForumTopics extends Component {
                         )
                     })}
                     <div className='add-new-comment'>
-                        <form name={blogId} onSubmit={this.handleAddComment}>
+                        <form name={blogId} id={numComments} onSubmit={this.handleAddComment}>
                             <Field model='new-topic-body'>
                                 <label htmlFor='new-topic-body'>Add New Comment: </label>
                                 <textarea type="text" name="comment" value={comment} required onChange={this.handleCommentChange} />
@@ -426,3 +426,38 @@ export default ForumTopics
 //       "steamNameId": "BladeSe7en"
 //     }
 //   ]
+
+
+
+// export const addComment = (data, newNum) => {
+// 	console.log('DATA1: ',data)
+// 	console.log('NEWNUM1: ',newNum)
+// 	const accessToken ='5cc16624e810e7579a1581c1'
+// 	console.log('DATA2: ',data)
+// 	let id = data.blogPostId
+// 	let newData = {
+// 		"numComments": newNum
+// 	}
+// 	return {
+// 		type: 'ADD_COMMENT',
+// 		payload: 
+//             axios({
+// 			method: 'patch',
+// 			url: `api/blogPosts/${id}?access_token=${accessToken}`,
+// 			data: newData
+//         })      
+// 		.then(response => {
+//             return response.data
+// 		}).then(() => {
+// 			axios({
+// 				method: 'post',
+// 				url: `api/threads?access_token=${accessToken}`,
+// 				data: data
+// 			})
+// 			.then(response => {
+// 				return response.data
+// 			})
+// 		})
+// 		.catch(err => err)
+//     }
+// }

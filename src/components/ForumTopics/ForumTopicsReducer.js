@@ -35,9 +35,11 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         };
         
         case 'ADD_COMMENT_FULFILLED': {
+            console.log('this is payload: ',payload)
             return {
 				...state,
-				comment: ''
+                comment: ''
+                //blogs: payload
 			}
         };
 
@@ -77,6 +79,7 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         }
 
         case 'LIVE_CHANGE_BLOGS': {
+            console.log('inside live change blogs fulfilled')
             let oldBlogs = [...state.blogs]
             let newBlogs = oldBlogs
             let newObj = payload.blogs
@@ -85,6 +88,20 @@ export default function ForumTopicsReducer(state = initialstate, action) {
 				...state,
 				blogs: newBlogs
 			}
+        }
+        case 'UPDATE_COMMENT_NUM_FULFILLED': {
+			return {
+				...state,
+				...payload
+			}
+        }
+
+        case 'UPDATE_COMMENT_NUM': {
+             console.log('inside comment num reducer: ',payload)
+            return {
+                ...state,
+                ...payload
+            }
         }
         
        

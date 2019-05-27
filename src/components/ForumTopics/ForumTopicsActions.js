@@ -79,7 +79,7 @@ export const commentCount = (id) => {
     }
 }
 
-export const addComment = (data) => {
+export const addComment = (data, newNum) => {
 	const accessToken ='5cc16624e810e7579a1581c1'
 	return {
 		type: 'ADD_COMMENT',
@@ -89,6 +89,31 @@ export const addComment = (data) => {
 			url: `api/threads?access_token=${accessToken}`,
 			data: data
         })      
+		.then(response => {
+			console.log('response.data.blogPostId: ',response.data.blogPostId)
+			let id = response.data.blogPostId
+			updateCommentNum(id, newNum)
+            return response.data
+		})
+		.catch(err => err)
+    }
+}
+
+export const updateCommentNum = (id, newNum) => {
+	console.log('NEWNUM11: ',newNum)
+	console.log('testing')
+	const accessToken ='5cc16624e810e7579a1581c1'
+	let newData = {
+		"numComments": newNum
+	}
+	return {
+		type: 'UPDATE_COMMENT_NUM',
+		payload: 
+            axios({
+			method: 'patch',
+			url: `api/blogPosts/${id}?access_token=${accessToken}`,
+			data: newData
+        })     
 		.then(response => {
             return response.data
 		})
@@ -178,30 +203,6 @@ export const topicDelete = (deleteId) => {
     }
 }
 
-export const commentSubmit = (date, comment, memberId, blogId, avatar, steamName) => {
-	const accessToken ='5cc16624e810e7579a1581c1'
-	let data = {
-		"blogPostId": blogId,
-		"comment": comment,
-		"date": date,
-		"memberId": memberId,
-		"steamAvatarId": avatar,
-		"steamNameId": steamName,
-		"wasEdited": false
-		}
-	return {
-		type: 'DELETE_TOPIC',
-		payload: 
-            axios({
-			method: 'delete',
-			url: `api/threads?access_token=${accessToken}`,
-        })
-		.then(response => {
-            return response.data
-		})
-		.catch(err => err)
-    }
-}
 
 export const liveChangeBlogs = (value) => {
 	console.log('testing live change blogs action value.data: ', value.data)
