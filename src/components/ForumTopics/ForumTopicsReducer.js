@@ -79,33 +79,20 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         }
 
         case 'LIVE_CHANGE_BLOGS': {
-            console.log('inside live change blogs fulfilled')
-            let oldBlogs = [...state.blogs]
-            let newBlogs = oldBlogs
-            let newObj = payload.blogs
-            newBlogs.push(newObj)
+            let newBlogs = [...state.blogs];
+            let newObj = payload.blogs;
+            let index = newBlogs.findIndex(blog => {
+                return blog.id == payload.blogs.id;
+            })
+            newBlogs.splice(index, 1, {
+                ...newObj
+            })
 			return {
 				...state,
 				blogs: newBlogs
 			}
         }
-        case 'UPDATE_COMMENT_NUM_FULFILLED': {
-			return {
-				...state,
-				...payload
-			}
-        }
-
-        case 'UPDATE_COMMENT_NUM': {
-             console.log('inside comment num reducer: ',payload)
-            return {
-                ...state,
-                ...payload
-            }
-        }
         
-       
-
         default: {
             return state
           }

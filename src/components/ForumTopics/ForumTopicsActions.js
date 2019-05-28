@@ -79,10 +79,10 @@ export const commentCount = (id) => {
     }
 }
 
-export const addComment = (data, newNum) => {
+export const addComment = (data) => {
+	console.log('1')
 	const accessToken ='5cc16624e810e7579a1581c1'
 	return {
-		type: 'ADD_COMMENT',
 		payload: 
             axios({
 			method: 'post',
@@ -90,16 +90,14 @@ export const addComment = (data, newNum) => {
 			data: data
         })      
 		.then(response => {
-			console.log('response.data.blogPostId: ',response.data.blogPostId)
-			let id = response.data.blogPostId
-			updateCommentNum(id, newNum)
+			console.log('2')
             return response.data
 		})
 		.catch(err => err)
     }
 }
 
-export const updateCommentNum = (id, newNum) => {
+export const updateCommentNum = (id, data, newNum) => {
 	console.log('NEWNUM11: ',newNum)
 	console.log('testing')
 	const accessToken ='5cc16624e810e7579a1581c1'
@@ -107,7 +105,7 @@ export const updateCommentNum = (id, newNum) => {
 		"numComments": newNum
 	}
 	return {
-		type: 'UPDATE_COMMENT_NUM',
+		type: 'ADD_COMMENT',
 		payload: 
             axios({
 			method: 'patch',
@@ -115,11 +113,54 @@ export const updateCommentNum = (id, newNum) => {
 			data: newData
         })     
 		.then(response => {
+			addComment(data)
             return response.data
 		})
 		.catch(err => err)
     }
 }
+
+// export const addComment = (data, newNum) => {
+// 	const accessToken ='5cc16624e810e7579a1581c1'
+// 	return {
+// 		type: 'ADD_COMMENT',
+// 		payload: 
+//             axios({
+// 			method: 'post',
+// 			url: `api/threads?access_token=${accessToken}`,
+// 			data: data
+//         })      
+// 		.then(response => {
+// 			console.log('response.data.blogPostId: ',response.data.blogPostId)
+// 			let id = response.data.blogPostId
+// 			updateCommentNum(id, newNum)
+//             return response.data
+// 		})
+// 		.catch(err => err)
+//     }
+// }
+
+// export const updateCommentNum = (id, newNum) => {
+// 	console.log('NEWNUM11: ',newNum)
+// 	console.log('testing')
+// 	const accessToken ='5cc16624e810e7579a1581c1'
+// 	let newData = {
+// 		"numComments": newNum
+// 	}
+// 	return {
+// 		type: 'UPDATE_COMMENT_NUM',
+// 		payload: 
+//             axios({
+// 			method: 'patch',
+// 			url: `api/blogPosts/${id}?access_token=${accessToken}`,
+// 			data: newData
+//         })     
+// 		.then(response => {
+//             return response.data
+// 		})
+// 		.catch(err => err)
+//     }
+// }
 
 export const onCommentChange = (key, value) => {
 	return {
@@ -188,7 +229,6 @@ export const threadDelete = (deleteId) => {
 
 export const topicDelete = (deleteId) => {
 	const accessToken ='5cc16624e810e7579a1581c1'
-	console.log('this is threadId inside topic delete action: ', deleteId)
 	return {
 		type: 'DELETE_TOPIC',
 		payload: 

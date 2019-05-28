@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import moment from 'moment';
-import { thread, getBlogs, getThreadsById, commentCount, addComment, onCommentChange, sortByPopularity, vote, threadDelete, topicDelete, commentSubmit, liveChangeBlogs, updateCommentNum } from '../ForumTopics/ForumTopicsActions';
+import { thread, getBlogs, getThreadsById, commentCount, updateCommentNum, onCommentChange, sortByPopularity, vote, threadDelete, topicDelete, commentSubmit, liveChangeBlogs } from '../ForumTopics/ForumTopicsActions';
 class ForumTopics extends Component {
     constructor(props) {
         super(props);
@@ -14,6 +14,7 @@ class ForumTopics extends Component {
         this.handleVote           = this.handleVote          .bind(this);
         this.handleThreadDelete   = this.handleThreadDelete  .bind(this);
         this.handleTopicDelete    = this.handleTopicDelete   .bind(this);
+        this.handleNewBlog        = this.handleNewBlog       .bind(this);
         this.handleNewThread      = this.handleNewThread     .bind(this);
 
     }
@@ -30,17 +31,16 @@ class ForumTopics extends Component {
     }
 
     componentDidMount() {
-        const { dispatch, viewingThreadId } = this.props;
+        const { dispatch } = this.props;
+        const newBlog = this.handleNewBlog;
         let urlToChangeStream = '/api/blogPosts/change-stream?_format=event-stream';
         let src = new EventSource(urlToChangeStream);
+        console.log('inside did mount')
         src.addEventListener('data', function (msg) {
-            let data = JSON.parse(msg.data);
-            setTimeout(() => {
-                dispatch(liveChangeBlogs(data));
-            }, 1000);
+          newBlog(msg)
         });
 
-        const newThread = this.handleNewThread
+        const newThread = this.handleNewThread;
         let urlToChangeStream2 = '/api/threads/change-stream?_format=event-stream';
         let src2 = new EventSource(urlToChangeStream2);
         src2.addEventListener('data', function (msg) {
@@ -49,10 +49,18 @@ class ForumTopics extends Component {
         dispatch(getBlogs());
     }
 
+    handleNewBlog(msg) {
+        console.log('inside handle new blog closure')
+        const { dispatch } = this.props;
+        let data = JSON.parse(msg.data);
+        setTimeout(() => {
+            dispatch(liveChangeBlogs(data));
+        }, 1000);
+    }
+
     handleNewThread(msg) {
         const { dispatch, viewingThreadId } = this.props;
         let data2 = JSON.parse(msg.data);
-        console.log('this is data2: ', data2)
         let id = data2.data.blogPostId
         setTimeout(() => {
             if (viewingThreadId === id) {
@@ -102,7 +110,7 @@ class ForumTopics extends Component {
             "steamNameId": signedIn.name
         }
         console.log('this is data from add comment: ', data)
-        dispatch(addComment(data, newNum));
+        dispatch(updateCommentNum(blogId, data, newNum));
 
     }
 
