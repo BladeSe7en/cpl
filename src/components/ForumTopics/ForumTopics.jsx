@@ -70,11 +70,6 @@ class ForumTopics extends Component {
         }, 1000);
     }
 
-    componentWillUnmount() {
-        src.removeEventListener('data', false);
-        src2.removeEventListener('data', false);
-    }
-
     handleGetThreadsById(e) {
         this.handleThread(e)
         const id = e.target.id;
