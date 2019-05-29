@@ -188,8 +188,8 @@ class ForumTopics extends Component {
                             <h2 className='date'>{moment(date).format('LLL')}</h2>
                             <h1>{blog.blogTitle}</h1>
                             <p>{blog.blogBody}</p>
-                            <img className='thread-edit' src={'/pics/edit-icon.png'} onClick={this.handleThreadEdit} />
-                            <img className='thread-delete' id={blog.id} src={'/pics/trash-icon.png'} onClick={this.handleTopicDelete} />
+                            <img className='thread-edit' src={'/pics/edit-icon-white.png'} onClick={this.handleThreadEdit} />
+                            <img className='thread-delete' id={blog.id} src={'/pics/trash-icon-white.png'} onClick={this.handleTopicDelete} />
                             <div className='footer'>
                                 <span className='comments'> {blog.numComments} comments</span>
                                 <button className='btn toggle-thread' id={blog.id} onClick={this.handleGetThreadsById} >{viewCloseThread}</button>
@@ -232,8 +232,8 @@ class ForumTopics extends Component {
                                 <div className='thread-avatar'><img src={thread.steamAvatarId} /> </div>
                                 <div className='thread-name'> {thread.steamNameId} </div>
                                 <div className='thread-date'> {moment(date).format('LLL')} </div>
-                                <img className='thread-edit' src={'/pics/edit-icon.png'} onClick={this.handleThreadEdit} />
-                                <img className='thread-delete' id={thread.id} src={'/pics/trash-icon.png'} onClick={this.handleThreadDelete} />
+                                <img className='thread-edit' src={'/pics/edit-icon-white.png'} onClick={this.handleThreadEdit} />
+                                <img className='thread-delete' id={thread.id} src={'/pics/trash-icon-white.png'} onClick={this.handleThreadDelete} />
                                 <div className='thread-comment'>{thread.comment}</div>
                             </div>
                         )
