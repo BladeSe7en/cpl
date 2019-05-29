@@ -10,10 +10,10 @@ class Leaderboard extends Component {
     constructor(props) {
         super(props)
 
-        this.handleType = this.handleType.bind(this);
-        this.handleSortBy = this.handleSortBy.bind(this);
-        this.bestCiv = this.bestCiv.bind(this);
-        this.handleProfile = this.handleProfile.bind(this);
+        this.handleType           = this.handleType          .bind(this);
+        this.handleSortBy         = this.handleSortBy        .bind(this);
+        this.bestCiv              = this.bestCiv             .bind(this);
+        this.handleProfile        = this.handleProfile       .bind(this);
         this.handleSearchByLeader = this.handleSearchByLeader.bind(this);
 
 
@@ -21,7 +21,6 @@ class Leaderboard extends Component {
 
     componentDidMount() {
         const { dispatch, sortBy, sortOrder } = this.props;
-        console.log('hello')
         dispatch(getData(sortBy, sortOrder));
     }
 
@@ -57,7 +56,6 @@ class Leaderboard extends Component {
     handleProfile(e) {
         console.log('1: ', e.target.value)
         const { dispatch } = this.props;
-        dispatch(updateProfile(e.target.value));
         dispatch(getProfile(e.target.value))
     }
 

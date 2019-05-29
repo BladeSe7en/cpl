@@ -172,8 +172,6 @@ export const onCommentChange = (key, value) => {
 }
 
 export const vote = (id, voteCount, voteNames) => {
-	console.log('this is typeof vote count: ', typeof(voteCount))
-	console.log('inside get blogs')
 	const accessToken ='5cc16624e810e7579a1581c1'
 	return {
 		type: 'UP_VOTE',
@@ -201,7 +199,6 @@ export const vote = (id, voteCount, voteNames) => {
 				data: updatedData
 			})      
 			.then(response => {
-				console.log('this is response.data: ',response.data)
 				return response.data
 			})
 			.catch(err => err)

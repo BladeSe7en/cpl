@@ -7,17 +7,17 @@ class PlayerProfile extends Component {
         super(props)
     }
 
-
-
     render() {
-        const { profileData } = this.props
+        const { profileData } = this.props;
+        if (profileData !== 'no profile') {
+            console.log(typeof(profileData))
         return (
             <div>
                 <Navbar />
-                <div className='banner'>
-                <div className='banner-opacity'>
-                            {!profileData ? <div className='loading' src='./pics/loading.gif'></div> : profileData.map((stat, index) => {
-                                console.log('7')
+                <div className='player-banner'>
+                <div className='player-banner-opacity'>
+                            {profileData && profileData.map((stat, index) => {
+                                console.log('this is profileData: ',profileData)
 
                                 return (
                                     <div>
@@ -81,17 +81,12 @@ class PlayerProfile extends Component {
                                     </div>
                                 )
                             })}
-                            </div>
+                        </div>
                     </div>
                 </div>
-        )
+            )
+        }
     }
 }
 
 export default PlayerProfile;
-
-
-
-
-
-

@@ -35,7 +35,6 @@ class ForumTopics extends Component {
         const newBlog = this.handleNewBlog;
         let urlToChangeStream = '/api/blogPosts/change-stream?_format=event-stream';
         let src = new EventSource(urlToChangeStream);
-        console.log('inside did mount')
         src.addEventListener('data', function (msg) {
           newBlog(msg)
         });
@@ -71,6 +70,11 @@ class ForumTopics extends Component {
         }, 1000);
     }
 
+    componentWillUnmount() {
+        src.removeEventListener('data', false);
+        src2.removeEventListener('data', false);
+    }
+
     handleGetThreadsById(e) {
         this.handleThread(e)
         const id = e.target.id;
@@ -91,15 +95,11 @@ class ForumTopics extends Component {
         const date = moment().format('x');
         let blogId = e.target.name;
         let numComments = +(e.target.id);
-        console.log('typeof: ', typeof(+numComments))
-        console.log('this is numComments: ', +numComments)
         let newNum = (numComments+1);
         console.log('newNum: ', newNum)
         if (signedIn.id === undefined) {
             return alert('Please Sign In To Post Comments');
         }
-        console.log('blogId---',blogId)
-        //updateCommentNum(newNum, blogId);
         const data = {
             "comment": comment,
             "date": date,
@@ -109,18 +109,22 @@ class ForumTopics extends Component {
             "steamAvatarId": signedIn.avatar,
             "steamNameId": signedIn.name
         }
-        console.log('this is data from add comment: ', data)
         dispatch(updateCommentNum(blogId, data, newNum));
-
     }
 
     handleVote(e) {
         const { dispatch, signedIn } = this.props;
         let voteNames = e.target.name.split();
-        if (signedIn === undefined) {
+        let signedInId = ''+signedIn.id;
+        console.log(typeof(signedInId))
+        console.log('signedInId: ',signedInId)
+        console.log('votenames: ',voteNames)
+        if (signedInId == undefined) {
+            (console.log('id is undefined'))
             return alert('Please sign in to vote on blogs.')
         }
-        if (voteNames.includes(signedIn.id)) {
+        if (voteNames.includes(signedInId)) {
+            console.log('player already voted')
             return alert('You have already voted once on this topic.')
         }
         if (e.target.className === 'up-vote') {
@@ -129,7 +133,6 @@ class ForumTopics extends Component {
         if (e.target.className === 'down-vote') {
             var voteCount = +(e.target.title) - 1;
         }
-        let signedInId = signedIn.id;
         let blogId = e.target.id;
         voteNames.push(signedInId);
         dispatch(vote(blogId, voteCount, voteNames));

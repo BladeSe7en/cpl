@@ -1,5 +1,5 @@
 const initialstate = {
-    profile: []
+    profile: 'no profile'
 }
 
 export default function PlayerProfileReducer(state = initialstate, action) {
@@ -8,10 +8,13 @@ export default function PlayerProfileReducer(state = initialstate, action) {
     switch(type) {
        
         case 'GET_PROFILE_FULFILLED': {
-            console.log('6: ', payload)
+            console.log('payload in get profile: ', payload)
+            let data = [];
+            data.push(payload)
+            console.log('data: ',data)
             return {
                 ...state,
-                profileData: payload
+                profileData: data
             }
         }
         default: {
