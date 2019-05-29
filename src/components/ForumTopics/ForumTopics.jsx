@@ -115,7 +115,7 @@ class ForumTopics extends Component {
     handleVote(e) {
         const { dispatch, signedIn } = this.props;
         let voteNames = e.target.name.split();
-        let signedInId = ''+signedIn.id;
+        let signedInId = signedIn.id;
         console.log(typeof(signedInId))
         console.log('signedInId: ',signedInId)
         console.log('votenames: ',voteNames)
@@ -123,7 +123,7 @@ class ForumTopics extends Component {
             (console.log('id is undefined'))
             return alert('Please sign in to vote on blogs.')
         }
-        if (voteNames.includes(signedInId)) {
+        if (voteNames[0].includes(signedInId)) {
             console.log('player already voted')
             return alert('You have already voted once on this topic.')
         }
