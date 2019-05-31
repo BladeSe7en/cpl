@@ -1,15 +1,12 @@
 import axios from 'axios';
 
-export const thread = (value, id) => {
-	console.log('thread value: ', value)
-	console.log('this is id in thread action: ',id)
-
+export const thread = (value, blogId) => {
 	return {
 		type: 'TOGGLE_THREAD_VIEW',
 		payload: {
 		viewingThread: value,
-		viewingThreadId: id,
-        id: id
+		viewingThreadId: blogId,
+        blogId: blogId
 
 		}
 	}
@@ -97,6 +94,34 @@ export const addComment = (data) => {
     }
 }
 
+export const submitUpdatedComment = (date, comment, memberId, threadId, avatar, steamName) => {
+	console.log('1')
+	const accessToken ='5cc16624e810e7579a1581c1'
+	const data = {
+		"comment": comment,
+		"date": date,
+		"wasEdited": true,
+		"memberId": memberId,
+		"steamAvatarId": avatar,
+		"steamNameId": steamName
+	}
+	console.log('this is data: ',data)
+	return {
+		type: 'SUBMIT_UPDATED_COMMENT',
+		payload: 
+            axios({
+			method: 'patch',
+			url: `api/threads/${threadId}?access_token=${accessToken}`,
+			data: data
+        })      
+		.then(response => {
+			console.log('2')
+            return response.data
+		})
+		.catch(err => err)
+    }
+}
+
 export const updateCommentNum = (id, data, newNum) => {
 	console.log('NEWNUM11: ',newNum)
 	console.log('testing')
@@ -119,48 +144,6 @@ export const updateCommentNum = (id, data, newNum) => {
 		.catch(err => err)
     }
 }
-
-// export const addComment = (data, newNum) => {
-// 	const accessToken ='5cc16624e810e7579a1581c1'
-// 	return {
-// 		type: 'ADD_COMMENT',
-// 		payload: 
-//             axios({
-// 			method: 'post',
-// 			url: `api/threads?access_token=${accessToken}`,
-// 			data: data
-//         })      
-// 		.then(response => {
-// 			console.log('response.data.blogPostId: ',response.data.blogPostId)
-// 			let id = response.data.blogPostId
-// 			updateCommentNum(id, newNum)
-//             return response.data
-// 		})
-// 		.catch(err => err)
-//     }
-// }
-
-// export const updateCommentNum = (id, newNum) => {
-// 	console.log('NEWNUM11: ',newNum)
-// 	console.log('testing')
-// 	const accessToken ='5cc16624e810e7579a1581c1'
-// 	let newData = {
-// 		"numComments": newNum
-// 	}
-// 	return {
-// 		type: 'UPDATE_COMMENT_NUM',
-// 		payload: 
-//             axios({
-// 			method: 'patch',
-// 			url: `api/blogPosts/${id}?access_token=${accessToken}`,
-// 			data: newData
-//         })     
-// 		.then(response => {
-//             return response.data
-// 		})
-// 		.catch(err => err)
-//     }
-// }
 
 export const onCommentChange = (key, value) => {
 	return {
@@ -207,18 +190,26 @@ export const vote = (id, voteCount, voteNames) => {
 	}
 }
 
-export const threadDelete = (deleteId) => {
+export const threadDelete = (deleteId, number, blogId) => {
 	const accessToken ='5cc16624e810e7579a1581c1'
 	console.log('this is threadId inside action: ', deleteId)
+	let newData = {
+		"numComments": (+number - 1)
+	}
+	console.log('newData--: ',newData)
 	return {
 		type: 'DELETE_THREAD',
 		payload: 
             axios({
-			method: 'delete',
-			url: `api/threads/${deleteId}?access_token=${accessToken}`,
-        })
+				method: 'patch',
+				url: `api/blogPosts/${blogId}?access_token=${accessToken}`,
+				data: newData
+		})
 		.then(response => {
-            return response.data
+			return response.data
+		})
+		.then(() => {
+			decrimentCommentCount(deleteId)
 		})
 		.catch(err => err)
     }
@@ -247,6 +238,27 @@ export const liveChangeBlogs = (value) => {
 		type: 'LIVE_CHANGE_BLOGS',
 		payload: {
 			blogs: value.data
+		}
+	}
+}
+
+export const toggleThreadEdit = (value, id, comment) => {
+	return {
+		type: 'TOGGLE_THREAD_EDIT',
+		payload: {
+			editingComment: value,
+			editingCommentId: id,
+			comment: comment
+		}
+	}
+}
+
+export const toggleCloseThreadEdit = (value, id) => {
+	console.log('value in toggleThreadEdit: ',value)
+	return {
+		type: 'TOGGLE_CLOSE_THREAD_EDIT',
+		payload: {
+			editingComment: value
 		}
 	}
 }

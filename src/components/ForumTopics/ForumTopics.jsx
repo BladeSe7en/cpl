@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import moment from 'moment';
-import { thread, getBlogs, getThreadsById, commentCount, updateCommentNum, onCommentChange, sortByPopularity, vote, threadDelete, topicDelete, commentSubmit, liveChangeBlogs } from '../ForumTopics/ForumTopicsActions';
+import { thread, getBlogs, getThreadsById, commentCount, updateCommentNum, onCommentChange, sortByPopularity, vote, threadDelete, topicDelete, commentSubmit, submitUpdatedComment, liveChangeBlogs, toggleThreadEdit, toggleCloseThreadEdit } from '../ForumTopics/ForumTopicsActions';
+import { onChange } from '../ForumMain/ForumMainActions'
 class ForumTopics extends Component {
     constructor(props) {
         super(props);
 
-        this.handleThread         = this.handleThread        .bind(this);
-        this.handleGetThreadsById = this.handleGetThreadsById.bind(this);
-        this.handleCommentCount   = this.handleCommentCount  .bind(this);
-        this.handleAddComment     = this.handleAddComment    .bind(this);
-        this.handleCommentChange  = this.handleCommentChange .bind(this);
-        this.handleVote           = this.handleVote          .bind(this);
-        this.handleThreadDelete   = this.handleThreadDelete  .bind(this);
-        this.handleTopicDelete    = this.handleTopicDelete   .bind(this);
-        this.handleNewBlog        = this.handleNewBlog       .bind(this);
-        this.handleNewThread      = this.handleNewThread     .bind(this);
-
+        this.handleThread               = this.handleThread              .bind(this);
+        this.handleGetThreadsById       = this.handleGetThreadsById      .bind(this);
+        this.handleCommentCount         = this.handleCommentCount        .bind(this);
+        this.handleAddComment           = this.handleAddComment          .bind(this);
+        this.handleCommentChange        = this.handleCommentChange       .bind(this);
+        this.handleVote                 = this.handleVote                .bind(this);
+        this.handleThreadDelete         = this.handleThreadDelete        .bind(this);
+        this.handleTopicDelete          = this.handleTopicDelete         .bind(this);
+        this.handleNewBlog              = this.handleNewBlog             .bind(this);
+        this.handleNewThread            = this.handleNewThread           .bind(this);
+        this.handleThreadEdit           = this.handleThreadEdit          .bind(this);
+        this.handleCloseThreadEdit      = this.handleCloseThreadEdit     .bind(this);
+        this.handleUpdatingComment      = this.handleUpdatingComment     .bind(this);
+        this.handleSubmitUpdatedComment = this.handleSubmitUpdatedComment.bind(this);
     }
 
     handleSortByPopularity() {
@@ -25,9 +29,9 @@ class ForumTopics extends Component {
     }
 
     handleThread(e) {
-        const id = e.target.id;
+        const blogId = e.target.id;
         const { dispatch, viewingThread } = this.props;
-        dispatch(thread(!viewingThread, id));
+        dispatch(thread(!viewingThread, blogId));
     }
 
     componentDidMount() {
@@ -36,7 +40,7 @@ class ForumTopics extends Component {
         let urlToChangeStream = '/api/blogPosts/change-stream?_format=event-stream';
         let src = new EventSource(urlToChangeStream);
         src.addEventListener('data', function (msg) {
-          newBlog(msg)
+            newBlog(msg)
         });
 
         const newThread = this.handleNewThread;
@@ -52,6 +56,7 @@ class ForumTopics extends Component {
         console.log('inside handle new blog closure')
         const { dispatch } = this.props;
         let data = JSON.parse(msg.data);
+        console.log('this is data.data: ', data.data)
         setTimeout(() => {
             dispatch(liveChangeBlogs(data));
         }, 1000);
@@ -60,6 +65,10 @@ class ForumTopics extends Component {
     handleNewThread(msg) {
         const { dispatch, viewingThreadId } = this.props;
         let data2 = JSON.parse(msg.data);
+        console.log('data2: ', data2)
+        if (data2.type == 'remove') {
+            return dispatch(getThreadsById(viewingThreadId))
+        }
         let id = data2.data.blogPostId
         setTimeout(() => {
             if (viewingThreadId === id) {
@@ -90,7 +99,7 @@ class ForumTopics extends Component {
         const date = moment().format('x');
         let blogId = e.target.name;
         let numComments = +(e.target.id);
-        let newNum = (numComments+1);
+        let newNum = (numComments + 1);
         console.log('newNum: ', newNum)
         if (signedIn.id === undefined) {
             return alert('Please Sign In To Post Comments');
@@ -111,9 +120,9 @@ class ForumTopics extends Component {
         const { dispatch, signedIn } = this.props;
         let voteNames = e.target.name.split();
         let signedInId = signedIn.id;
-        console.log(typeof(signedInId))
-        console.log('signedInId: ',signedInId)
-        console.log('votenames: ',voteNames)
+        console.log(typeof (signedInId))
+        console.log('signedInId: ', signedInId)
+        console.log('votenames: ', voteNames)
         if (signedInId == undefined) {
             (console.log('id is undefined'))
             return alert('Please sign in to vote on blogs.')
@@ -138,6 +147,22 @@ class ForumTopics extends Component {
         dispatch(onCommentChange(e.target.name, e.target.value));
     }
 
+    handleSubmitUpdatedComment(e) {
+        const { dispatch, comment, signedIn } = this.props;
+        console.log('inside comment submit')
+        e.preventDefault();
+        if (signedIn.id === undefined) {
+            return alert('Please Sign In To Post A Topic.')
+        } else {
+            var memberId = signedIn.id;
+        }
+        const threadId = e.target.name;
+        const date = moment().format('x');
+        const avatar = signedIn.avatar;
+        const steamName = signedIn.name;
+        dispatch(submitUpdatedComment(date, comment, memberId, threadId, avatar, steamName))
+    }
+
     handleCommentSubmit(e) {
         const { dispatch, comment, signedIn } = this.props;
         console.log('inside comment submit')
@@ -157,7 +182,9 @@ class ForumTopics extends Component {
     handleThreadDelete(e) {
         const { dispatch } = this.props;
         const deleteId = e.target.id;
-        dispatch(threadDelete(deleteId))
+        const number = e.target.name;
+        const blogId = e.target.title;
+        dispatch(threadDelete(deleteId, number, blogId))
     }
 
     handleTopicDelete(e) {
@@ -167,23 +194,47 @@ class ForumTopics extends Component {
         dispatch(topicDelete(topicDeleteId))
     }
 
+    handleThreadEdit(e) {
+        const { dispatch, editingComment } = this.props;
+        let threadId = e.target.id;
+        let comment = e.target.title;
+        dispatch(toggleThreadEdit(!editingComment, threadId, comment))
+    }
+
+    handleCloseThreadEdit() {
+        const { dispatch, editingComment } = this.props;
+        dispatch(toggleCloseThreadEdit(!editingComment))
+    }
+
+    handleUpdatingComment(e) {
+        console.log('onchange triggered')
+        const { dispatch } = this.props;
+        dispatch(onChange(e.target.name, e.target.value))
+    }
+
+   
+
     render() {
-        const { newTopicActive, viewingThread, viewingThreadId, id, blogs, count } = this.props;
+        const { newTopicActive, viewingThread, viewingThreadId, blogId, blogs, count } = this.props;
         const showHideTopic = newTopicActive ? 'topic-active' : 'topic';
         return (
             <div className={showHideTopic}>
                 {blogs && blogs.map(blog => {
-                    const viewCloseThread = blog.id === id && viewingThread ? 'Close Thread' : 'View Thread'
+                     if (blog.wasEdited === true) {
+                        var wasEdited = ' *EDITED*'
+                    } else {
+                        var wasEdited = ''
+                    }
+                    const viewCloseThread = blog.id === blogId && viewingThread ? 'Close Thread' : 'View Thread'
                     let date = Number(blog.date);
                     let newDate = moment(date).format('LLL')
-                    //  console.log('this is date: ',newDate)
                     return (
                         <div key={blog.id} className='single-blog'>
                             <h2 className='steam-name'>{blog.steamNameId}</h2>
-                            <h2 className='date'>{moment(date).format('LLL')}</h2>
+                            <h2 className='date'>{moment(date).format('LLL')}{wasEdited}</h2>
                             <h1>{blog.blogTitle}</h1>
                             <p>{blog.blogBody}</p>
-                            <img className='thread-edit' src={'/pics/edit-icon-white.png'} onClick={this.handleThreadEdit} />
+                            <img className='thread-edit' src={'/pics/edit-icon-white.png'} onClick={this.handleCloseThreadEdit} />
                             <img className='thread-delete' id={blog.id} src={'/pics/trash-icon-white.png'} onClick={this.handleTopicDelete} />
                             <div className='footer'>
                                 <span className='comments'> {blog.numComments} comments</span>
@@ -202,8 +253,9 @@ class ForumTopics extends Component {
         )
     }
 
-    renderThread(blogId, numComments) {
-        const { threads, id, viewingThread, viewingThreadId, comment } = this.props;
+    renderThread(mappedBlogId, numComments) {
+        const { threads, blogId, viewingThread, viewingThreadId, comment, editingComment, editingCommentId } = this.props;
+        let showHideAddNewTopic = !editingComment ? 'add-new-comment' : 'notActiveTopic'
         if (threads.length === 0) {
             <div className='mapped-thread'>
                 <div className='add-new-comment'>
@@ -217,23 +269,54 @@ class ForumTopics extends Component {
                 </div>
             </div>
         }
-        if (blogId === id && viewingThread) {
+        if (mappedBlogId === blogId && viewingThread) {
             return (
                 <div className='mapped-thread'>
                     {threads && threads.map(thread => {
                         let date = Number(thread.date);
+                        if (thread.wasEdited === true) {
+                            var wasEdited = ' *EDITED*'
+                        } else {
+                            var wasEdited = ''
+                        }
+                        if (editingComment && editingCommentId === thread.id) {
+                            return (
+                                <div className='editing-thread'>
+                                            <div key={thread.id} className='now-editing'>
+                                            <img className='close-thread-edit' src='./pics/xbutton.png'  onClick={this.handleThreadEdit} />
+                                                <div className='thread-avatar'><img src={thread.steamAvatarId} /> </div>
+                                                <div className='thread-name'> {thread.steamNameId} </div>
+                                                <div className='thread-date'> {moment(date).format('LLL')}{wasEdited} </div>
+                                                <div className='edit-old-comment'>
+                                                    <form name={thread.id} id={numComments} onSubmit={this.handleSubmitUpdatedComment}>
+                                                        <Field model='edit-old-comment'>
+                                                            <label htmlFor='edit-old-comment'>Edit Comment: </label>
+                                                            <textarea type="text" name="comment" value={comment} required onChange={this.handleUpdatingComment} />
+                                                        </Field>
+                                                        <button className='btn' id='speaker-submit'>Submit!</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                </div>
+                            )
+                        } else if(editingCommentId !== thread.id) 
+                        if (thread.wasEdited === true) {
+                            var wasEdited = ' *EDITED*'
+                        } else {
+                            var wasEdited = ''
+                        }
                         return (
                             <div key={thread.id} className='map-child'>
                                 <div className='thread-avatar'><img src={thread.steamAvatarId} /> </div>
                                 <div className='thread-name'> {thread.steamNameId} </div>
-                                <div className='thread-date'> {moment(date).format('LLL')} </div>
-                                <img className='thread-edit' src={'/pics/edit-icon-white.png'} onClick={this.handleThreadEdit} />
-                                <img className='thread-delete' id={thread.id} src={'/pics/trash-icon-white.png'} onClick={this.handleThreadDelete} />
+                                <div className='thread-date'> {moment(date).format('LLL')}{wasEdited} </div>
+                                <img className='thread-edit' src={'/pics/edit-icon-white.png'} id={thread.id} title={thread.comment} onClick={this.handleThreadEdit} />
+                                <img className='thread-delete' id={thread.id} name={numComments} title={blogId} src={'/pics/trash-icon-white.png'} onClick={this.handleThreadDelete} />
                                 <div className='thread-comment'>{thread.comment}</div>
                             </div>
                         )
                     })}
-                    <div className='add-new-comment'>
+                    <div className={showHideAddNewTopic}>
                         <form name={blogId} id={numComments} onSubmit={this.handleAddComment}>
                             <Field model='new-topic-body'>
                                 <label htmlFor='new-topic-body'>Add New Comment: </label>
@@ -245,225 +328,8 @@ class ForumTopics extends Component {
                 </div>
             )
         }
+       
     }
 }
 
 export default ForumTopics
-
-
-
-
-
-//   [
-//     {
-//       "blogTitle": "I like cheese",
-//       "blogBody": "can we have a discussion about cheese",
-//       "date": "May 1, 2019 7:36 PM",
-//       "upVotes": 5,
-//       "numComments": 4,
-//       "id": "5cce532f8722dd4aedf1ade7",
-//       "memberId": "5cce520b8722dd4aedf1ade1",
-//       "steamNameId": "BladeSe7en",
-//       "threadId": [
-//         {
-//           "comment": "cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese ",
-//           "date": "May 3, 2019 12:29 AM",
-//           "wasEdited": false,
-//           "id": "5cce4b8e62153e495195db95",
-//           "blogPostId": "5cce532f8722dd4aedf1ade7",
-//           "memberId": "5cce54308722dd4aedf1adec",
-//           "steamAvatarId": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/8c/8ce8d4325808f6a8030da27cb3d15302b3abd6ce.jpg",
-//           "steamNameId": "BladeSe7en [ICON_RESOURCE_FURS]"
-//         },
-//         {
-//           "comment": "Blog Post 1 Ben",
-//           "date": "today",
-//           "wasEdited": false,
-//           "id": "5cce56488722dd4aedf1adf8",
-//           "blogPostId": "5cce532f8722dd4aedf1ade7",
-//           "memberId": "5cce54308722dd4aedf1adec",
-//           "steamAvatarId": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/8c/8ce8d4325808f6a8030da27cb3d15302b3abd6ce.jpg",
-//           "steamNameId": "BladeSe7en [ICON_RESOURCE_FURS]"
-//         },
-//         {
-//           "comment": "cheese is the best",
-//           "date": " May 3, 2019 3:21 AM",
-//           "wasEdited": false,
-//           "id": "5cce56a18722dd4aedf1adfb",
-//           "blogPostId": "5cce532f8722dd4aedf1ade7",
-//           "memberId": "5cce520b8722dd4aedf1ade1",
-//           "steamAvatarId": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/8c/8ce8d4325808f6a8030da27cb3d15302b3abd6ce.jpg",
-//           "steamNameId": "BladeSe7en [ICON_RESOURCE_FURS]"
-//         }
-//       ]
-//     },
-//     {
-//       "blogTitle": "Im on a boat",
-//       "blogBody": "im on a cheesey  boat",
-//       "date": "May 1, 2019 7:36 PM",
-//       "upVotes": 10,
-//       "numComments": 2,
-//       "id": "5cce536d8722dd4aedf1ade9",
-//       "memberId": "5cce520b8722dd4aedf1ade1",
-//       "steamNameId": "BladeSe7en",
-//       "threadId": [
-//         {
-//             "comment": "Blog Post 1 Ben",
-//             "date": "today",
-//             "wasEdited": false,
-//             "id": "5cce56488722dd4aedf1adf8",
-//             "blogPostId": "5cce532f8722dd4aedf1ade7",
-//             "memberId": "5cce54308722dd4aedf1adec",
-//             "steamAvatarId": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/8c/8ce8d4325808f6a8030da27cb3d15302b3abd6ce.jpg",
-//             "steamNameId": "BladeSe7en [ICON_RESOURCE_FURS]"
-//           }
-//       ]
-//     },
-//     {
-//       "blogTitle": "Title Member 2-1",
-//       "blogBody": "Body Member 2-1",
-//       "date": "May 1, 2019 7:45 PM",
-//       "upVotes": 11,
-//       "numComments": 2,
-//       "id": "5cce54ec8722dd4aedf1adf0",
-//       "memberId": "5cce54308722dd4aedf1adec",
-//       "steamNameId": "BladeSe7en",
-//       "threadId": [
-//         {
-//             "comment": "Blog Post 2 Ben",
-//             "date": "today",
-//             "wasEdited": false,
-//             "id": "5cce56688722dd4aedf1adf9",
-//             "blogPostId": "5cce536d8722dd4aedf1ade9",
-//             "memberId": "5cce54308722dd4aedf1adec",
-//             "steamAvatarId": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/8c/8ce8d4325808f6a8030da27cb3d15302b3abd6ce.jpg",
-//             "steamNameId": "BladeSe7en [ICON_RESOURCE_FURS]"
-//           },
-//           {
-//             "comment": "whats the cheesey boat made out of",
-//             "date": " May 3, 2019 3:21 AM",
-//             "wasEdited": false,
-//             "id": "5cce56d28722dd4aedf1adfd",
-//             "blogPostId": "5cce536d8722dd4aedf1ade9",
-//             "memberId": "5cce520b8722dd4aedf1ade1",
-//             "steamAvatarId": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/8c/8ce8d4325808f6a8030da27cb3d15302b3abd6ce.jpg",
-//             "steamNameId": "BladeSe7en [ICON_RESOURCE_FURS]"
-//           }
-//       ]
-//     },
-//     {
-//       "blogTitle": "ben likes cheese",
-//       "blogBody": "no I mean ben realllly loves cheese",
-//       "date": "May 1, 2019 7:51 PM",
-//       "upVotes": -4,
-//       "numComments": 2,
-//       "id": "5cce54f48722dd4aedf1adf1",
-//       "memberId": "5cce54b68722dd4aedf1adef",
-//       "steamNameId": "BladeSe7en"
-//     },
-//     {
-//       "blogTitle": "Title Member 2-2",
-//       "blogBody": "Body Member 2-2",
-//       "date": "May 1, 2019 7:58 PM",
-//       "upVotes": -5,
-//       "numComments": 1,
-//       "id": "5cce54f68722dd4aedf1adf2",
-//       "memberId": "5cce54308722dd4aedf1adec",
-//       "steamNameId": "BladeSe7en"
-//     },
-//     {
-//       "blogTitle": "Title Member 3-1",
-//       "blogBody": "Body Member 3-1",
-//       "date": "May 1, 2019 8:06 PM",
-//       "upVotes": 7,
-//       "numComments": 3,
-//       "id": "5cce55288722dd4aedf1adf3",
-//       "memberId": "5cce545e8722dd4aedf1aded",
-//       "steamNameId": "BladeSe7en"
-//     },
-//     {
-//       "blogTitle": "Title Member 3-2",
-//       "blogBody": "Body Member 3-2",
-//       "date": "May 1, 2019 8:15 PM",
-//       "upVotes": 2,
-//       "numComments": 1,
-//       "id": "5cce55328722dd4aedf1adf4",
-//       "memberId": "5cce545e8722dd4aedf1aded",
-//       "steamNameId": "BladeSe7en"
-//     },
-//     {
-//       "blogTitle": "what is beens favorite cheese",
-//       "blogBody": "I have been dying to know what is his favorite cheese? does he like all cheese or a only one cheese?",
-//       "date": "May 1, 2019 8:36 PM",
-//       "upVotes": 2,
-//       "numComments": 2,
-//       "id": "5cce554e8722dd4aedf1adf5",
-//       "memberId": "5cce54b68722dd4aedf1adef",
-//       "steamNameId": "BladeSe7en"
-//     },
-//     {
-//       "blogTitle": "Title Member 4-1",
-//       "blogBody": "Body Member 4-1",
-//       "date": "May 1, 2019 8:46 PM",
-//       "upVotes": 2,
-//       "numComments": 2,
-//       "id": "5cce55748722dd4aedf1adf6",
-//       "memberId": "5cce549e8722dd4aedf1adee",
-//       "steamNameId": "BladeSe7en"
-//     },
-//     {
-//       "blogTitle": "Title Member 4-2",
-//       "blogBody": "Body Member 4-2",
-//       "date": "May 1, 2019 9:00 PM",
-//       "upVotes": 9,
-//       "numComments": 2,
-//       "id": "5cce55838722dd4aedf1adf7",
-//       "memberId": "5cce549e8722dd4aedf1adee",
-//       "steamNameId": "BladeSe7en"
-//     },
-//     {
-//       "blogTitle": "lets eat some cheese",
-//       "blogBody": "what is your favorite type of cheese to eat?",
-//       "date": "May 1, 2019 9:12 PM",
-//       "upVotes": 0,
-//       "numComments": 0,
-//       "id": "5ccf727fcb0a505666708389",
-//       "memberId": "5cce520b8722dd4aedf1ade1",
-//       "steamNameId": "BladeSe7en"
-//     }
-//   ]
-
-
-
-// export const addComment = (data, newNum) => {
-// 	console.log('DATA1: ',data)
-// 	console.log('NEWNUM1: ',newNum)
-// 	const accessToken ='5cc16624e810e7579a1581c1'
-// 	console.log('DATA2: ',data)
-// 	let id = data.blogPostId
-// 	let newData = {
-// 		"numComments": newNum
-// 	}
-// 	return {
-// 		type: 'ADD_COMMENT',
-// 		payload: 
-//             axios({
-// 			method: 'patch',
-// 			url: `api/blogPosts/${id}?access_token=${accessToken}`,
-// 			data: newData
-//         })      
-// 		.then(response => {
-//             return response.data
-// 		}).then(() => {
-// 			axios({
-// 				method: 'post',
-// 				url: `api/threads?access_token=${accessToken}`,
-// 				data: data
-// 			})
-// 			.then(response => {
-// 				return response.data
-// 			})
-// 		})
-// 		.catch(err => err)
-//     }
-// }

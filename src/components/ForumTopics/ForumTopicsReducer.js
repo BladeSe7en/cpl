@@ -1,13 +1,15 @@
 
 const initialstate = {
-    viewingThread  : false,
-    viewingThreadId: 0,
-    blogs          : [],
-    threads        : [],
-    id             : '',
-    number         : 0,
-    comment        : '',
-    count          : []
+    viewingThread   : false,
+    viewingThreadId : 0,
+    blogs           : [],
+    threads         : [],
+    blogId          : '',
+    number          : 0,
+    comment         : '',
+    count           : [],
+    editingComment  : false,
+    editingCommentId: ''
     
 }
 
@@ -65,6 +67,7 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         }
 
         case 'DELETE_THREAD_FULFILLED': {
+            console.log('payload1: ',payload)
 			return {
 				...state,
 				...payload
@@ -81,6 +84,7 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         case 'LIVE_CHANGE_BLOGS': {
             let newBlogs = [...state.blogs];
             let newObj = payload.blogs;
+            console.log('this is newObj: ',newObj)
             let index = newBlogs.findIndex(blog => {
                 return blog.id == payload.blogs.id;
             })
@@ -91,6 +95,32 @@ export default function ForumTopicsReducer(state = initialstate, action) {
 				...state,
 				blogs: newBlogs
 			}
+        }
+
+        case 'TOGGLE_THREAD_EDIT': {
+            console.log('payload: ',payload)
+			return {
+				...state,
+				...payload
+			}
+        }
+
+        case 'TOGGLE_CLOSE_THREAD_EDIT': {
+            console.log('payload: ',payload)
+			return {
+				...state,
+				...payload
+			}
+        }
+
+        case 'SUBMIT_UPDATED_COMMENT_FULFILLED': {
+            console.log('payload: ',payload)
+            return {
+                ...state,
+                ...payload,
+                editingComment: false,
+                editingCommentId: ''
+            }
         }
         
         default: {

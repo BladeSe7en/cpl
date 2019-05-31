@@ -1610,6 +1610,54 @@ a {
   width: 75px;
 }
 
+.close-thread-edit {
+  position: relative;
+  float: right;
+  height: 30px;
+  width: 30px;
+}
+
+.now-editing {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 15px;
+  width: 99%;
+  border: 3px solid white;
+  min-height: 50px;
+  position: relative;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+.now-editing form {
+  width: 100%;
+  align-content: center;
+  align-self: center;
+  display: inline-block;
+  text-align: center;
+}
+.now-editing textarea {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 90%;
+  padding-top: 10px;
+  min-height: 100px;
+  resize: vertical;
+  font-size: 14px;
+}
+.now-editing input {
+  width: 90%;
+  height: 20px;
+}
+.now-editing .btn {
+  margin-bottom: 10px;
+  width: 75px;
+}
+
 .thread {
   border: 3px solid white;
   display: block;
