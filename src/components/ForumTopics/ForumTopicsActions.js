@@ -306,15 +306,43 @@ export const deleteBlogPost = (blogId) => {
     }
 }
 
-export const editBlogPost = (editingBlog, blogId) => {
+export const editBlogPost = (editingBlog, blogId, blogTitle, blogBody) => {
 	console.log('editingBlog: ',editingBlog)
 	console.log('blogId: ',blogId)
+	console.log('blogTitle: ',blogTitle)
+	console.log('blogBody: ',blogBody)
 		return {
-			type: 'TOGGLE_THREAD_EDIT',
+			type: 'TOGGLE_BLOG_EDIT',
 			payload: {
 				editingBlog: editingBlog,
-				editingBlogId: blogId
+				editingBlogId: blogId,
+				newBlogTitle: blogTitle,
+				newBlogBody: blogBody
 		}
+	}
+}
+
+export const submitUpdatedBlog = (date, newBlogBody, newBlogTitle, blogId) => {
+	const accessToken ='5cc16624e810e7579a1581c1'
+	const data = {
+		"blogTitle": newBlogTitle,
+		"blogBody": newBlogBody,
+		"date": date,
+		"wasEdited": true
+	}
+	console.log('this is data: ',data)
+	return {
+		type: 'SUBMIT_UPDATED_BLOG',
+		payload: 
+            axios({
+			method: 'patch',
+			url: `api/blogPosts/${blogId}?access_token=${accessToken}`,
+			data: data
+        })      
+		.then(response => {
+            return response.data
+		})
+		.catch(err => err)
 	}
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import moment from 'moment';
-import { thread, getBlogs, getThreadsById, commentCount, updateCommentNum, onCommentChange, vote, commentDelete, topicDelete, submitUpdatedComment, liveChangeBlogs, toggleThreadEdit, editBlogPost, deleteBlogPost, reset } from '../ForumTopics/ForumTopicsActions';
+import { thread, getBlogs, getThreadsById, commentCount, updateCommentNum, onCommentChange, vote, commentDelete, topicDelete, submitUpdatedComment, liveChangeBlogs, toggleThreadEdit, editBlogPost, deleteBlogPost, reset, submitUpdatedBlog } from '../ForumTopics/ForumTopicsActions';
 import { onChange } from '../ForumMain/ForumMainActions'
 class ForumTopics extends Component {
     constructor(props) {
@@ -22,6 +22,7 @@ class ForumTopics extends Component {
         this.handleTopicDelete          = this.handleTopicDelete         .bind(this);
         this.handleChange               = this.handleChange              .bind(this);
         this.handleVote                 = this.handleVote                .bind(this);
+        this.handleSubmitUpdatedBlog    = this.handleSubmitUpdatedBlog   .bind(this);
     }
 
     componentDidMount() {
@@ -72,8 +73,12 @@ class ForumTopics extends Component {
     handleEditBlogPost(e) {
       const { dispatch, editingBlog } = this.props;
       let blogId = e.target.id;
-      console.log('blogId: ',blogId)
-      dispatch(editBlogPost(!editingBlog, blogId))
+      let blogTitle = e.target.title;
+      let blogBody = e.target.name;
+      console.log('blogId in handle: ',blogId)
+      console.log('blogTitle in handle: ',blogTitle)
+      console.log('blogBody in handle: ',blogBody)
+      dispatch(editBlogPost(!editingBlog, blogId, blogTitle, blogBody))
     }
 
     handleDeleteBlogPost(e) {
@@ -153,9 +158,20 @@ class ForumTopics extends Component {
         dispatch(submitUpdatedComment(date, comment, memberId, threadId, avatar, steamName))
     }
 
+    handleSubmitUpdatedBlog(e) {
+        const { dispatch, newBlogBody, newBlogTitle, signedIn } = this.props;
+        e.preventDefault();
+        if (signedIn.id === undefined) {
+            return alert('Please Sign In To Edit Your Topic.')
+        }
+        let blogId = e.target.name;
+        let date = moment().format('x');
+        dispatch(submitUpdatedBlog(date, newBlogBody, newBlogTitle, blogId))
+    }
+
     handleThread(e) {
-        const blogId = e.target.id;
         const { dispatch, viewingThread } = this.props;
+        let blogId = e.target.id;
         dispatch(thread(!viewingThread, blogId));
     }
 
@@ -199,7 +215,7 @@ class ForumTopics extends Component {
     }
 
     render() {
-        const { newTopicActive, viewingThread, blogId, blogs, editingBlog, editingBlogId } = this.props;
+        const { newTopicActive, viewingThread, blogId, blogs, editingBlog, editingBlogId, newBlogTitle, newBlogBody } = this.props;
         const showHideTopic = newTopicActive ? 'topic-active' : 'topic';
         return (
             <div className={showHideTopic}>
@@ -209,18 +225,19 @@ class ForumTopics extends Component {
                     } else {
                         var wasEdited = '' 
                     }
-                    console.log('this is editingBlog: ',editingBlog)
-                    console.log('editingBlogId: ',editingBlogId)
-                    console.log('blog.id: ',blog.id)
-                    console.log(editingBlogId === blog.id)
+
                     if (editingBlog && editingBlogId === blog.id) {
-                        console.log('inside editBlog')
                         return (
-                            <div key={blog.id} className='edit-blog'>
+                            <div key={blog.id} className='blog-edit'>
+                            <img className='close-thread-edit' src='./pics/xbutton.png' onClick={this.handleEditBlogPost} />
                             <form name={blog.id} onSubmit={this.handleSubmitUpdatedBlog}>
-                                <Field model='edit-blog'>
-                                    <label htmlFor='edit-blog'>Edit Blog: </label>
-                                    <textarea type="text" name="blog" value={newBlog} required onChange={this.handleChange} />
+                                <Field model='edit-blog-title'>
+                                    <label htmlFor='edit-blog-title'>Edit Blog Title: </label>
+                                    <textarea type="text" name="newBlogTitle" value={newBlogTitle} required onChange={this.handleChange} />
+                                </Field>
+                                <Field model='edit-blog-body'>
+                                    <label htmlFor='edit-blog-body'>Edit Blog Body: </label>
+                                    <textarea type="text" name="newBlogBody" value={newBlogBody} required onChange={this.handleChange} />
                                 </Field>
                                 <button className='btn'>Submit!</button>
                             </form>
@@ -235,7 +252,7 @@ class ForumTopics extends Component {
                             <h2 className='date'>{moment(date).format('LLL')}{wasEdited}</h2>
                             <h1>{blog.blogTitle}</h1>
                             <p>{blog.blogBody}</p>
-                            <img className='thread-edit' src={'/pics/edit-icon-white.png'} id={blog.id} onClick={this.handleEditBlogPost} />
+                            <img className='thread-edit' src={'/pics/edit-icon-white.png'} id={blog.id} title={blog.blogTitle} name={blog.blogBody} onClick={this.handleEditBlogPost} />
                             <img className='thread-delete' id={blog.id} src={'/pics/trash-icon-white.png'} onClick={this.handleDeleteBlogPost} />
                             <div className='footer'>
                                 <span className='comments'> {blog.numComments} comments</span>

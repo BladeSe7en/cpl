@@ -15,8 +15,10 @@ function mapStoreToProps(store){
        viewingThreadId : store.ForumTopics.viewingThreadId,
        editingComment  : store.ForumTopics.editingComment,
        editingCommentId: store.ForumTopics.editingCommentId,
-       editingBLog     : store.ForumTopics.editingBLog,
-       editingBLogId   : store.ForumTopics.editingBLogId
+       editingBlog     : store.ForumTopics.editingBlogId,
+       editingBlogId   : store.ForumTopics.editingBlogId,
+       newBlogTitle    : store.ForumTopics.newBlogTitle,
+       newBlogBody     : store.ForumTopics.newBlogBody
     };
 }
 

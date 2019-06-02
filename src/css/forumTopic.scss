@@ -279,3 +279,39 @@ padding-bottom: 10px;
       width: 75px;
   }
 }
+
+.blog-edit {
+  width: 90%;
+  border: 3px solid white;
+  background-color: gray;
+  min-height: 50px;
+  position: relative;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  form {
+      width: 100%;
+      align-content: center;
+      align-self: center;
+      display: inline-block;
+      text-align: center;
+  }
+  textarea {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: 90%;
+      padding-top: 10px;
+      height: 36px;
+      resize: vertical;
+  }
+  input {
+      width: 90%;
+      height: 20px;
+  }
+  .btn {
+      margin-bottom: 10px;
+      width: 75px;
+  }
+}

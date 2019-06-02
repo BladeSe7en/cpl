@@ -82,6 +82,13 @@ export default function ForumTopicsReducer(state = initialstate, action) {
 			}
         }
 
+        case 'TOGGLE_BLOG_EDIT': {
+			return {
+				...state,
+				...payload
+			}
+        }
+        
         case 'LIVE_CHANGE_BLOGS': {
             let newBlogs = [...state.blogs];
             if (payload.blogs == undefined) {
@@ -126,6 +133,18 @@ export default function ForumTopicsReducer(state = initialstate, action) {
                 editingComment: false,
                 editingCommentId: '',
                 comment: ''
+            }
+        }
+
+        case 'SUBMIT_UPDATED_BLOG_FULFILLED': {
+            console.log('payload: ',payload)
+            return {
+                ...state,
+                ...payload,
+                editingBlog: false,
+                editingBlogId: '',
+                newBlogTopic: '',
+                newBlogBody: ''
             }
         }
 

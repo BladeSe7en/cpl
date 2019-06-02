@@ -21,6 +21,10 @@
       "required": true,
       "default": ""
     },
+    "wasEdited": {
+      "type": "boolean",
+      "default": false
+    },
     "upVotes": {
       "type": "number",
       "default": 0
