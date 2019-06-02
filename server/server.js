@@ -37,10 +37,10 @@ require("http");
 app.use(require('express-session')({ resave: false, saveUninitialized: false, secret: 'a secret' }));
 app.use(steam.middleware({
   // if youre using the website locally 
-  realm: 'http://localhost:3000',
-  verify: 'http://localhost:3000/verify',
-  // realm:'https://civplayers-website.herokuapp.com',
-  // verify: 'https://civplayers-website.herokuapp.com/verify',
+  // realm: 'http://localhost:3000',
+  // verify: 'http://localhost:3000/verify',
+  realm:'https://civplayers-website.herokuapp.com',
+  verify: 'https://civplayers-website.herokuapp.com/verify',
   apiKey: process.env.STEAM_API_KEY
 }));
 
