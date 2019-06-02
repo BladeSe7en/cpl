@@ -66,7 +66,7 @@ export default function ForumTopicsReducer(state = initialstate, action) {
 			}
         }
 
-        case 'DELETE_THREAD_FULFILLED': {
+        case 'DELETE_COMMENT_FULFILLED': {
             console.log('payload1: ',payload)
 			return {
 				...state,
@@ -83,18 +83,22 @@ export default function ForumTopicsReducer(state = initialstate, action) {
 
         case 'LIVE_CHANGE_BLOGS': {
             let newBlogs = [...state.blogs];
-            let newObj = payload.blogs;
-            console.log('this is newObj: ',newObj)
-            let index = newBlogs.findIndex(blog => {
-                return blog.id == payload.blogs.id;
-            })
-            newBlogs.splice(index, 1, {
-                ...newObj
-            })
-			return {
-				...state,
-				blogs: newBlogs
-			}
+            if (payload.blogs == undefined) {
+                newBlogs = [...state.blogs]
+            } else {
+                let newObj = payload.blogs;
+                console.log('this is newObj: ', newObj)
+                let index = newBlogs.findIndex(blog => {
+                    return blog.id == payload.blogs.id;
+                })
+                newBlogs.splice(index, 1, {
+                    ...newObj
+                })
+            }
+            return {
+                ...state,
+                blogs: newBlogs
+            }
         }
 
         case 'TOGGLE_THREAD_EDIT': {
@@ -119,7 +123,15 @@ export default function ForumTopicsReducer(state = initialstate, action) {
                 ...state,
                 ...payload,
                 editingComment: false,
-                editingCommentId: ''
+                editingCommentId: '',
+                comment: ''
+            }
+        }
+
+        case 'RESET': {
+            console.log('inside reset reducer')
+            return {
+                ...initialstate
             }
         }
         

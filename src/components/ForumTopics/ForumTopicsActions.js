@@ -190,7 +190,7 @@ export const vote = (id, voteCount, voteNames) => {
 	}
 }
 
-export const threadDelete = (deleteId, number, blogId) => {
+export const commentDelete = (deleteId, number, blogId) => {
 	const accessToken ='5cc16624e810e7579a1581c1'
 	console.log('this is threadId inside action: ', deleteId)
 	let newData = {
@@ -198,7 +198,7 @@ export const threadDelete = (deleteId, number, blogId) => {
 	}
 	console.log('newData--: ',newData)
 	return {
-		type: 'DELETE_THREAD',
+		type: 'DELETE_COMMENT',
 		payload: 
             axios({
 				method: 'patch',
@@ -209,11 +209,22 @@ export const threadDelete = (deleteId, number, blogId) => {
 			return response.data
 		})
 		.then(() => {
-			decrimentCommentCount(deleteId)
+			return {
+				payload:
+					axios({
+						method: 'delete',
+						url: `api/threads/${deleteId}?access_token=${accessToken}`
+					})
+					.then(response => {
+						return response.data
+					})
+			}
 		})
 		.catch(err => err)
     }
 }
+
+
 
 export const topicDelete = (deleteId) => {
 	const accessToken ='5cc16624e810e7579a1581c1'
@@ -262,6 +273,39 @@ export const toggleCloseThreadEdit = (value, id) => {
 		}
 	}
 }
+
+export const reset = () => {
+	console.log('inside reset action')
+	return {
+		type: 'RESET'
+	}
+}
+
+export const deleteBlogPost = (blogId) => {
+	const accessToken ='5cc16624e810e7579a1581c1'
+	return {
+		type: 'DELETE_BLOG_POST',
+		payload: 
+            axios({
+			method: 'delete',
+			url: `api/blogPosts/${blogId}?access_token=${accessToken}`,
+        })
+		.then(response => {
+            return response.data
+		})
+		.then(() => {
+			axios({
+				method: 'delete',
+				url: `api/threads/%7B%22blogPostId%22%3A${blogId}%7D?access_token=${accessToken}`
+			})
+			.then(response => {
+				return response.data
+			})
+		})
+		.catch(err => err)
+    }
+}
+
 
 
 // {"where":{"id":5cce56488722dd4aedf1adf8}}

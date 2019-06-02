@@ -107,6 +107,21 @@ export const onChange = (key, value) => {
 	}
 }
 
+export const sortByPopularity = (popularityOrder) => {
+	const order = popularityOrder?'DESC':'ASC';
+	return {
+		type: 'SORT_POPULARITY',
+		payload: axios({
+			method: 'get',
+			url: `/api/blogPosts/?filter=%7B%22order%22%3A%22upVotes%20${order}%22%7D`
+		})
+		.then(response => {
+			return response.data
+		})
+		.catch(err => err)
+	}
+}
+
 
 
 

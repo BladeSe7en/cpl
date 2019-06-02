@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import Navbar from '../Navbar/Navbar';
 import ForumTopics from '../ForumTopics';
-import { toggleActive, toggleSignIn, playerData, togglePopularity, blogsByDate, dateToggle, onChange, topicSubmit, liveChangeBlogs } from './ForumMainActions';
-import { sortByPopularity, } from '../ForumTopics/ForumTopicsActions';
+import { toggleActive, toggleSignIn, playerData, togglePopularity, blogsByDate, dateToggle, onChange, topicSubmit, sortByPopularity, liveChangeBlogs } from './ForumMainActions';
 import Axios from 'axios';
 import moment from 'moment';
 
@@ -139,7 +138,7 @@ class Forum extends Component {
 						<label htmlFor='new-topic-body'>Content: </label>
 						<textarea type="text" name="newTopicBody" value={newTopicBody} required onChange={this.handleChange} />
 					</Field>
-					<button className='btn' id='speaker-submit'>Submit!</button>
+					<button className='btn'>Submit!</button>
 				</form>
 			</div>
 		)
