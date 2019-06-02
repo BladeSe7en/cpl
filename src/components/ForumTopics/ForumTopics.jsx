@@ -8,7 +8,7 @@ class ForumTopics extends Component {
         super(props);
 
         this.handleAddComment           = this.handleAddComment          .bind(this);
-        this.handledEditBlogPost        = this.handledEditBlogPost       .bind(this);
+        this.handleEditBlogPost         = this.handleEditBlogPost        .bind(this);
         this.handleCommentCount         = this.handleCommentCount        .bind(this);
         this.handleCommentChange        = this.handleCommentChange       .bind(this);
         this.handleCommentDelete        = this.handleCommentDelete       .bind(this);
@@ -20,7 +20,7 @@ class ForumTopics extends Component {
         this.handleThread               = this.handleThread              .bind(this);
         this.handleThreadEdit           = this.handleThreadEdit          .bind(this);
         this.handleTopicDelete          = this.handleTopicDelete         .bind(this);
-        this.handleUpdatingComment      = this.handleUpdatingComment     .bind(this);
+        this.handleChange               = this.handleChange              .bind(this);
         this.handleVote                 = this.handleVote                .bind(this);
     }
 
@@ -69,12 +69,14 @@ class ForumTopics extends Component {
         dispatch(updateCommentNum(blogId, data, newNum));
     }
 
-    handledEditBlogPost(e) {
-      
+    handleEditBlogPost(e) {
+      const { dispatch, editingBlog } = this.props;
+      let blogId = e.target.id;
+      console.log('blogId: ',blogId)
+      dispatch(editBlogPost(!editingBlog, blogId))
     }
 
     handleDeleteBlogPost(e) {
-        console.log('inside handleDeleteBlogPost')
         const { dispatch } = this.props;
         let blogId = e.target.id;
         dispatch(deleteBlogPost(blogId))
@@ -91,14 +93,10 @@ class ForumTopics extends Component {
     }
 
     handleCommentDelete(e) {
-        console.log('inside comment delete handler')
         const { dispatch } = this.props;
         let deleteId = e.target.id;
         let number = e.target.name;
         let blogId = e.target.title;
-        console.log('deleteId :',deleteId)
-        console.log('number :',number)
-        console.log('blogId :',blogId)
         dispatch(commentDelete(deleteId, number, blogId))
     }
 
@@ -174,7 +172,7 @@ class ForumTopics extends Component {
         dispatch(topicDelete(topicDeleteId))
     }
 
-    handleUpdatingComment(e) {
+    handleChange(e) {
         const { dispatch } = this.props;
         dispatch(onChange(e.target.name, e.target.value))
     }
@@ -201,26 +199,43 @@ class ForumTopics extends Component {
     }
 
     render() {
-        const { newTopicActive, viewingThread, blogId, blogs } = this.props;
+        const { newTopicActive, viewingThread, blogId, blogs, editingBlog, editingBlogId } = this.props;
         const showHideTopic = newTopicActive ? 'topic-active' : 'topic';
         return (
             <div className={showHideTopic}>
                 {blogs && blogs.map(blog => {
-                     if (blog.wasEdited === true) {
+                    if (blog.wasEdited === true) {
                         var wasEdited = ' *EDITED*'
                     } else {
-                        var wasEdited = ''
+                        var wasEdited = '' 
                     }
-                    const viewCloseThread = blog.id === blogId && viewingThread ? 'Close Thread' : 'View Thread'
+                    console.log('this is editingBlog: ',editingBlog)
+                    console.log('editingBlogId: ',editingBlogId)
+                    console.log('blog.id: ',blog.id)
+                    console.log(editingBlogId === blog.id)
+                    if (editingBlog && editingBlogId === blog.id) {
+                        console.log('inside editBlog')
+                        return (
+                            <div key={blog.id} className='edit-blog'>
+                            <form name={blog.id} onSubmit={this.handleSubmitUpdatedBlog}>
+                                <Field model='edit-blog'>
+                                    <label htmlFor='edit-blog'>Edit Blog: </label>
+                                    <textarea type="text" name="blog" value={newBlog} required onChange={this.handleChange} />
+                                </Field>
+                                <button className='btn'>Submit!</button>
+                            </form>
+                        </div>
+                        )
+                    }
+                    const viewCloseThread = blog.id === blogId && viewingThread ? 'Close Thread' : 'View Thread';
                     let date = Number(blog.date);
-                    let newDate = moment(date).format('LLL')
                     return (
                         <div key={blog.id} className='single-blog'>
                             <h2 className='steam-name'>{blog.steamNameId}</h2>
                             <h2 className='date'>{moment(date).format('LLL')}{wasEdited}</h2>
                             <h1>{blog.blogTitle}</h1>
                             <p>{blog.blogBody}</p>
-                            <img className='thread-edit' src={'/pics/edit-icon-white.png'} id={blog.id} onClick={this.ii} />
+                            <img className='thread-edit' src={'/pics/edit-icon-white.png'} id={blog.id} onClick={this.handleEditBlogPost} />
                             <img className='thread-delete' id={blog.id} src={'/pics/trash-icon-white.png'} onClick={this.handleDeleteBlogPost} />
                             <div className='footer'>
                                 <span className='comments'> {blog.numComments} comments</span>
@@ -277,7 +292,7 @@ class ForumTopics extends Component {
                                                     <form name={thread.id} id={numComments} onSubmit={this.handleSubmitUpdatedComment}>
                                                         <Field model='edit-old-comment'>
                                                             <label htmlFor='edit-old-comment'>Edit Comment: </label>
-                                                            <textarea type="text" name="comment" value={comment} required onChange={this.handleUpdatingComment} />
+                                                            <textarea type="text" name="comment" value={comment} required onChange={this.handleChange} />
                                                         </Field>
                                                         <button className='btn' id='speaker-submit'>Submit!</button>
                                                     </form>

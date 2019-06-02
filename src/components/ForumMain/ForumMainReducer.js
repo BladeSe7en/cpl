@@ -64,7 +64,8 @@ export default function ForumReducer(state = initialstate, action) {
 			return {
 				...state,
 				newTopic: '',
-				newTopicBody: ''
+				newTopicBody: '',
+				newTopicActive: false
 			}
 		}
 		

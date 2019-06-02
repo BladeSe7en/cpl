@@ -306,6 +306,18 @@ export const deleteBlogPost = (blogId) => {
     }
 }
 
+export const editBlogPost = (editingBlog, blogId) => {
+	console.log('editingBlog: ',editingBlog)
+	console.log('blogId: ',blogId)
+		return {
+			type: 'TOGGLE_THREAD_EDIT',
+			payload: {
+				editingBlog: editingBlog,
+				editingBlogId: blogId
+		}
+	}
+}
+
 
 
 // {"where":{"id":5cce56488722dd4aedf1adf8}}

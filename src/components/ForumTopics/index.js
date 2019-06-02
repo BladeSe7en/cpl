@@ -14,7 +14,9 @@ function mapStoreToProps(store){
        sortOrder       : store.Leaderboard.sortOrder,
        viewingThreadId : store.ForumTopics.viewingThreadId,
        editingComment  : store.ForumTopics.editingComment,
-       editingCommentId: store.ForumTopics.editingCommentId
+       editingCommentId: store.ForumTopics.editingCommentId,
+       editingBLog     : store.ForumTopics.editingBLog,
+       editingBLogId   : store.ForumTopics.editingBLogId
     };
 }
 

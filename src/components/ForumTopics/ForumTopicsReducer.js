@@ -9,8 +9,9 @@ const initialstate = {
     comment         : '',
     count           : [],
     editingComment  : false,
-    editingCommentId: ''
-    
+    editingCommentId: '',
+    editingBlog     : false,
+    editingBlogId   : ''
 }
 
 export default function ForumTopicsReducer(state = initialstate, action) {
