@@ -193,6 +193,8 @@ export const vote = (id, voteCount, voteNames) => {
 export const commentDelete = (deleteId, number, blogId) => {
 	const accessToken ='5cc16624e810e7579a1581c1'
 	console.log('this is threadId inside action: ', deleteId)
+	console.log('this is number in comment delete: ',number)
+	console.log('this is blogId in comment delete: ',blogId)
 	let newData = {
 		"numComments": (+number - 1)
 	}

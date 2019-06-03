@@ -329,7 +329,7 @@ class ForumTopics extends Component {
                                 <div className='thread-name'> {thread.steamNameId} </div>
                                 <div className='thread-date'> {moment(date).format('LLL')}{wasEdited} </div>
                                 <img className='thread-edit' src={'/pics/edit-icon-white.png'} id={thread.id} title={thread.comment} onClick={this.handleThreadEdit} />
-                                <img className='thread-delete' id={thread.id} name={numComments} title={blogId} src={'/pics/trash-icon-white.png'} onClick={this.handleDeleteBlogPost} />
+                                <img className='thread-delete' id={thread.id} name={numComments} title={blogId} src={'/pics/trash-icon-white.png'} onClick={this.handleCommentDelete} />
                                 <div className='thread-comment'>{thread.comment}</div>
                             </div>
                         )
