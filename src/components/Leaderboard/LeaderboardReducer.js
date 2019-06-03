@@ -42,7 +42,6 @@ export default function LeaderboardReducer(state = initialstate, action) {
         }
 
         case 'UPDATE_PROFILE_ID': {
-            console.log('3: ', payload)
             return {
                 ...state,
                 ...payload

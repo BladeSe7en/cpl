@@ -63,7 +63,6 @@ module.exports = function (Player) {
 
 	Player.beforeRemote('glicko', async function (ctx) {
         const names = ctx.allNamesSet;
-        console.log('this is names in before remote: ',names)
         getPlayerStats(names)
         .then(() => next())
         .catch(err => {

@@ -10,14 +10,12 @@ class PlayerProfile extends Component {
     render() {
         const { profileData } = this.props;
         if (profileData !== 'no profile') {
-            console.log(typeof(profileData))
         return (
             <div>
                 <Navbar />
                 <div className='player-banner'>
                 <div className='player-banner-opacity'>
                             {profileData && profileData.map((stat, index) => {
-                                console.log('this is profileData: ',profileData)
 
                                 return (
                                     <div>

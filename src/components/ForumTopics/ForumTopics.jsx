@@ -75,9 +75,6 @@ class ForumTopics extends Component {
       let blogId = e.target.id;
       let blogTitle = e.target.title;
       let blogBody = e.target.name;
-      console.log('blogId in handle: ',blogId)
-      console.log('blogTitle in handle: ',blogTitle)
-      console.log('blogBody in handle: ',blogBody)
       dispatch(editBlogPost(!editingBlog, blogId, blogTitle, blogBody))
     }
 
@@ -329,7 +326,7 @@ class ForumTopics extends Component {
                                 <div className='thread-name'> {thread.steamNameId} </div>
                                 <div className='thread-date'> {moment(date).format('LLL')}{wasEdited} </div>
                                 <img className='thread-edit' src={'/pics/edit-icon-white.png'} id={thread.id} title={thread.comment} onClick={this.handleThreadEdit} />
-                                <img className='thread-delete' id={thread.id} name={numComments} title={blogId} src={'/pics/trash-icon-white.png'} onClick={this.handleCommentDelete} />
+                                <img className='thread-delete' id={thread.id} name={numComments} title={blogId} src={'/pics/trash-icon-white.png'} onClick={this.handleDeleteBlogPost} />
                                 <div className='thread-comment'>{thread.comment}</div>
                             </div>
                         )

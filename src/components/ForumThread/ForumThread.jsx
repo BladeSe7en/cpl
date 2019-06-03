@@ -20,7 +20,6 @@ class ForumThread extends Component {
 
     render() {
         const { blog } = this.props;
-        console.log('this is blog inside of thread: ', blog)
         return (
             <div className='thread'>
             <h1>test forum</h1>

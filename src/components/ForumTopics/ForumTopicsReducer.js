@@ -38,11 +38,9 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         };
         
         case 'ADD_COMMENT_FULFILLED': {
-            console.log('this is payload: ',payload)
             return {
 				...state,
                 comment: ''
-                //blogs: payload
 			}
         };
 
@@ -68,7 +66,6 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         }
 
         case 'DELETE_COMMENT_FULFILLED': {
-            console.log('payload1: ',payload)
 			return {
 				...state,
 				...payload
@@ -95,7 +92,6 @@ export default function ForumTopicsReducer(state = initialstate, action) {
                 newBlogs = [...state.blogs]
             } else {
                 let newObj = payload.blogs;
-                console.log('this is newObj: ', newObj)
                 let index = newBlogs.findIndex(blog => {
                     return blog.id == payload.blogs.id;
                 })
@@ -110,7 +106,6 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         }
 
         case 'TOGGLE_THREAD_EDIT': {
-            console.log('payload: ',payload)
 			return {
 				...state,
 				...payload
@@ -118,7 +113,6 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         }
 
         case 'TOGGLE_CLOSE_THREAD_EDIT': {
-            console.log('payload: ',payload)
 			return {
 				...state,
 				...payload
@@ -126,7 +120,6 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         }
 
         case 'SUBMIT_UPDATED_COMMENT_FULFILLED': {
-            console.log('payload: ',payload)
             return {
                 ...state,
                 ...payload,
@@ -137,7 +130,6 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         }
 
         case 'SUBMIT_UPDATED_BLOG_FULFILLED': {
-            console.log('payload: ',payload)
             return {
                 ...state,
                 ...payload,
@@ -149,7 +141,6 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         }
 
         case 'RESET': {
-            console.log('inside reset reducer')
             return {
                 ...initialstate
             }

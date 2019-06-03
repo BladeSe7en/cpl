@@ -35,13 +35,11 @@ class Forum extends Component {
 
 	handleSortByPopularity() {
 		const { dispatch, popularityOrder } = this.props;
-		console.log('inside handle sort by popularity')
 		this.handlePopularity();
 		dispatch(sortByPopularity(popularityOrder));
 	}
 
 	handlePopularity() {
-		console.log('inside handle popularity')
 		const { dispatch, popularityOrder } = this.props;
 		dispatch(togglePopularity(popularityOrder));
 	}
@@ -63,7 +61,6 @@ class Forum extends Component {
 	}
 
 	handleTopicSubmit(e) {
-		console.log('this is e: ',e)
 		const { dispatch, newTopic, newTopicBody, signedIn } = this.props;
 		e.preventDefault();
 		if (signedIn.id === undefined) {

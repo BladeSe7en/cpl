@@ -1,8 +1,6 @@
 import Axios from "axios";
 
 export const type = (value) => {
-	console.log('value2: ', value)
-	
 	return {
 		type: 'CHANGE_GAME_TYPE',
 		payload: {
@@ -51,8 +49,6 @@ export const getData = (sortBy, sortOrder) => {
 
 export const searchBy = (selected, typeOfGame, BestLeader) => {
 	const accessToken = 'ZHWTGJ9sPahvLeQ8M97jtO7XwSlRGYJ4XZSMhprA8GzGNM5AXNcdJDtM67MHEIPx'
-	console.log('selected in searchBy: ',selected)
-	console.log('this is url: ',`api/players?access_token=${accessToken}&filter[where][${typeOfGame}${BestLeader}]=${selected}`)
 	return {
 		type: 'GET_DATA',
 		payload: Axios({
@@ -67,7 +63,6 @@ export const searchBy = (selected, typeOfGame, BestLeader) => {
 }
 
 export const updateProfile = (value) => {
-	console.log('2: ', value)
 	return {
 		type: 'UPDATE_PROFILE_ID',
 		payload: {

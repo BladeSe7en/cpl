@@ -25,16 +25,12 @@ class Leaderboard extends Component {
     }
 
     handleType(e) {
-        console.log('is this triggering')
         const { dispatch } = this.props;
-        console.log('this is e.target.value: ', e.target.value);
         dispatch(type(e.target.value))
     }
 
     handleSortBy(e) {
         const { dispatch, sortOrder } = this.props;
-        console.log('this is e.target.value: ', e.target.value)
-        console.log('this is sortOrder: ', sortOrder)
         dispatch(getData(e.target.value, sortOrder))
         dispatch(sortBy(e.target.value, sortOrder));
     }
@@ -54,7 +50,6 @@ class Leaderboard extends Component {
     }
 
     handleProfile(e) {
-        console.log('1: ', e.target.value)
         const { dispatch } = this.props;
         dispatch(getProfile(e.target.value))
     }

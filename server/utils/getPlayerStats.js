@@ -1,11 +1,9 @@
 const app = require('../server');
 
 function getPlayerStats(names) {
-  console.log('names: ', names);
   return new Promise((resolve, reject) => {
     const { Player } = app.models;
     const playerData = names.map(name => {
-      console.log('single name: ', name);
       const defaultSkill = 1500;
       const defaultRatingDiviation = 2500
       const defaultVolatility = 0.06

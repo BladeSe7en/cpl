@@ -68,14 +68,6 @@ export default function ForumReducer(state = initialstate, action) {
 				newTopicActive: false
 			}
 		}
-		
-		// case 'LIVE_CHANGE_BLOGS': {
-		// 	console.log('inside lovechange blogs reducer')
-		// 	return {
-		// 		...state,
-		// 		blogs: payload
-		// 	}
-		// }
 	
 		default: {
 			return state

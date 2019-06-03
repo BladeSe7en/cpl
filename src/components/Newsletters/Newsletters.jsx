@@ -16,7 +16,6 @@ class Newsletters extends Component {
       vol: 0.06
     };
     const date = moment().format('lll');
-    console.log('this is date: ', date);
     var ranking = new glicko2.Glicko2(settings);
 
     var gameType = 'duel'
