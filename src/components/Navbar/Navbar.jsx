@@ -29,7 +29,7 @@ const Navbar = props => {
                     <Link to='/Newsletters' className={location.pathname === '/Newsletters' ? 'nav-item w--current' : 'nav-item'}>
                         NEWSLETTERS
                     </Link>
-                   <a className='nav-item' href="/authenticateAdmin" >Admin Sign In</a>
+                   <a className='nav-item' href="/authenticateAdmin" >Admin</a>
                 </div>
             </div>
         </div>

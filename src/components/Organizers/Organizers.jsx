@@ -16,7 +16,7 @@ class Organizers extends Component {
     constructor(props) {
         super(props);
 
-        this.addAdmin     = this.addAdmin.bind(this);
+       // this.addAdmin     = this.addAdmin.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
@@ -29,10 +29,10 @@ class Organizers extends Component {
         dispatch(addAdmin(newAdminName, newAdminEmail, newAdminPhone, newAdminPassword, accessToken));
     }
 
-    componentDidMount() {
-        const { dispatch, accessToken } = this.props;
-        dispatch(getAdmins(accessToken));
-    }
+    // componentDidMount() {
+    //     const { dispatch, accessToken } = this.props;
+    //     dispatch(getAdmins(accessToken));
+    // }
 
     handleChange(e) {
         const { dispatch } = this.props;

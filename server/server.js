@@ -39,6 +39,8 @@ app.use(steam.middleware({
   // if youre using the website locally 
   realm: 'http://localhost:3000',
   verify: 'http://localhost:3000/verify',
+  verifyAdmin: 'http://localhost:3000/verifyAdmin',
+
   // if youre using the website with heroku
   // realm:'https://civplayers-website.herokuapp.com',
   // verify: 'https://civplayers-website.herokuapp.com/verify',
@@ -66,9 +68,7 @@ app.get('/authenticateAdmin', steam.authenticateAdmin(), function (req, res) {
 
 app.get('/verifyAdmin', steam.verifyAdmin(), function (req, res) {
   fs.appendFile('log.csv', (' steam ID: ' + req.user._json.steamid) + '\t' + ('name: ' + req.user._json.personaname) + '\t' + ('profile: ' + req.user.profile) + '\t' + ('avatar: ' + req.user.avatar.small) + '\t' + ('date: ' + date) + '\n', (err) => {
-    if (req.user._json.personaname === 'BladeSe7en [ICON_RESOURCE_FURS]') {
         res.redirect('/#/Organizers')
-    }
     if (err) throw err;
   });
 });
