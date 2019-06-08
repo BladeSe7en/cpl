@@ -3,6 +3,7 @@ import { Field } from 'react-redux-form';
 import moment from 'moment';
 import { thread, getBlogs, getThreadsById, commentCount, updateCommentNum, onCommentChange, vote, commentDelete, topicDelete, submitUpdatedComment, liveChangeBlogs, toggleThreadEdit, editBlogPost, deleteBlogPost, reset, submitUpdatedBlog } from '../ForumTopics/ForumTopicsActions';
 import { onChange } from '../ForumMain/ForumMainActions'
+import Pagination from '../Pagination';
 class ForumTopics extends Component {
     constructor(props) {
         super(props);
@@ -264,6 +265,9 @@ class ForumTopics extends Component {
                         </div>
                     )
                 })}
+                <div className='pagination-container'>
+                <Pagination/>
+                </div>
             </div>
         )
     }
@@ -340,6 +344,7 @@ class ForumTopics extends Component {
                             <button className='btn' id='speaker-submit'>Submit!</button>
                         </form>
                     </div>
+                    <Pagination/>
                 </div>
             )
         }

@@ -18,7 +18,8 @@ function mapStoreToProps(store){
        editingBlog     : store.ForumTopics.editingBlogId,
        editingBlogId   : store.ForumTopics.editingBlogId,
        newBlogTitle    : store.ForumTopics.newBlogTitle,
-       newBlogBody     : store.ForumTopics.newBlogBody
+       newBlogBody     : store.ForumTopics.newBlogBody,
+       totalCount      : store.ForumTopics.totalCount
     };
 }
 

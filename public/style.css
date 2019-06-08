@@ -1694,6 +1694,11 @@ a {
   width: 75px;
 }
 
+.pagination-container {
+  height: 110px;
+  background-color: #f7f7f7;
+}
+
 .thread {
   border: 3px solid white;
   display: block;
@@ -1706,6 +1711,89 @@ a {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.pagination {
+  height: 20px;
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.show-first-elipsis {
+  height: 20px;
+}
+
+.show-last-elipsis {
+  height: 20px;
+}
+
+.hide {
+  display: none;
+}
+
+.page {
+  width: 75%;
+  height: 50px;
+  padding-top: 3px;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  margin-top: 30px;
+  margin-right: 5px;
+  margin-bottom: 30px;
+  margin-left: 5px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #1884c3;
+}
+
+.page:hover {
+  color: #1884c3;
+  border: 3px solid rgba(0, 0, 0, 0.7);
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
+
+.prev-next {
+  width: 75%;
+  height: 50px;
+  padding-top: 3px;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  margin-top: 30px;
+  margin-right: 5px;
+  margin-bottom: 30px;
+  margin-left: 5px;
+}
+
+.prev-next:hover {
+  border: 3px solid rgba(0, 0, 0, 0.7);
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
+
+.current {
+  background-color: white;
+  border: 3px black solid;
+  width: 75%;
+  height: 50px;
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  margin-top: 30px;
+  margin-right: 5px;
+  margin-bottom: 30px;
+  margin-left: 5px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #1884c3;
 }
 
 html {

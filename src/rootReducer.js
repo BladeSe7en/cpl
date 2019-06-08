@@ -9,6 +9,7 @@ import MeetupsReducer          from './components/Meetups/MeetupsReducer';
 import NewslettersReducer      from './components/Newsletters/NewslettersReducer';
 import PlayerProfileReducer    from './components/PlayerProfile/PlayerProfileReducer';
 import ForumTopicsReducer      from './components/ForumTopics/ForumTopicsReducer';
+import PaginationReducer       from './components/Pagination/PaginationReducer';
 
 const rootReducer = combineReducers({
     AdminLogin       : AdminLoginReducer,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
     TalksPage        : TalksPageReducer, 
     MeetupsReducer   : MeetupsReducer,
     Newsletters      : NewslettersReducer,
-    PlayerProfile    : PlayerProfileReducer
+    PlayerProfile    : PlayerProfileReducer,
+    Pagination       : PaginationReducer
 });
 
 export default rootReducer; 

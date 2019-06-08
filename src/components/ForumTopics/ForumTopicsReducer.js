@@ -11,7 +11,8 @@ const initialstate = {
     editingComment  : false,
     editingCommentId: '',
     editingBlog     : false,
-    editingBlogId   : ''
+    editingBlogId   : '',
+    totalCount      : 0
 }
 
 export default function ForumTopicsReducer(state = initialstate, action) {
