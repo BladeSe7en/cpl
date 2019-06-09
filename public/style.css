@@ -1732,6 +1732,40 @@ a {
   display: none;
 }
 
+.view-per-page {
+  min-width: 111px;
+  height: 50px;
+  padding-top: 3px;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  margin-top: 30px;
+  margin-right: 5px;
+  margin-bottom: 30px;
+  margin-left: 5px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #1884c3;
+  border: 3px solid #1884c3;
+}
+.view-per-page h1 {
+  font-size: 13px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.view-per-page label {
+  margin-bottom: 0px;
+  margin-top: 0;
+  font-weight: bold;
+  display: inline-flex;
+  font-size: 13px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.view-per-page input {
+  margin: 0;
+}
+
 .page {
   width: 75%;
   height: 50px;

@@ -11,12 +11,13 @@ export const thread = (value, blogId) => {
 		}
 	}
 }
-export const getBlogs = () => {
+export const getBlogs = (viewPerPage, skip) => {
+	console.log('viewPerPage3: ',viewPerPage)
 	return {
 		type: 'GET_BLOGS',
 		payload: axios({
 			method: 'get',
-			url: '/api/blogPosts'
+			url: `/api/blogPosts?filter[limit]=${viewPerPage}&filter[skip]=${skip}`
 		})
 		.then(response => {
 			return response.data

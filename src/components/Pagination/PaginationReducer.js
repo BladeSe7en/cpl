@@ -1,6 +1,8 @@
 const initialstate = {
     viewPerPage: 10,
-    currentPage: 0
+    currentPage: 0,
+    lastPage   : 0,
+    totalCount : 0
 }
 
 export default function paginationReducer(state = initialstate, action) {
@@ -22,6 +24,32 @@ export default function paginationReducer(state = initialstate, action) {
 
             }
         }
+
+        case 'GO_TO_PAGE': {
+            return {
+                ...state,
+               ...payload
+
+            }
+        }
+
+        case 'VIEW_PER_PAGE': {
+            return {
+                ...state,
+               ...payload
+
+            }
+        }
+
+        case 'GET_COUNT_FULFILLED': {
+            console.log('patload.count: ',payload.count)
+            return {
+                ...state,
+              totalCount: payload.count
+
+            }
+        }
+        
 
         default: {
             return state

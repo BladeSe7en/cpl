@@ -10,7 +10,6 @@ function mapStoreToProps(store){
        number          : store.ForumTopics.number,
        signedIn        : store.ForumMain  .signedIn,
        comment         : store.ForumTopics.comment,
-       count           : store.ForumTopics.count,
        sortOrder       : store.Leaderboard.sortOrder,
        viewingThreadId : store.ForumTopics.viewingThreadId,
        editingComment  : store.ForumTopics.editingComment,
@@ -19,7 +18,7 @@ function mapStoreToProps(store){
        editingBlogId   : store.ForumTopics.editingBlogId,
        newBlogTitle    : store.ForumTopics.newBlogTitle,
        newBlogBody     : store.ForumTopics.newBlogBody,
-       totalCount      : store.ForumTopics.totalCount
+       viewPerPage     : store.Pagination .viewPerPage
     };
 }
 

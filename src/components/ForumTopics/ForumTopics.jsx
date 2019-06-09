@@ -27,7 +27,7 @@ class ForumTopics extends Component {
     }
 
     componentDidMount() {
-        const { dispatch } = this.props;
+        const { dispatch, viewPerPage } = this.props;
         const newBlog = this.handleNewBlog;
         let urlToChangeStream = '/api/blogPosts/change-stream?_format=event-stream';
         let src = new EventSource(urlToChangeStream);
@@ -41,7 +41,7 @@ class ForumTopics extends Component {
         src2.addEventListener('data', function (msg) {
             newThread(msg)
         });
-        dispatch(getBlogs());
+        dispatch(getBlogs(viewPerPage, 0));
     }
 
     componentWillUnmount() {
@@ -111,11 +111,11 @@ class ForumTopics extends Component {
     }
 
     handleNewBlog(msg) {
-        const { dispatch } = this.props;
+        const { dispatch, viewPerPage } = this.props;
         let data = JSON.parse(msg.data);
         if(data.data == undefined) {
             setTimeout(() => {
-                dispatch(getBlogs());
+                dispatch(getBlogs(viewPerPage, 0));
             }, 1000);
         } else {
             setTimeout(() => {
@@ -217,7 +217,7 @@ class ForumTopics extends Component {
         const showHideTopic = newTopicActive ? 'topic-active' : 'topic';
         return (
             <div className={showHideTopic}>
-                {blogs && blogs.map(blog => {
+                {blogs !=='' && blogs.map(blog => {
                     if (blog.wasEdited === true) {
                         var wasEdited = ' *EDITED*'
                     } else {
