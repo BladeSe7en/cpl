@@ -1204,6 +1204,7 @@ a {
   border: 3px solid white;
   background-color: rgba(128, 128, 128, 0.9);
   height: 100%;
+  min-height: 85vh;
   justify-content: center;
   padding-top: 10px;
   display: block;
@@ -1694,7 +1695,13 @@ a {
   width: 75px;
 }
 
-.pagination-container {
+.blog-pagination-container {
+  height: 110px;
+  background-color: #f7f7f7;
+}
+
+.thread-pagination-container {
+  margin-top: 17px;
   height: 110px;
   background-color: #f7f7f7;
 }
@@ -1714,7 +1721,6 @@ a {
 }
 
 .pagination {
-  height: 20px;
   width: 100%;
   display: inline-flex;
   justify-content: center;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { previousPage, nextPage, goToPage, viewPerPage, getCount } from './PaginationActions';
+import { previousPage, nextPage, goToPage, viewPerPage, getCount } from './LeaderPaginationActions';
 import { getBlogs } from '../ForumTopics/ForumTopicsActions';
-class Pagination extends Component {
+class LeaderPagination extends Component {
     constructor(props) {
         super(props);
 
@@ -99,4 +99,4 @@ class Pagination extends Component {
     }
 }
 
-export default Pagination;
+export default LeaderPagination;

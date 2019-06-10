@@ -3,7 +3,8 @@ import { Field } from 'react-redux-form';
 import moment from 'moment';
 import { thread, getBlogs, getThreadsById, commentCount, updateCommentNum, onCommentChange, vote, commentDelete, topicDelete, submitUpdatedComment, liveChangeBlogs, toggleThreadEdit, editBlogPost, deleteBlogPost, reset, submitUpdatedBlog } from '../ForumTopics/ForumTopicsActions';
 import { onChange } from '../ForumMain/ForumMainActions'
-import Pagination from '../Pagination';
+import BlogPagination from '../BlogPagination';
+import ThreadPagination from '../ThreadPagination'
 class ForumTopics extends Component {
     constructor(props) {
         super(props);
@@ -27,7 +28,7 @@ class ForumTopics extends Component {
     }
 
     componentDidMount() {
-        const { dispatch, viewPerPage } = this.props;
+        const { dispatch, viewPerPageBlog } = this.props;
         const newBlog = this.handleNewBlog;
         let urlToChangeStream = '/api/blogPosts/change-stream?_format=event-stream';
         let src = new EventSource(urlToChangeStream);
@@ -41,7 +42,7 @@ class ForumTopics extends Component {
         src2.addEventListener('data', function (msg) {
             newThread(msg)
         });
-        dispatch(getBlogs(viewPerPage, 0));
+        dispatch(getBlogs(viewPerPageBlog, 0));
     }
 
     componentWillUnmount() {
@@ -107,19 +108,20 @@ class ForumTopics extends Component {
         this.handleThread(e)
         const id = e.target.id;
         const { dispatch } = this.props;
-        dispatch(getThreadsById(id));
+        dispatch(getThreadsById(id, 10, 0));
     }
 
     handleNewBlog(msg) {
-        const { dispatch, viewPerPage } = this.props;
+        const { dispatch, viewPerPageBlog } = this.props;
         let data = JSON.parse(msg.data);
         if(data.data == undefined) {
             setTimeout(() => {
-                dispatch(getBlogs(viewPerPage, 0));
+                dispatch(getBlogs(viewPerPageBlog, 0));
             }, 1000);
         } else {
             setTimeout(() => {
                 dispatch(liveChangeBlogs(data));
+
             }, 1000);
         }
     }
@@ -215,6 +217,8 @@ class ForumTopics extends Component {
     render() {
         const { newTopicActive, viewingThread, blogId, blogs, editingBlog, editingBlogId, newBlogTitle, newBlogBody } = this.props;
         const showHideTopic = newTopicActive ? 'topic-active' : 'topic';
+        let showHideBlogPages = viewingThread ? 'hide' : 'blog-pagination-container';
+        console.log('showHideBlogPages: ',showHideBlogPages)
         return (
             <div className={showHideTopic}>
                 {blogs !=='' && blogs.map(blog => {
@@ -265,8 +269,8 @@ class ForumTopics extends Component {
                         </div>
                     )
                 })}
-                <div className='pagination-container'>
-                <Pagination/>
+                <div className={showHideBlogPages}>
+                <BlogPagination/>
                 </div>
             </div>
         )
@@ -274,7 +278,9 @@ class ForumTopics extends Component {
 
     renderThread(mappedBlogId, numComments) {
         const { threads, blogId, viewingThread, comment, editingComment, editingCommentId } = this.props;
-        let showHideAddNewTopic = !editingComment ? 'add-new-comment' : 'notActiveTopic'
+        let showHideAddNewTopic = !editingComment ? 'add-new-comment' : 'notActiveTopic';
+        let showHideThreadPages = viewingThread ? 'thread-pagination-container' : 'hide';
+        console.log('showHideThreadPages: ',showHideThreadPages)
         if (threads.length === 0) {
             <div className='mapped-thread'>
                 <div className='add-new-comment'>
@@ -344,7 +350,9 @@ class ForumTopics extends Component {
                             <button className='btn' id='speaker-submit'>Submit!</button>
                         </form>
                     </div>
-                    <Pagination/>
+                    <div className={showHideThreadPages}>
+                    <ThreadPagination/>
+                    </div>
                 </div>
             )
         }

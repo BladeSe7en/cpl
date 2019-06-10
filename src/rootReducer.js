@@ -9,20 +9,25 @@ import MeetupsReducer          from './components/Meetups/MeetupsReducer';
 import NewslettersReducer      from './components/Newsletters/NewslettersReducer';
 import PlayerProfileReducer    from './components/PlayerProfile/PlayerProfileReducer';
 import ForumTopicsReducer      from './components/ForumTopics/ForumTopicsReducer';
-import PaginationReducer       from './components/Pagination/PaginationReducer';
+import BlogPaginationReducer   from './components/BlogPagination/BlogPaginationReducer';
+import LeaderPaginationReducer from './components/LeaderPagination/LeaderPaginationReducer';
+import ThreadPaginationReducer from './components/ThreadPagination/ThreadPaginationReducer';
 
 const rootReducer = combineReducers({
-    AdminLogin       : AdminLoginReducer,
-    ConfirmOrCancel  : ConfimOrCancelReducer,
-    ForumMain        : ForumMainReducer,
-    ForumTopics      : ForumTopicsReducer,
-    Organizers       : OrganizersReducer,
-    Leaderboard      : LeaderboardReducer,
-    TalksPage        : TalksPageReducer, 
-    MeetupsReducer   : MeetupsReducer,
-    Newsletters      : NewslettersReducer,
-    PlayerProfile    : PlayerProfileReducer,
-    Pagination       : PaginationReducer
+    AdminLogin      : AdminLoginReducer,
+    ConfirmOrCancel : ConfimOrCancelReducer,
+    ForumMain       : ForumMainReducer,
+    ForumTopics     : ForumTopicsReducer,
+    Organizers      : OrganizersReducer,
+    Leaderboard     : LeaderboardReducer,
+    TalksPage       : TalksPageReducer, 
+    MeetupsReducer  : MeetupsReducer,
+    Newsletters     : NewslettersReducer,
+    PlayerProfile   : PlayerProfileReducer,
+    BlogPagination  : BlogPaginationReducer,
+    LeaderPagination: LeaderPaginationReducer,
+    ThreadPagination: ThreadPaginationReducer
+
 });
 
 export default rootReducer; 

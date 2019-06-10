@@ -12,7 +12,6 @@ export const thread = (value, blogId) => {
 	}
 }
 export const getBlogs = (viewPerPage, skip) => {
-	console.log('viewPerPage3: ',viewPerPage)
 	return {
 		type: 'GET_BLOGS',
 		payload: axios({
@@ -41,7 +40,7 @@ export const sortByPopularity = (popularityOrder) => {
 	}
 }
 
-export const getThreadsById = (id) => {
+export const getThreadsById = (id, viewPerPage, skip) => {
     console.log('inside getThreadsById: ',id)
     const test = '5cce55288722dd4aedf1adf3'
     console.log('this is test: ', test)
@@ -51,7 +50,7 @@ export const getThreadsById = (id) => {
 		payload: 
             axios({
 			method: 'get',
-            url: `api/threads/?filter=%7B%22where%22%3A%7B%22blogPostId%22%3A%22${id}%22%7D%7D&access_token=${accessToken}`
+            url: `api/threads/?filter[where][blogPostId]=${id}&filter[limit]=${viewPerPage}&filter[skip]=${skip}&access_token=${accessToken}`
         })      
 		.then(response => {
             return response.data

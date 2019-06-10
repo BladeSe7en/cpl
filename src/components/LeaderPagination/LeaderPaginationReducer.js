@@ -5,7 +5,7 @@ const initialstate = {
     totalCount : 0
 }
 
-export default function paginationReducer(state = initialstate, action) {
+export default function leaderPaginationReducer(state = initialstate, action) {
     const { payload, type } = action; 
 
     switch(type) {
@@ -41,7 +41,7 @@ export default function paginationReducer(state = initialstate, action) {
             }
         }
 
-        case 'GET_COUNT_FULFILLED': {
+        case 'GET_BLOG_COUNT_FULFILLED': {
             console.log('patload.count: ',payload.count)
             return {
                 ...state,

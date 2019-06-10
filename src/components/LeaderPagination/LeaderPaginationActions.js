@@ -36,17 +36,3 @@ export const viewPerPage = (value) => {
 	}
 }
 
-export const getCount = () => {
-    const accessToken ='5cc16624e810e7579a1581c1'
-	return {
-		type: 'GET_COUNT',
-		payload: axios({
-			method: 'get',
-			url: `/api/blogPosts/count?access_token=${accessToken}`
-		})
-		.then(response => {
-			return response.data
-		})
-		.catch(err => err)
-	}
-}
