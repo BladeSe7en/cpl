@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import testData from './testData';
 import { type, sortBy, searchBy, getData, updateProfile } from './LeaderboardActions';
 import { getProfile } from '../PlayerProfile/PlayerProfileActions';
-
+import LeaderPagination from '../LeaderPagination'
+;
 class Leaderboard extends Component {
     constructor(props) {
         super(props)
@@ -21,7 +22,7 @@ class Leaderboard extends Component {
 
     componentDidMount() {
         const { dispatch, sortBy, sortOrder } = this.props;
-        dispatch(getData(sortBy, sortOrder));
+        dispatch(getData(sortBy, sortOrder, 10, 0));
     }
 
     handleType(e) {
@@ -55,8 +56,9 @@ class Leaderboard extends Component {
     }
 
     render() {
-        const { typeOfGame, data, sortOrder } = this.props;
+        const { typeOfGame, data, sortOrder, viewPerPageLeader, currentPageLeader } = this.props;
         const img = (<img id={`chevron_${sortOrder ? 'down' : 'up'}`} src={`/pics/chevron_${sortOrder ? 'down' : 'up'}.png`} />);
+        let numSkip = (+viewPerPageLeader*currentPageLeader);
         const civList = ['ZuluShaka', 'SwedenKristina', 'SumeriaGilgamesh', 'SpainPhilipII', 'ScythiaTomyris', 'ScotlandRobertTheBruce', 'RussiaPeterTheGreat',
             'RomeTrajan', 'PolandJadwiga', 'PhoeniciaDido', 'PersiaCyrus', 'OttomanSuleiman', 'NubiaAmanitore', 'NorwayHaraldHardrada', 'MongoliaGenghisKhan',
             'MapucheLautaro', 'MaoriKupe', 'MaliMansa', 'MacedonAlexander', 'KoreaSeondeok', 'KongoMvembaANzinga', 'KhmerJayavarmanVII', 'JapanHojoTokimune',
@@ -136,7 +138,7 @@ class Leaderboard extends Component {
                                                 <button className="btn" value={stat.id} onClick={this.handleProfile}>Player Profile</button>
                                             </Link>
                                         </div>
-                                        <div className='item'>{index + 1}</div>
+                                        <div className='item'>{index + numSkip + 1}</div>
                                         <div className='item'>{stat.name}</div>
                                         <div className='item'>{stat.careerSkill}</div>
                                         <div className='item'>{stat.careerWins}</div>
@@ -161,7 +163,7 @@ class Leaderboard extends Component {
                                             <button className="btn" value={stat.id} onClick={this.handleProfile}>Player Profile</button>
                                        </Link>
                                         </div>
-                                        <div className='item'>{index + 1}</div>
+                                        <div className='item'>{index + numSkip + 1}</div>
                                         <div className='item'>{stat.name}</div>
                                         <div className='item'>{stat.teamSkill}</div>
                                         <div className='item'>{stat.teamWins}</div>
@@ -186,7 +188,7 @@ class Leaderboard extends Component {
                                             <button className="btn" value={stat.id} onClick={this.handleProfile}>Player Profile</button>
                                       </Link>
                                         </div>
-                                        <div className='item'>{index + 1}</div>
+                                        <div className='item'>{index + numSkip + 1}</div>
                                         <div className='item'>{stat.name}</div>
                                         <div className='item'>{stat.duelSkill}</div>
                                         <div className='item'>{stat.duelWins}</div>
@@ -211,7 +213,7 @@ class Leaderboard extends Component {
                                             <button className="btn" value={stat.id} onClick={this.handleProfile}>Player Profile</button>
                                        </Link>
                                         </div>
-                                        <div className='item'>{index + 1}</div>
+                                        <div className='item'>{index + numSkip + 1}</div>
                                         <div className='item'>{stat.name}</div>
                                         <div className='item'>{stat.ffaSkill}</div>
                                         <div className='item'>{stat.ffaWins}</div>
@@ -228,6 +230,9 @@ class Leaderboard extends Component {
                         }
                     }
                     )}
+                    <div className='blog-pagination-container'>
+                    <LeaderPagination/>
+                    </div>
                 </div>
                 </div>
             </div>

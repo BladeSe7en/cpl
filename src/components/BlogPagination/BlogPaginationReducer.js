@@ -42,7 +42,6 @@ export default function paginationReducer(state = initialstate, action) {
         }
 
         case 'GET_COUNT_BLOG_FULFILLED': {
-            console.log('patload.count: ',payload.count)
             return {
                 ...state,
               totalCountBlog: payload.count

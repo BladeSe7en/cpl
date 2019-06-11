@@ -1,14 +1,16 @@
 import { connect } from 'react-redux';
-import ThreadPagination from './ThreadPagination'
+import LeaderPagination from './LeaderPagination'
 
 function mapStoreToProps(store){
     return {
-        viewPerPage: store.BlogPagination.viewPerPage,
-        currentPage: store.BlogPagination.currentPage,
-        lastPage   : store.BlogPagination.lastPage,
-        totalCount : store.BlogPagination.totalCount
+        viewPerPageLeader: store.LeaderPagination.viewPerPageLeader,
+        currentPageLeader: store.LeaderPagination.currentPageLeader,
+        lastPageLeader   : store.LeaderPagination.lastPageLeader,
+        totalCountLeader : store.LeaderPagination.totalCountLeader,
+        sortOrder        : store.Leaderboard     .sortOrder,
+        sortBy           : store.Leaderboard     .sortBy,
 
     };
 }
 
-export default connect(mapStoreToProps)(ThreadPagination);
+export default connect(mapStoreToProps)(LeaderPagination);

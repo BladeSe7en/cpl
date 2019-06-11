@@ -1,98 +1,100 @@
 import React, { Component } from 'react';
-import { previousPage, nextPage, goToPage, viewPerPage, getCount } from './LeaderPaginationActions';
-import { getBlogs } from '../ForumTopics/ForumTopicsActions';
+import { previousPageLeader, nextPageLeader, goToPageLeader, viewPerPageLeaderboard, getCountLeader } from './LeaderPaginationActions';
+import { getData } from '../Leaderboard/LeaderboardActions';
 class LeaderPagination extends Component {
     constructor(props) {
         super(props);
 
-        this.handleGoToPrevious = this.handleGoToPrevious.bind(this);
-        this.handleGoToNext     = this.handleGoToNext    .bind(this);
-        this.handleGoToPage     = this.handleGoToPage    .bind(this);
-        this.selectViewPerPage  = this.selectViewPerPage .bind(this);
+        this.handleGoToPreviousLeader = this.handleGoToPreviousLeader.bind(this);
+        this.handleGoToNextLeader     = this.handleGoToNextLeader    .bind(this);
+        this.handleGoToPageLeader     = this.handleGoToPageLeader    .bind(this);
+        this.selectViewPerPageLeader  = this.selectViewPerPageLeader .bind(this);
     }
 
     componentDidMount() {
         const { dispatch } =this.props;
-        dispatch(getCount())
+        dispatch(getCountLeader())
     }
 
-    handleGoToPrevious() {
-        const { dispatch, currentPage, viewPerPage } = this.props;
-        if (currentPage === 0) {
+    handleGoToPreviousLeader() {
+        const { dispatch, currentPageLeader, viewPerPageLeader, sortBy, sortOrder } = this.props;
+        if (currentPageLeader === 0) {
             return
         }
-        let prevPage = (currentPage - 1)
-        let numSkip = (+viewPerPage*prevPage)
-        dispatch(getBlogs(viewPerPage, numSkip));
-        dispatch(previousPage(prevPage))
+        let prevPage = (currentPageLeader - 1)
+        let numSkip = (+viewPerPageLeader*prevPage)
+        dispatch(getData(sortBy, sortOrder, viewPerPageLeader, numSkip));
+        dispatch(previousPageLeader(prevPage))
     }
 
-    handleGoToNext() {
-        const { dispatch, currentPage, viewPerPage, totalCount } = this.props;
-        let lastPage = (Math.floor(totalCount / viewPerPage)-1);
-        if (currentPage === lastPage+1) {
+    handleGoToNextLeader() {
+        const { dispatch, sortBy, sortOrder,currentPageLeader, viewPerPageLeader, totalCountLeader } = this.props;
+        let lastPage = (Math.floor(totalCountLeader / viewPerPageLeader)-1);
+        if (currentPageLeader === lastPage+1) {
             return
         }
-        let next = (currentPage + 1)
-        let numSkip = (+viewPerPage*next)
-        dispatch(getBlogs(viewPerPage, numSkip));
-        dispatch(nextPage(next))
+        let next = (currentPageLeader + 1)
+        let numSkip = (+viewPerPageLeader*next)
+        dispatch(getData(sortBy, sortOrder, viewPerPageLeader, numSkip));
+        dispatch(nextPageLeader(next))
     }
 
-    handleGoToPage(e) {
-        const { dispatch, viewPerPage } = this.props;
+    handleGoToPageLeader(e) {
+        const { dispatch, sortBy, sortOrder, viewPerPageLeader } = this.props;
         let page = +e.target.id;
-        let numSkip = (+viewPerPage*page)
-        dispatch(getBlogs(viewPerPage, numSkip));
-        dispatch(goToPage(page))
+        let numSkip = (+viewPerPageLeader*page)
+        dispatch(getData(sortBy, sortOrder, viewPerPageLeader, numSkip));
+        dispatch(goToPageLeader(page))
     }
 
-    selectViewPerPage(e) {
-        console.log('inside select view')
-        const { dispatch } = this.props;
+    selectViewPerPageLeader(e) {
+        const { dispatch, sortBy, sortOrder } = this.props;
         let views = +e.target.id
-        dispatch(getBlogs(views, 0));
-        dispatch(viewPerPage(views));
+        dispatch(getData(sortBy, sortOrder, views, 0));
+        dispatch(viewPerPageLeaderboard(views));
     }
 
     render() {
-        const { viewPerPage, currentPage, totalCount } = this.props;
-        let lastPage = (Math.ceil(totalCount / viewPerPage)-1);
-        let firstEllipsis = currentPage > 3 ? 'page' : 'hide';
-        let lastEllipsis = currentPage < (lastPage - 3) ? 'page' : 'hide'
-        let twoLess = (currentPage - 2)
-        let oneLess = (currentPage - 1)
-        let oneMore = (currentPage + 1)
-        let twoMore = (currentPage + 2)
+        const { viewPerPageLeader, currentPageLeader, totalCountLeader } = this.props;
+        let lastPage = (Math.ceil(totalCountLeader / viewPerPageLeader)-1);
+        console.log('totalCountLeader: ',totalCountLeader)
+        console.log('viewPerPageLeader: ',viewPerPageLeader)
+        console.log('lastPage: ',lastPage)
+        let firstEllipsis = currentPageLeader > 3 ? 'page' : 'hide';
+        let lastEllipsis = currentPageLeader < (lastPage - 3) ? 'page' : 'hide'
+        let twoLess = (currentPageLeader - 2)
+        let oneLess = (currentPageLeader - 1)
+        let oneMore = (currentPageLeader + 1)
+        let twoMore = (currentPageLeader + 2)
         let twoLessBtn = twoLess >= 0 ? 'page' : 'hide';
         let oneLessBtn = oneLess >= 0 ? 'page' : 'hide';
         let oneMoreBtn = oneMore <= (lastPage) ? 'page' : 'hide';
         let twoMoreBtn = twoMore <= (lastPage) ? 'page' : 'hide';
-        let hideFirst = currentPage <= 2 ? 'hide' : 'page';
-        let hideLast = currentPage <= (lastPage - 3) ? 'page' : 'hide';
+        let hideFirst = currentPageLeader <= 2 ? 'hide' : 'page';
+        let hideLast = currentPageLeader <= (lastPage - 3) ? 'page' : 'hide';
 
         return (
             <div className='pagination'>
                 <div className='view-per-page'>
                     <h1>View Per Page</h1>
-                    <input type='radio' name='page' defaultChecked id={10} onClick={this.selectViewPerPage}/>
+                    <input type='radio' name='page' defaultChecked id={10} onClick={this.selectViewPerPageLeader}/>
                     <label htmlFor='10'>10</label>
-                    <input type='radio' name='page' id={25} onClick={this.selectViewPerPage}/>
+                    <input type='radio' name='page' id={25} onClick={this.selectViewPerPageLeader}/>
                     <label htmlFor='25'>25</label>
-                    <input type='radio' name='page' id={50} onClick={this.selectViewPerPage}/>
+                    <input type='radio' name='page' id={50} onClick={this.selectViewPerPageLeader}/>
                     <label htmlFor='50'>50</label>
                 </div>
-                <button className='prev-next btn' onClick={this.handleGoToPrevious}>Prev</button>
-                <button className={hideFirst} onClick={this.handleGoToPage}>1</button>
-                <button className={firstEllipsis} id={currentPage-3} onClick={this.handleGoToPage}>...</button>
-                <button className={twoLessBtn} id={twoLess} onClick={this.handleGoToPage}>{twoLess+1}</button>
-                <button className={oneLessBtn} id={oneLess} onClick={this.handleGoToPage}>{oneLess+1}</button>
-                <button className='page current'>{currentPage+1}</button>
-                <button className={oneMoreBtn} id={oneMore} onClick={this.handleGoToPage}>{oneMore+1}</button>
-                <button className={twoMoreBtn} id={twoMore} onClick={this.handleGoToPage}>{twoMore+1}</button>
-                <button className={lastEllipsis} id={currentPage+3} onClick={this.handleGoToPage}>...</button>
-                <button className={hideLast} id={lastPage} onClick={this.handleGoToPage}>{lastPage+1}</button>
-                <button className='prev-next btn' onClick={this.handleGoToNext}>Next</button>
+                <button className='prev-next btn' onClick={this.handleGoToPreviousLeader}>Prev</button>
+                <button className={hideFirst} onClick={this.handleGoToPageLeader}>1</button>
+                <button className={firstEllipsis} id={currentPageLeader-3} onClick={this.handleGoToPageLeader}>...</button>
+                <button className={twoLessBtn} id={twoLess} onClick={this.handleGoToPageLeader}>{twoLess+1}</button>
+                <button className={oneLessBtn} id={oneLess} onClick={this.handleGoToPageLeader}>{oneLess+1}</button>
+                <button className='page current'>{currentPageLeader+1}</button>
+                <button className={oneMoreBtn} id={oneMore} onClick={this.handleGoToPageLeader}>{oneMore+1}</button>
+                <button className={twoMoreBtn} id={twoMore} onClick={this.handleGoToPageLeader}>{twoMore+1}</button>
+                <button className={lastEllipsis} id={currentPageLeader+3} onClick={this.handleGoToPageLeader}>...</button>
+                <button className={hideLast} id={lastPage} onClick={this.handleGoToPageLeader}>{lastPage+1}</button>
+                <button className='prev-next btn' onClick={this.handleGoToNextLeader}>Next</button>
 
             </div>
         )

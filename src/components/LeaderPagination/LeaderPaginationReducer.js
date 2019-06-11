@@ -1,15 +1,15 @@
 const initialstate = {
-    viewPerPage: 10,
-    currentPage: 0,
-    lastPage   : 0,
-    totalCount : 0
+    viewPerPageLeader: 10,
+    currentPageLeader: 0,
+    lastPageLeader   : 0,
+    totalCountLeader : 0
 }
 
 export default function leaderPaginationReducer(state = initialstate, action) {
     const { payload, type } = action; 
 
     switch(type) {
-        case 'DECRAMENT_CURRENT_PAGE': {
+        case 'DECRAMENT_CURRENT_PAGE_LEADER': {
             return {
                 ...state,
                 ...payload
@@ -17,7 +17,7 @@ export default function leaderPaginationReducer(state = initialstate, action) {
             }
         }
 
-        case 'INCRAMENT_CURRENT_PAGE': {
+        case 'INCRAMENT_CURRENT_PAGE_LEADER': {
             return {
                 ...state,
                ...payload
@@ -25,7 +25,7 @@ export default function leaderPaginationReducer(state = initialstate, action) {
             }
         }
 
-        case 'GO_TO_PAGE': {
+        case 'GO_TO_PAGE_LEADER': {
             return {
                 ...state,
                ...payload
@@ -33,7 +33,7 @@ export default function leaderPaginationReducer(state = initialstate, action) {
             }
         }
 
-        case 'VIEW_PER_PAGE': {
+        case 'VIEW_PER_PAGE_LEADER': {
             return {
                 ...state,
                ...payload
@@ -41,11 +41,10 @@ export default function leaderPaginationReducer(state = initialstate, action) {
             }
         }
 
-        case 'GET_BLOG_COUNT_FULFILLED': {
-            console.log('patload.count: ',payload.count)
+        case 'GET_COUNT_LEADER_FULFILLED': {
             return {
                 ...state,
-              totalCount: payload.count
+              totalCountLeader: payload.count
 
             }
         }

@@ -29,16 +29,14 @@ export const sortBy = (value, sortOrder) => {
 	}
 }
 
-export const getData = (sortBy, sortOrder) => {
+export const getData = (sortBy, sortOrder, viewPerPage, skip) => {
 	const accessToken = 'ZHWTGJ9sPahvLeQ8M97jtO7XwSlRGYJ4XZSMhprA8GzGNM5AXNcdJDtM67MHEIPx'
 	const order = sortOrder?'DESC':'ASC';
 	return {
 		type: 'GET_DATA',
 		payload: Axios({
 			method: 'get',
-			url: `api/players?filter=%7B%20%22order%22%3A%20%22${sortBy}%20${order}%22%20%7D&access_token=${accessToken}`
-			//url: `api/players?filter=%7B%20%22order%22%3A%20%22careerSkill%20DESC%22%20%7D&access_token=ZHWTGJ9sPahvLeQ8M97jtO7XwSlRGYJ4XZSMhprA8GzGNM5AXNcdJDtM67MHEIPx`
-
+			url: `api/players?filter[order]=${sortBy}%20${order}&filter[limit]=${viewPerPage}&filter[skip]=${skip}&access_token=${accessToken}`
 		})
 			.then(response => {
 				return response.data
@@ -54,7 +52,7 @@ export const searchBy = (selected, typeOfGame, BestLeader) => {
 		payload: Axios({
 			method: 'get',
 			url: `api/players?filter=%7B%22where%22%3A%20%7B%22${typeOfGame}${BestLeader}%22%3A%20%22${selected}%22%7D%7D&access_token=${accessToken}`
-		})											       
+		})
 			.then(response => {
 				return response.data
 			})
