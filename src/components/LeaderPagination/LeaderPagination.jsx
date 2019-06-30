@@ -30,7 +30,7 @@ class LeaderPagination extends Component {
     handleGoToNextLeader() {
         const { dispatch, sortBy, sortOrder,currentPageLeader, viewPerPageLeader, totalCountLeader } = this.props;
         let lastPage = (Math.floor(totalCountLeader / viewPerPageLeader)-1);
-        if (currentPageLeader === lastPage+1) {
+        if (currentPageLeader === lastPage) {
             return
         }
         let next = (currentPageLeader + 1)
@@ -57,21 +57,18 @@ class LeaderPagination extends Component {
     render() {
         const { viewPerPageLeader, currentPageLeader, totalCountLeader } = this.props;
         let lastPage = (Math.ceil(totalCountLeader / viewPerPageLeader)-1);
-        console.log('totalCountLeader: ',totalCountLeader)
-        console.log('viewPerPageLeader: ',viewPerPageLeader)
-        console.log('lastPage: ',lastPage)
         let firstEllipsis = currentPageLeader > 3 ? 'page' : 'hide';
-        let lastEllipsis = currentPageLeader < (lastPage - 3) ? 'page' : 'hide'
-        let twoLess = (currentPageLeader - 2)
-        let oneLess = (currentPageLeader - 1)
-        let oneMore = (currentPageLeader + 1)
-        let twoMore = (currentPageLeader + 2)
-        let twoLessBtn = twoLess >= 0 ? 'page' : 'hide';
-        let oneLessBtn = oneLess >= 0 ? 'page' : 'hide';
-        let oneMoreBtn = oneMore <= (lastPage) ? 'page' : 'hide';
-        let twoMoreBtn = twoMore <= (lastPage) ? 'page' : 'hide';
-        let hideFirst = currentPageLeader <= 2 ? 'hide' : 'page';
-        let hideLast = currentPageLeader <= (lastPage - 3) ? 'page' : 'hide';
+        let lastEllipsis  = currentPageLeader < (lastPage - 3) ? 'page' : 'hide'
+        let twoLess       = (currentPageLeader - 2)
+        let oneLess       = (currentPageLeader - 1)
+        let oneMore       = (currentPageLeader + 1)
+        let twoMore       = (currentPageLeader + 2)
+        let twoLessBtn    = twoLess >= 0 ? 'page' : 'hide';
+        let oneLessBtn    = oneLess >= 0 ? 'page' : 'hide';
+        let oneMoreBtn    = oneMore <= (lastPage) ? 'page' : 'hide';
+        let twoMoreBtn    = twoMore <= (lastPage) ? 'page' : 'hide';
+        let hideFirst     = currentPageLeader <= 2 ? 'hide' : 'page';
+        let hideLast      = currentPageLeader <= (lastPage - 3) ? 'page' : 'hide';
 
         return (
             <div className='pagination'>
@@ -85,15 +82,15 @@ class LeaderPagination extends Component {
                     <label htmlFor='50'>50</label>
                 </div>
                 <button className='prev-next btn' onClick={this.handleGoToPreviousLeader}>Prev</button>
-                <button className={hideFirst} onClick={this.handleGoToPageLeader}>1</button>
+                <button className={hideFirst}     onClick={this.handleGoToPageLeader}>1</button>
                 <button className={firstEllipsis} id={currentPageLeader-3} onClick={this.handleGoToPageLeader}>...</button>
-                <button className={twoLessBtn} id={twoLess} onClick={this.handleGoToPageLeader}>{twoLess+1}</button>
-                <button className={oneLessBtn} id={oneLess} onClick={this.handleGoToPageLeader}>{oneLess+1}</button>
+                <button className={twoLessBtn}    id={twoLess} onClick={this.handleGoToPageLeader}>{twoLess+1}</button>
+                <button className={oneLessBtn}    id={oneLess} onClick={this.handleGoToPageLeader}>{oneLess+1}</button>
                 <button className='page current'>{currentPageLeader+1}</button>
-                <button className={oneMoreBtn} id={oneMore} onClick={this.handleGoToPageLeader}>{oneMore+1}</button>
-                <button className={twoMoreBtn} id={twoMore} onClick={this.handleGoToPageLeader}>{twoMore+1}</button>
-                <button className={lastEllipsis} id={currentPageLeader+3} onClick={this.handleGoToPageLeader}>...</button>
-                <button className={hideLast} id={lastPage} onClick={this.handleGoToPageLeader}>{lastPage+1}</button>
+                <button className={oneMoreBtn}    id={oneMore} onClick={this.handleGoToPageLeader}>{oneMore+1}</button>
+                <button className={twoMoreBtn}    id={twoMore} onClick={this.handleGoToPageLeader}>{twoMore+1}</button>
+                <button className={lastEllipsis}  id={currentPageLeader+3} onClick={this.handleGoToPageLeader}>...</button>
+                <button className={hideLast}      id={lastPage} onClick={this.handleGoToPageLeader}>{lastPage+1}</button>
                 <button className='prev-next btn' onClick={this.handleGoToNextLeader}>Next</button>
 
             </div>

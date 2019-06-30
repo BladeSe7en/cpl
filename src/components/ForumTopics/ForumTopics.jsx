@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import moment from 'moment';
 import { thread, getBlogs, getThreadsById, commentCount, updateCommentNum, onCommentChange, vote, commentDelete, topicDelete, submitUpdatedComment, liveChangeBlogs, toggleThreadEdit, editBlogPost, deleteBlogPost, reset, submitUpdatedBlog } from '../ForumTopics/ForumTopicsActions';
-import { onChange } from '../ForumMain/ForumMainActions'
+import { onChange } from '../ForumMain/ForumMainActions';
 import BlogPagination from '../BlogPagination';
-import ThreadPagination from '../ThreadPagination'
+import ThreadPagination from '../ThreadPagination';
+import { getCountBlog } from '../BlogPagination/BlogPaginationActions';
+import { getThreadCount } from '../ThreadPagination/ThreadPaginationActions';
 class ForumTopics extends Component {
     constructor(props) {
         super(props);
 
         this.handleAddComment           = this.handleAddComment          .bind(this);
         this.handleEditBlogPost         = this.handleEditBlogPost        .bind(this);
-        this.handleCommentCount         = this.handleCommentCount        .bind(this);
         this.handleCommentChange        = this.handleCommentChange       .bind(this);
         this.handleCommentDelete        = this.handleCommentDelete       .bind(this);
         this.handleDeleteBlogPost       = this.handleDeleteBlogPost      .bind(this);
@@ -42,6 +43,7 @@ class ForumTopics extends Component {
         src2.addEventListener('data', function (msg) {
             newThread(msg)
         });
+        console.log('viewPerPageBlog: ',viewPerPageBlog)
         dispatch(getBlogs(viewPerPageBlog, 0));
     }
 
@@ -81,14 +83,16 @@ class ForumTopics extends Component {
     }
 
     handleDeleteBlogPost(e) {
-        const { dispatch } = this.props;
+        const { dispatch, signedIn } = this.props;
+        console.log('inside topic delete')
+        let signedInId = signedIn.id;
+        console.log('signedInId: ',signedInId)
+        if (signedInId == undefined) {
+            return alert('Please sign in to delete this blog.')
+        }
         let blogId = e.target.id;
         dispatch(deleteBlogPost(blogId))
-    }
-
-    handleCommentCount(id) {
-        const { dispatch } = this.props;
-        dispatch(commentCount(id));
+        getCountBlog()
     }
 
     handleCommentChange(e) {
@@ -106,41 +110,52 @@ class ForumTopics extends Component {
 
     handleGetThreadsById(e) {
         this.handleThread(e)
-        const id = e.target.id;
         const { dispatch } = this.props;
+        const id = e.target.id;
+        dispatch(getThreadCount(id))
         dispatch(getThreadsById(id, 10, 0));
     }
 
     handleNewBlog(msg) {
-        const { dispatch, viewPerPageBlog } = this.props;
+        const { dispatch, viewPerPageBlog, currentPageBlog } = this.props;
+        let skip = (currentPageBlog * viewPerPageBlog)
         let data = JSON.parse(msg.data);
+        console.log('data: ',data)
         if(data.data == undefined) {
             setTimeout(() => {
-                dispatch(getBlogs(viewPerPageBlog, 0));
+                dispatch(getBlogs(viewPerPageBlog, skip));
+                dispatch(getCountBlog())
             }, 1000);
         } else {
             setTimeout(() => {
                 dispatch(liveChangeBlogs(data));
-
+                dispatch(getCountBlog())
             }, 1000);
         }
     }
 
     handleNewThread(msg) {
-        const { dispatch, viewingThreadId } = this.props;
+        const { dispatch, viewingThreadId, viewPerPageThread, currentPageThread } = this.props;
+        console.log('viewingThreadId: ',viewingThreadId)
+        let skip = (viewPerPageThread * currentPageThread)
         let data2 = JSON.parse(msg.data);
         console.log('data2: ', data2)
         if (data2.type == 'remove') {
-            return dispatch(getThreadsById(viewingThreadId))
+            dispatch(getThreadsById(viewingThreadId, viewPerPageThread, skip))
+            dispatch(getThreadCount(viewingThreadId))
+        } else {
+            let id = data2.data.blogPostId
+            console.log('data2: ',data2)
+            console.log('id: ',id)
+            setTimeout(() => {
+                if (viewingThreadId === id) {
+                    dispatch(getThreadsById(id, viewPerPageThread, skip));
+                    dispatch(getThreadCount(id))
+                } else {
+                    return
+                }
+            }, 1000);
         }
-        let id = data2.data.blogPostId
-        setTimeout(() => {
-            if (viewingThreadId === id) {
-                dispatch(getThreadsById(id));
-            } else {
-                return
-            }
-        }, 1000);
     }
 
     handleSubmitUpdatedComment(e) {
@@ -170,9 +185,15 @@ class ForumTopics extends Component {
     }
 
     handleThread(e) {
-        const { dispatch, viewingThread } = this.props;
+        const { dispatch, viewingThread, viewingThreadId } = this.props;
         let blogId = e.target.id;
-        dispatch(thread(!viewingThread, blogId));
+        var viewing = viewingThread;
+        console.log('viewingThread: ',viewingThread)
+        if (viewingThreadId !== blogId ) {
+            viewing = false;
+            console.log('inside if viewingThread: ',viewingThread)
+        }
+        dispatch(thread(!viewing, blogId));
     }
 
     handleThreadEdit(e) {
@@ -184,6 +205,7 @@ class ForumTopics extends Component {
 
     handleTopicDelete(e) {
         const { dispatch } = this.props;
+      
         let topicDeleteId = e.target.id;
         dispatch(topicDelete(topicDeleteId))
     }
@@ -218,7 +240,6 @@ class ForumTopics extends Component {
         const { newTopicActive, viewingThread, blogId, blogs, editingBlog, editingBlogId, newBlogTitle, newBlogBody } = this.props;
         const showHideTopic = newTopicActive ? 'topic-active' : 'topic';
         let showHideBlogPages = viewingThread ? 'hide' : 'blog-pagination-container';
-        console.log('showHideBlogPages: ',showHideBlogPages)
         return (
             <div className={showHideTopic}>
                 {blogs !=='' && blogs.map(blog => {
@@ -280,7 +301,6 @@ class ForumTopics extends Component {
         const { threads, blogId, viewingThread, comment, editingComment, editingCommentId } = this.props;
         let showHideAddNewTopic = !editingComment ? 'add-new-comment' : 'notActiveTopic';
         let showHideThreadPages = viewingThread ? 'thread-pagination-container' : 'hide';
-        console.log('showHideThreadPages: ',showHideThreadPages)
         if (threads.length === 0) {
             <div className='mapped-thread'>
                 <div className='add-new-comment'>

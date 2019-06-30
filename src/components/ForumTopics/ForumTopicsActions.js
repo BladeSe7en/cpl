@@ -6,7 +6,8 @@ export const thread = (value, blogId) => {
 		payload: {
 		viewingThread: value,
 		viewingThreadId: blogId,
-        blogId: blogId
+		blogId: blogId,
+		currentPageThread: 0
 
 		}
 	}
@@ -41,26 +42,37 @@ export const sortByPopularity = (popularityOrder) => {
 }
 
 export const getThreadsById = (id, viewPerPage, skip) => {
-    console.log('inside getThreadsById: ',id)
-    const test = '5cce55288722dd4aedf1adf3'
-    console.log('this is test: ', test)
+	console.log('id: ',id)
+	console.log('viewPerPage: ',viewPerPage)
+	console.log('spip: ',skip)
     const accessToken ='5cc16624e810e7579a1581c1'
 	return {
 		type: 'GET_THREADS_BY_ID',
 		payload: 
             axios({
 			method: 'get',
-            url: `api/threads/?filter[where][blogPostId]=${id}&filter[limit]=${viewPerPage}&filter[skip]=${skip}&access_token=${accessToken}`
+            url: `api/threads?filter[where][blogPostId]=${id}&filter[limit]=${viewPerPage}&filter[skip]=${skip}&access_token=${accessToken}`
         })      
 		.then(response => {
+			console.log('response1: ',response.data)
+			// if (response.data.length === 0) {
+			// 	skip -= viewPerPage;
+			// 	console.log('newSkip: ',skip)
+			// 	axios({
+			// 		method: 'get',
+			// 		url: `api/threads?filter[where][blogPostId]=${id}&filter[limit]=${viewPerPage}&filter[skip]=${skip}&access_token=${accessToken}`
+			// 	})
+			// 	.then(response => {
+			// 		return response.data
+			// 	})
+			// }
             return response.data
 		})
 		.catch(err => err)
-    }
+	}
 }
 
 export const commentCount = (id) => {
-    console.log('inside commentCount: ',id)
     const accessToken ='5cc16624e810e7579a1581c1'
 	return {
 		type: 'GET_COUNT',
@@ -77,7 +89,6 @@ export const commentCount = (id) => {
 }
 
 export const addComment = (data) => {
-	console.log('1')
 	const accessToken ='5cc16624e810e7579a1581c1'
 	return {
 		payload: 
@@ -95,7 +106,6 @@ export const addComment = (data) => {
 }
 
 export const submitUpdatedComment = (date, comment, memberId, threadId, avatar, steamName) => {
-	console.log('1')
 	const accessToken ='5cc16624e810e7579a1581c1'
 	const data = {
 		"comment": comment,
@@ -123,8 +133,6 @@ export const submitUpdatedComment = (date, comment, memberId, threadId, avatar, 
 }
 
 export const updateCommentNum = (id, data, newNum) => {
-	console.log('NEWNUM11: ',newNum)
-	console.log('testing')
 	const accessToken ='5cc16624e810e7579a1581c1'
 	let newData = {
 		"numComments": newNum
@@ -192,9 +200,6 @@ export const vote = (id, voteCount, voteNames) => {
 
 export const commentDelete = (deleteId, number, blogId) => {
 	const accessToken ='5cc16624e810e7579a1581c1'
-	console.log('this is threadId inside action: ', deleteId)
-	console.log('this is number in comment delete: ',number)
-	console.log('this is blogId in comment delete: ',blogId)
 	let newData = {
 		"numComments": (+number - 1)
 	}
@@ -246,7 +251,6 @@ export const topicDelete = (deleteId) => {
 
 
 export const liveChangeBlogs = (value) => {
-	console.log('testing live change blogs action value.data: ', value.data)
 	return {
 		type: 'LIVE_CHANGE_BLOGS',
 		payload: {
@@ -267,7 +271,6 @@ export const toggleThreadEdit = (value, id, comment) => {
 }
 
 export const toggleCloseThreadEdit = (value, id) => {
-	console.log('value in toggleThreadEdit: ',value)
 	return {
 		type: 'TOGGLE_CLOSE_THREAD_EDIT',
 		payload: {
@@ -309,10 +312,6 @@ export const deleteBlogPost = (blogId) => {
 }
 
 export const editBlogPost = (editingBlog, blogId, blogTitle, blogBody) => {
-	console.log('editingBlog: ',editingBlog)
-	console.log('blogId: ',blogId)
-	console.log('blogTitle: ',blogTitle)
-	console.log('blogBody: ',blogBody)
 		return {
 			type: 'TOGGLE_BLOG_EDIT',
 			payload: {

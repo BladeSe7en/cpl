@@ -5,6 +5,7 @@ import ForumTopics from '../ForumTopics';
 import { toggleActive, toggleSignIn, playerData, togglePopularity, blogsByDate, dateToggle, onChange, topicSubmit, sortByPopularity, liveChangeBlogs } from './ForumMainActions';
 import Axios from 'axios';
 import moment from 'moment';
+import { getCountBlog } from '../BlogPagination/BlogPaginationActions';
 
 class Forum extends Component {
 	constructor(props) {
@@ -71,9 +72,21 @@ class Forum extends Component {
 		const date = moment().format('x');
 		const name = signedIn.name;
 		dispatch(topicSubmit(date, newTopic, newTopicBody, memberId, name))
+		dispatch(getCountBlog())
 	}
 
 	componentDidMount() {
+		var prevScrollpos = window.pageYOffset;
+		window.onscroll = function () {
+			var currentScrollPos = window.pageYOffset;
+			if (prevScrollpos > currentScrollPos) {
+				document.getElementById("navbar").style.top = "0";
+			} else {
+				document.getElementById("navbar").style.top = "-200px";
+			}
+			prevScrollpos = currentScrollPos;
+		}
+
 		Axios.get('/ForumMain')
 			.then(response => {
 				if (response.data === 'not logged in') {

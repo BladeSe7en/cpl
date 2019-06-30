@@ -6,7 +6,7 @@ const Navbar = props => {
     const { location } = props;
     return (
         <div className='home-nav'>
-            <div className='navbar'>
+            <div className='navbar' id='navbar'>
 
                 <img className='logo' src='./pics/cpl_logo_black.png' />
 

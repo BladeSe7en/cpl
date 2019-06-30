@@ -3,6 +3,16 @@ import { HashLink as Link } from 'react-router-hash-link';
 import Navbar from '../Navbar/Navbar';
 
 const Rules = () => {
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function () {
+        var currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+            document.getElementById("navbar").style.top = "0";
+        } else {
+            document.getElementById("navbar").style.top = "-200px";
+        }
+        prevScrollpos = currentScrollPos;
+    }
     return (
         <div>
             <Navbar />

@@ -26,7 +26,8 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         case 'GET_BLOGS_FULFILLED': {
 			return {
 				...state,
-			    blogs: payload
+                blogs: payload,
+                currentPageBlog: 0
 			}
         };
         
@@ -87,7 +88,11 @@ export default function ForumTopicsReducer(state = initialstate, action) {
         }
         
         case 'LIVE_CHANGE_BLOGS': {
+            console.log('state: ',state)
             let newBlogs = [...state.blogs];
+            console.log('newBlogs: ',newBlogs)
+            console.log('new blogs length: ', newBlogs.length)
+            console.log('this is payload: ',payload)
             if (payload.blogs == undefined) {
                 newBlogs = [...state.blogs]
             } else {
@@ -95,13 +100,24 @@ export default function ForumTopicsReducer(state = initialstate, action) {
                 let index = newBlogs.findIndex(blog => {
                     return blog.id == payload.blogs.id;
                 })
-                newBlogs.splice(index, 1, {
-                    ...newObj
-                })
-            }
-            return {
-                ...state,
-                blogs: newBlogs
+                console.log('newObj: ',newObj)
+                console.log('index: ',index)
+                if (index === -1) {
+                    index = newBlogs.length;
+                }
+                if (newBlogs.length === 10) {
+                    return {
+                        ...state,
+                        blogs: newBlogs
+                    }
+                }
+                    newBlogs.splice(index, 1, {
+                        ...newObj
+                    })
+                    return {
+                        ...state,
+                        blogs: newBlogs
+                }
             }
         }
 

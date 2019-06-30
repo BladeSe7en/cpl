@@ -1,24 +1,19 @@
 {
-  "name": "member",
+  "name": "news",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "steamName": {
+    "date": {
       "type": "string",
       "required": true
     },
-    "steamId": {
-      "type": "number",
-      "required": true
-    },
-    "steamAvatar": {
-      "type": "string"
-    },
-    "profile": {
-      "type": "string",
+    "lines": {
+      "type": [
+        "string"
+      ],
       "required": true
     }
   },
@@ -30,13 +25,14 @@
       "principalType": "ROLE",
       "principalId": "admin",
       "permission": "ALLOW",
-      "property": "findById"
+      "property": "submitNewsletter"
     },
     {
-      "accessType": "*",
+      "accessType": "READ",
       "principalType": "ROLE",
-      "principalId": "$unauthenticated",
-      "permission": "DENY"
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "updateNewsletter"
     }
   ],
   "methods": {}

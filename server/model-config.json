@@ -56,5 +56,9 @@
   "thread": {
     "dataSource": "MongoDB",
     "public": true
+  },
+  "news": {
+    "dataSource":"MongoDB",
+    "public": true
   }
 }

@@ -6,7 +6,8 @@ function mapStoreToProps(store){
         viewPerPageThread: store.ThreadPagination.viewPerPageThread,
         currentPageThread: store.ThreadPagination.currentPageThread,
         lastPageThread   : store.ThreadPagination.lastPageThread,
-        totalCountThread : store.ThreadPagination.totalCountThread
+        totalCountThread : store.ThreadPagination.totalCountThread,
+        viewingThreadId  : store.ForumTopics     .viewingThreadId
 
     };
 }

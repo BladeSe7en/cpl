@@ -2,24 +2,27 @@ import { connect } from 'react-redux';
 import ForumTopics from './ForumTopics';
 function mapStoreToProps(store){
     return {
-       viewingThread    : store.ForumTopics     .viewingThread,
-       newTopicActive   : store.ForumMain       .newTopicActive,
        blogs            : store.ForumTopics     .blogs,
-       threads          : store.ForumTopics     .threads,
        blogId           : store.ForumTopics     .blogId,
+       comment          : store.ForumTopics     .comment,
+       editingComment   : store.ForumTopics     .editingComment,
+       viewingThread    : store.ForumTopics     .viewingThread,
+       editingCommentId : store.ForumTopics     .editingCommentId,
+       newTopicActive   : store.ForumMain       .newTopicActive,
+       threads          : store.ForumTopics     .threads,
        number           : store.ForumTopics     .number,
        signedIn         : store.ForumMain       .signedIn,
-       comment          : store.ForumTopics     .comment,
        sortOrder        : store.Leaderboard     .sortOrder,
        viewingThreadId  : store.ForumTopics     .viewingThreadId,
-       editingComment   : store.ForumTopics     .editingComment,
-       editingCommentId : store.ForumTopics     .editingCommentId,
        editingBlog      : store.ForumTopics     .editingBlogId,
        editingBlogId    : store.ForumTopics     .editingBlogId,
        newBlogTitle     : store.ForumTopics     .newBlogTitle,
        newBlogBody      : store.ForumTopics     .newBlogBody,
        viewPerPageBlog  : store.BlogPagination  .viewPerPageBlog,
-       viewPerPageThread: store.ThreadPagination.viewPerPageThread
+       viewPerPageThread: store.ThreadPagination.viewPerPageThread,
+       totalCountBlog   : store.BlogPagination  .totalCountBlog,
+       currentPageBlog  : store.BlogPagination  .currentPageBlog,
+       currentPageThread: store.ThreadPagination.lastPageThread
     };
 }
 

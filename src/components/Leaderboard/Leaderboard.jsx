@@ -22,6 +22,16 @@ class Leaderboard extends Component {
 
     componentDidMount() {
         const { dispatch, sortBy, sortOrder } = this.props;
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function () {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                document.getElementById("navbar").style.top = "0";
+            } else {
+                document.getElementById("navbar").style.top = "-200px";
+            }
+            prevScrollpos = currentScrollPos;
+        }
         dispatch(getData(sortBy, sortOrder, 10, 0));
     }
 
@@ -32,7 +42,7 @@ class Leaderboard extends Component {
 
     handleSortBy(e) {
         const { dispatch, sortOrder } = this.props;
-        dispatch(getData(e.target.value, sortOrder))
+        dispatch(getData(e.target.value, sortOrder, 10, 0))
         dispatch(sortBy(e.target.value, sortOrder));
     }
 

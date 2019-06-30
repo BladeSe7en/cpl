@@ -1,15 +1,15 @@
 const initialstate = {
-    viewPerPage: 10,
-    currentPage: 0,
-    lastPage   : 0,
-    totalCount : 0
+    viewPerPageThread: 10,
+    currentPageThread: 0,
+    lastPageThread   : 0,
+    totalCountThread : 0
 }
 
 export default function threadPaginationReducer(state = initialstate, action) {
     const { payload, type } = action; 
 
     switch(type) {
-        case 'DECRAMENT_CURRENT_PAGE': {
+        case 'DECRAMENT_CURRENT_PAGE_THREAD': {
             return {
                 ...state,
                 ...payload
@@ -17,7 +17,7 @@ export default function threadPaginationReducer(state = initialstate, action) {
             }
         }
 
-        case 'INCRAMENT_CURRENT_PAGE': {
+        case 'INCRAMENT_CURRENT_PAGE_THREAD': {
             return {
                 ...state,
                ...payload
@@ -25,7 +25,7 @@ export default function threadPaginationReducer(state = initialstate, action) {
             }
         }
 
-        case 'GO_TO_PAGE': {
+        case 'GO_TO_PAGE_THREAD': {
             return {
                 ...state,
                ...payload
@@ -33,7 +33,7 @@ export default function threadPaginationReducer(state = initialstate, action) {
             }
         }
 
-        case 'VIEW_PER_PAGE': {
+        case 'VIEW_PER_PAGE_THREAD': {
             return {
                 ...state,
                ...payload
@@ -42,12 +42,10 @@ export default function threadPaginationReducer(state = initialstate, action) {
         }
 
         case 'GET_THREAD_COUNT_FULFILLED': {
-            let count = payload.count;
-            let lastPage = (Math.floor(count / 10)-1);
+            console.log('payload.count: ', payload.count)
             return {
                 ...state,
-              totalCountThread: count,
-              lastPageThread  : lastPage
+              totalCountThread: payload.count
 
             }
         }

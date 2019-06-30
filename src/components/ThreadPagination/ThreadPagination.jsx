@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { previousPageThread, nextPageThread, goToPageThread, viewPerPageThread, getThreadCount } from './ThreadPaginationActions';
-import { getBlogs } from '../ForumTopics/ForumTopicsActions';
+import { previousPageThread, nextPageThread, goToPageThread, viewingPerPageThread } from './ThreadPaginationActions';
+import { getThreadsById } from '../ForumTopics/ForumTopicsActions';
 class ThreadPagination extends Component {
     constructor(props) {
         super(props);
@@ -11,59 +11,57 @@ class ThreadPagination extends Component {
         this.selectViewPerPageThread  = this.selectViewPerPageThread .bind(this);
     }
 
-    componentDidMount() {
-        const { dispatch } =this.props;
-        dispatch(getThreadCount())
-    }
-
     handleLastPage() {
         const { dispatch } =this.props;
         dispatch(setLastPage())
     }
 
     handleGoToPreviousThread() {
-        const { dispatch, currentPageThread, viewPerPageThread } = this.props;
+        const { dispatch, viewingThreadId, currentPageThread, viewPerPageThread } = this.props;
         if (currentPageThread === 0) {
             return
         }
         let prevPage = (currentPageThread - 1)
         let numSkip = (+viewPerPageThread*prevPage)
-        dispatch(getThreadsById(id, viewPerPageThread, numSkip));
+        dispatch(getThreadsById(viewingThreadId, viewPerPageThread, numSkip));
         dispatch(previousPageThread(prevPage))
     }
 
     handleGoToNextThread() {
-        const { dispatch, currentPageThread, viewPerPageThread, totalCountThread } = this.props;
-        let lastPage = (Math.floor(totalCountThread / viewPerPageThread)-1);
+        const { dispatch, currentPageThread, viewingThreadId, viewPerPageThread, totalCountThread } = this.props;
+        let lastPage = (Math.floor(totalCountThread / viewPerPageThread));
         console.log('lastPage: ',lastPage)
-        if (currentPageThread === lastPage+1) {
+        if (currentPageThread === lastPage) {
             return
         }
         let next = (currentPageThread + 1)
         let numSkip = (+viewPerPageThread*next)
-        dispatch(getBlogs(viewPerPageThread, numSkip));
+        dispatch(getThreadsById(viewingThreadId, viewPerPageThread, numSkip));
         dispatch(nextPageThread(next))
     }
 
     handleGoToPageThread(e) {
-        const { dispatch, viewPerPageThread } = this.props;
+        const { dispatch, viewPerPageThread, viewingThreadId } = this.props;
         let page = +e.target.id;
         let numSkip = (+viewPerPageThread*page)
-        dispatch(getBlogs(viewPerPageThread, numSkip));
+        dispatch(getThreadsById(viewingThreadId, viewPerPageThread, numSkip));
         dispatch(goToPageThread(page))
     }
 
     selectViewPerPageThread(e) {
         console.log('inside select view')
-        const { dispatch } = this.props;
+        const { dispatch, viewingThreadId, viewPerPageThread } = this.props;
         let views = +e.target.id
-        dispatch(getBlogs(views, 0));
-        dispatch(viewPerPageThread(views));
+        dispatch(getThreadsById(viewingThreadId, viewPerPageThread, 0));
+        dispatch(viewingPerPageThread(views));
     }
 
     render() {
         const { viewPerPageThread, currentPageThread, totalCountThread } = this.props;
         let lastPage = (Math.ceil(totalCountThread / viewPerPageThread)-1);
+        console.log('totalCountThread: ',totalCountThread)
+        console.log('viewPerPageThread: ',viewPerPageThread)
+        console.log('last page in render: ',lastPage)
         let firstEllipsis = currentPageThread > 3 ? 'page' : 'hide';
         let lastEllipsis = currentPageThread < (lastPage - 3) ? 'page' : 'hide'
         let twoLess = (currentPageThread - 2)
@@ -106,3 +104,7 @@ class ThreadPagination extends Component {
 }
 
 export default ThreadPagination;
+
+
+
+
