@@ -12,6 +12,7 @@ import ForumTopicsReducer      from './components/ForumTopics/ForumTopicsReducer
 import BlogPaginationReducer   from './components/BlogPagination/BlogPaginationReducer';
 import LeaderPaginationReducer from './components/LeaderPagination/LeaderPaginationReducer';
 import ThreadPaginationReducer from './components/ThreadPagination/ThreadPaginationReducer';
+import NewsDateReducer         from './components/NewsDate/NewsDateReducer';
 
 const rootReducer = combineReducers({
     AdminLogin      : AdminLoginReducer,
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
     PlayerProfile   : PlayerProfileReducer,
     BlogPagination  : BlogPaginationReducer,
     LeaderPagination: LeaderPaginationReducer,
-    ThreadPagination: ThreadPaginationReducer
+    ThreadPagination: ThreadPaginationReducer,
+    NewsDate        : NewsDateReducer
 
 });
 

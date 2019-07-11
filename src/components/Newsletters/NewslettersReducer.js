@@ -7,7 +7,8 @@ const initialState = {
    scrollingPage: 0,
    firstMonth: '',
    lastMonth: '',
-   currentPageNews: 0
+   currentPageNews: 0,
+   pageInView: ''
 }
 
 export default function NewslettersReducer(state = initialState, action) {
@@ -18,16 +19,16 @@ export default function NewslettersReducer(state = initialState, action) {
             console.log('payload: ',payload)
             if (state.news.length !== 0) {
                 var newNews = state.news;
-                console.log(1)
             } else {
                 var newNews = []
-                console.log(2)
             }
             console.log('first newNews: ',newNews)
             payload.forEach(post => {
                 newNews.push(post)
             })
             console.log('newNews: ',newNews)
+            newNews.sort((a, b) => a[1] - b[1])
+            console.log('newNews2: ',newNews)
             let years = [];
             payload.forEach(item => {
                let date = moment(Number(item.date)).format('YYYY')
@@ -89,6 +90,26 @@ console.log('last date: ', moment(lastDate).format('MMMM YYYY'))
                 ...state,
                 lastMonth: payload[0],
                 months: dates
+            }
+        }
+
+        case 'UPDATE_PAGE_IN_VIEW': {
+            console.log('state.months: ',state.months)
+            console.log('payload: ',payload)
+            let months = state.months;
+            if (months !== undefined) {
+                let index = months && months.indexOf(payload.pageInView)
+                console.log('index: ',index)
+                return {
+                    ...state,
+                    ...payload,
+                    currentPageNews: index
+                }
+            } else {
+                return {
+                    ...state,
+                    ...payload
+                }
             }
         }
 

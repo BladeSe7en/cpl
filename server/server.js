@@ -26,6 +26,9 @@ app.start = function () {
   });
 };
 
+
+
+
 ///////////////////////////
 //  steam login
 
@@ -48,6 +51,7 @@ app.use(steam.middleware({
 }));
 
 app.get('/ForumMain', function(req, res) {
+  console.log('req: ',req)
   res.send(req.user == null ? 'not logged in' : req.user._json).end();
 });
 

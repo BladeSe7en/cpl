@@ -84,6 +84,7 @@ class ForumTopics extends Component {
 
     handleDeleteBlogPost(e) {
         const { dispatch, signedIn } = this.props;
+        console.log('profile: ',signedIn)
         console.log('inside topic delete')
         let signedInId = signedIn.id;
         console.log('signedInId: ',signedInId)

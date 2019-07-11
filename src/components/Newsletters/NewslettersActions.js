@@ -73,5 +73,16 @@ export const getLast = () => {
 	}
 }
 
+export const updatePageInView = (value) => {
+    return {
+        type: 'UPDATE_PAGE_IN_VIEW',
+        payload: {
+            pageInView: value
+        }
+    }
+}
+
+
+
 
 // [where][and][0]condition1&[where][<and|or>]condition2

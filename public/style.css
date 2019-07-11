@@ -1879,6 +1879,42 @@ a {
   margin-right: auto;
 }
 
+.newsPage {
+  width: 90%;
+  height: 50px;
+  padding-top: 3px;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #1884c3;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.currentNews {
+  background-color: white;
+  border: 3px black solid;
+  width: 90%;
+  height: 50px;
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #1884c3;
+}
+
 .news-nav {
   max-width: 250px;
   background-color: #f7f7f7;

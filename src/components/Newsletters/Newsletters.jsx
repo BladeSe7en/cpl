@@ -4,26 +4,23 @@ import Navbar from '../Navbar/Navbar';
 import glicko2 from 'glicko2';
 import moment from 'moment';
 import openSocket from 'socket.io-client';
-import { getNewsletters, isLoading, getFirst, getLast } from './NewslettersActions';
+import { getNewsletters, isLoading, getFirst, getLast, test, updatePageInView } from './NewslettersActions';
 import $ from "jquery";
 import NewsletterNav from '../NewsletterNav/NewsletterNav';
+import { Waypoint } from 'react-waypoint';
 
 class Newsletters extends Component {
   constructor(props) {
     super(props);
-    this.socket        = this.socket       .bind(this);
-    this.loadMore      = this.loadMore     .bind(this);
-    this.listener      = this.listener     .bind(this);
-    this.monthListener = this.monthListener.bind(this);
-    this.newsletterNav = this.newsletterNav.bind(this);
+    this.socket   = this.socket  .bind(this);
+    this.loadMore = this.loadMore.bind(this);
+    this.listener = this.listener.bind(this);
+    this.handleUpdateCurrentPageNews = this.handleUpdateCurrentPageNews.bind(this)
   }
 
   componentDidMount() {
-    const { dispatch, news } = this.props;
-    console.log('this.refs: ', this.refs.myscroll)
+    const { dispatch } = this.props;
     this.listener()
-    this.monthListener();
-    this.newsletterNav();
     dispatch(getFirst())
     setTimeout(() => {
       dispatch(getLast())
@@ -34,23 +31,16 @@ class Newsletters extends Component {
 
   listener() {
       console.log('this.refs: ',this.refs)
-      console.log('this.refs.myscroll.scrollTop: ',this.refs.myscroll.scrollTop)
-      console.log('this.refs.myscroll.clientHeight: ',this.refs.myscroll.clientHeight)
-      console.log('this.refs.myscroll.scrollHeight: ',this.refs.myscroll.scrollHeight)
+      
       this.refs.myscroll.addEventListener("scroll", () => {
-        console.log('hi')
        if (
          this.refs.myscroll.scrollTop + this.refs.myscroll.clientHeight >=
          this.refs.myscroll.scrollHeight
        ) {
+       
          this.loadMore()
        }
      });
-
-  }
-
-  monthListener() {
-    const { months } = this.props;
 
   }
 
@@ -83,69 +73,28 @@ class Newsletters extends Component {
     });
   }
 
-  newsletterNav() {
-
-    $(document).ready(function () {
-      $(document).on("scroll", onScroll);
-
-      $('a[href^="#"]').on('click', function (e) {
-        e.preventDefault();
-        $(document).off("scroll");
-
-        $('a').each(function () {
-          $(this).removeClass('active-news');
-        })
-        $(this).addClass('active-news');
-
-        var target = this.hash,
-          menu = target;
-        $('html, body').stop().animate({
-          'scrollTop': $target.offset().top + 2
-        }, 500, 'swing', function () {
-          window.location.hash = target;
-          $(document).on("scroll", onScroll);
-        });
-      });
-    });
-
-    function onScroll(event) {
-      var scrollPos = $(document).scrollTop();
-      $('#news-nav button').each(function () {
-        var currLink = $(this);
-        console.log('currLink0: ', currLink)
-        var refElement = $(currLink.attr("href"));
-        console.log('------------------', refElement.position())
-        console.log('refElement: ', refElement)
-        if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
-          $('#news-nav button').removeClass("active");
-          currLink.addClass("active");
-          console.log('currLink: ', currLink)
-        }
-        else {
-          currLink.removeClass("active");
-        }
-      });
-    }
-
-
+  handleUpdateCurrentPageNews() {
+    const { dispatch } = this.props;
+    dispatch(updatePageInView())
   }
 
+
   render() {
-    const { news, months, currentPageNews, isLoading } = this.props;
+    const { news, months, currentPageNews, isLoading, dispatch } = this.props;
     let lastPage = months && months.length -1
     console.log('lastPage: ',lastPage)
-    let firstEllipsis = currentPageNews > 3 ? 'page' : 'hide';
-        let lastEllipsis = currentPageNews < (lastPage - 3) ? 'page' : 'hide'
+    let firstEllipsis = currentPageNews > 3 ? 'newsPage' : 'hide';
+        let lastEllipsis = currentPageNews < (lastPage - 3) ? 'newsPage' : 'hide'
         let twoLess = (currentPageNews - 2)
         let oneLess = (currentPageNews - 1)
         let oneMore = (currentPageNews + 1)
         let twoMore = (currentPageNews + 2)
-        let twoLessBtn = twoLess >= 0 ? 'page' : 'hide';
-        let oneLessBtn = oneLess >= 0 ? 'page' : 'hide';
-        let oneMoreBtn = oneMore <= (lastPage) ? 'page' : 'hide';
-        let twoMoreBtn = twoMore <= (lastPage) ? 'page' : 'hide';
-        let hideFirst = currentPageNews <= 2 ? 'hide' : 'page';
-        let hideLast = currentPageNews <= (lastPage - 3) ? 'page' : 'hide';
+        let twoLessBtn = twoLess >= 0 ? 'newsPage' : 'hide';
+        let oneLessBtn = oneLess >= 0 ? 'newsPage' : 'hide';
+        let oneMoreBtn = oneMore <= (lastPage) ? 'newsPage' : 'hide';
+        let twoMoreBtn = twoMore <= (lastPage) ? 'newsPage' : 'hide';
+        let hideFirst = currentPageNews <= 2 ? 'hide' : 'newsPage';
+        let hideLast = currentPageNews <= (lastPage - 3) ? 'newsPage' : 'hide';
         let displayWhileLoading = isLoading ? 'loading-message': 'hide';
 
     return (
@@ -158,24 +107,25 @@ class Newsletters extends Component {
             <div className='news-nav' id='news-nav'>
               {/* <NewsletterNav
               /> */}
-              <button className={hideFirst} onClick={this.getNewsletters}>{months && months[currentPageNews]}</button>
+              <button className={hideFirst} onClick={this.getNewsletters}>{months && months[0]}</button>
               <button className={firstEllipsis} id={currentPageNews - 3} onClick={this.getNewsletters}>...</button>
               <button className={twoLessBtn} id={twoLess} onClick={this.getNewsletters}>{months && months[currentPageNews -2]}</button>
               <button className={oneLessBtn} id={oneLess} onClick={this.getNewsletters}>{months && months[currentPageNews -1]}</button>
-              <button className='page current'>{months && months[currentPageNews]}</button>
+              <button className='newsPage currentNews'>{months && months[currentPageNews]}</button>
               <button className={oneMoreBtn} id={oneMore} onClick={this.getNewsletters}>{months && months[currentPageNews +1]}</button>
               <button className={twoMoreBtn} id={twoMore} onClick={this.getNewsletters}>{months && months[currentPageNews +2]}</button>
               <button className={lastEllipsis} id={currentPageNews + 3} onClick={this.getNewsletters}>...</button>
               <button className={hideLast} id={lastPage} onClick={this.getNewsletters}>{months && months[lastPage]}</button>
             </div>
 
-            <div className='news-posts' ref="myscroll">
-              {news.map((post, i) => {
+            <div className='news-posts' id='news-posts' ref="myscroll">
+              {news && news.map((post, i) => {
                 let lines = post.lines
-                let month = moment(Number(post.date)).format('MMMMYYYY')
+                let month = moment(Number(post.date)).format('MMMM YYYY')
+                console.log('month, ', month);
                 return (
                   <div className='one-post' id={month}>
-                    <a id={month}></a>
+                    <Waypoint onEnter={() => dispatch(updatePageInView(month))} />
                     <div className='news-date'>{moment(Number(post.date)).format('lll')}</div>
                     {lines.map(line => {
                       return (<p className='line'>{line}</p>)
@@ -183,9 +133,9 @@ class Newsletters extends Component {
                   </div>
                 )
               })}
-            <div className={displayWhileLoading}>
-              <h1>Loading...</h1>
-            </div>
+              <div className={displayWhileLoading}>
+                <h1>Loading...</h1>
+              </div>
             </div>
           </div>
         </div>
