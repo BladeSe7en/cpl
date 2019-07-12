@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import Navbar from '../Navbar/Navbar';
 import ForumTopics from '../ForumTopics';
-import { toggleActive, toggleSignIn, playerData, togglePopularity, blogsByDate, dateToggle, onChange, topicSubmit, sortByPopularity, liveChangeBlogs } from './ForumMainActions';
+import { toggleActive, toggleSignIn, playerData, togglePopularity, blogsByDate, dateToggle, onChange, topicSubmit, sortByPopularity } from './ForumMainActions';
 import Axios from 'axios';
 import moment from 'moment';
 import { getCountBlog } from '../BlogPagination/BlogPaginationActions';
@@ -156,6 +156,3 @@ class Forum extends Component {
 }
 
 export default Forum;
-
-
-

@@ -9,7 +9,6 @@ function mapStoreToProps(store){
         totalCountLeader : store.LeaderPagination.totalCountLeader,
         sortOrder        : store.Leaderboard     .sortOrder,
         sortBy           : store.Leaderboard     .sortBy,
-
     };
 }
 

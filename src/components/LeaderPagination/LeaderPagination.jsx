@@ -56,7 +56,7 @@ class LeaderPagination extends Component {
 
     render() {
         const { viewPerPageLeader, currentPageLeader, totalCountLeader } = this.props;
-        let lastPage = (Math.ceil(totalCountLeader / viewPerPageLeader)-1);
+        let lastPage      = (Math.ceil(totalCountLeader / viewPerPageLeader)-1);
         let firstEllipsis = currentPageLeader > 3 ? 'page' : 'hide';
         let lastEllipsis  = currentPageLeader < (lastPage - 3) ? 'page' : 'hide'
         let twoLess       = (currentPageLeader - 2)

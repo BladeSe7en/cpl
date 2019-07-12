@@ -34,6 +34,21 @@ export const getNewsletters = (viewPerPage, skip) => {
 	}
 }
 
+export const jumpToDate = (limit) => {
+    console.log('limit: ',limit)
+	return {
+		type: 'JUMP_TO_DATE',
+		payload: axios({
+			method: 'get',
+			url: `api/news?filter[limit]=${limit}`
+		})
+			.then(response => {
+				return response.data
+			})
+			.catch(err => err)
+	}
+}
+
 export const isLoading = (value, page) => {
     return {
         type: 'TOGGLE_LOADING',
@@ -74,10 +89,23 @@ export const getLast = () => {
 }
 
 export const updatePageInView = (value) => {
+	console.log('value in updatePageInView: ',value)
     return {
         type: 'UPDATE_PAGE_IN_VIEW',
         payload: {
             pageInView: value
+        }
+    }
+}
+
+export const activeNewsNav = (value, inView) => {
+	console.log('value in active news nav: ',value)
+	console.log('inView: ',inView)
+    return {
+        type: 'ACTIVE_NEWS_NAV',
+        payload: {
+			currentPageNews: value,
+			pageInView: inView
         }
     }
 }

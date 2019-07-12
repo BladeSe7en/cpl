@@ -8,10 +8,10 @@ export const thread = (value, blogId) => {
 		viewingThreadId: blogId,
 		blogId: blogId,
 		currentPageThread: 0
-
 		}
 	}
 }
+
 export const getBlogs = (viewPerPage, skip) => {
 	return {
 		type: 'GET_BLOGS',
@@ -42,9 +42,6 @@ export const sortByPopularity = (popularityOrder) => {
 }
 
 export const getThreadsById = (id, viewPerPage, skip) => {
-	console.log('id: ',id)
-	console.log('viewPerPage: ',viewPerPage)
-	console.log('spip: ',skip)
     const accessToken ='5cc16624e810e7579a1581c1'
 	return {
 		type: 'GET_THREADS_BY_ID',
@@ -54,18 +51,6 @@ export const getThreadsById = (id, viewPerPage, skip) => {
             url: `api/threads?filter[where][blogPostId]=${id}&filter[limit]=${viewPerPage}&filter[skip]=${skip}&access_token=${accessToken}`
         })      
 		.then(response => {
-			console.log('response1: ',response.data)
-			// if (response.data.length === 0) {
-			// 	skip -= viewPerPage;
-			// 	console.log('newSkip: ',skip)
-			// 	axios({
-			// 		method: 'get',
-			// 		url: `api/threads?filter[where][blogPostId]=${id}&filter[limit]=${viewPerPage}&filter[skip]=${skip}&access_token=${accessToken}`
-			// 	})
-			// 	.then(response => {
-			// 		return response.data
-			// 	})
-			// }
             return response.data
 		})
 		.catch(err => err)
@@ -98,7 +83,6 @@ export const addComment = (data) => {
 			data: data
         })      
 		.then(response => {
-			console.log('2')
             return response.data
 		})
 		.catch(err => err)
@@ -115,7 +99,6 @@ export const submitUpdatedComment = (date, comment, memberId, threadId, avatar, 
 		"steamAvatarId": avatar,
 		"steamNameId": steamName
 	}
-	console.log('this is data: ',data)
 	return {
 		type: 'SUBMIT_UPDATED_COMMENT',
 		payload: 
@@ -125,7 +108,6 @@ export const submitUpdatedComment = (date, comment, memberId, threadId, avatar, 
 			data: data
         })      
 		.then(response => {
-			console.log('2')
             return response.data
 		})
 		.catch(err => err)
@@ -172,7 +154,6 @@ export const vote = (id, voteCount, voteNames) => {
 		})
 		.then(response => {
 			let data = response.data
-			console.log('this should be original data: ',data)
 			let updatedData = {
 				blogBody: data.blogBody,
 				blogTitle: data.blogTitle,
@@ -203,7 +184,6 @@ export const commentDelete = (deleteId, number, blogId) => {
 	let newData = {
 		"numComments": (+number - 1)
 	}
-	console.log('newData--: ',newData)
 	return {
 		type: 'DELETE_COMMENT',
 		payload: 
@@ -231,8 +211,6 @@ export const commentDelete = (deleteId, number, blogId) => {
     }
 }
 
-
-
 export const topicDelete = (deleteId) => {
 	const accessToken ='5cc16624e810e7579a1581c1'
 	return {
@@ -248,7 +226,6 @@ export const topicDelete = (deleteId) => {
 		.catch(err => err)
     }
 }
-
 
 export const liveChangeBlogs = (value) => {
 	return {
@@ -280,7 +257,6 @@ export const toggleCloseThreadEdit = (value, id) => {
 }
 
 export const reset = () => {
-	console.log('inside reset action')
 	return {
 		type: 'RESET'
 	}
@@ -331,7 +307,6 @@ export const submitUpdatedBlog = (date, newBlogBody, newBlogTitle, blogId) => {
 		"date": date,
 		"wasEdited": true
 	}
-	console.log('this is data: ',data)
 	return {
 		type: 'SUBMIT_UPDATED_BLOG',
 		payload: 
@@ -346,8 +321,6 @@ export const submitUpdatedBlog = (date, newBlogBody, newBlogTitle, blogId) => {
 		.catch(err => err)
 	}
 }
-
-
 
 // {"where":{"id":5cce56488722dd4aedf1adf8}}
 // `%7B%22where%22%3A%7B%22id%22%3A${id}%7D%7D`

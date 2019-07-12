@@ -5,7 +5,6 @@ export const toggleActive = (value) => {
 		type: 'TOGGLE_ACTIVE',
 		payload: {
 			newTopicActive: value
-
 		}
 	}
 }
@@ -69,7 +68,6 @@ export const dateToggle = (order) => {
 		type: 'DATE_ORDER',
 		payload: {
 			dateOrder: !order
-
 		}
 	}
 }
@@ -121,13 +119,3 @@ export const sortByPopularity = (popularityOrder) => {
 		.catch(err => err)
 	}
 }
-
-
-
-
-// let player = {
-// 	id: response._json.steamid,
-// 	name: response._jsonusername,
-// 	profile: response._json.profile,
-// 	avatar: response._json.avatar.small
-//   }

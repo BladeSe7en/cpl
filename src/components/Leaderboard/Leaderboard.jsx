@@ -1,12 +1,17 @@
+// this whole page and the leaderboard model needs to be refactored. Codenaugh changed the db that the actual player stats will be pulled from to compliment
+// the reporting bots that he has created in his own project. to contact Condenaugh please message him or CanuckSoldier on our discord server https://discord.gg/ubwTNdd
+
+
+
+
+
 import React, { Component } from 'react';
 import Navbar from '../Navbar/Navbar';
 import { Link } from 'react-router-dom';
-
-import testData from './testData';
-import { type, sortBy, searchBy, getData, updateProfile } from './LeaderboardActions';
+import { type, sortBy, searchBy, getData } from './LeaderboardActions';
 import { getProfile } from '../PlayerProfile/PlayerProfileActions';
-import LeaderPagination from '../LeaderPagination'
-;
+import LeaderPagination from '../LeaderPagination';
+
 class Leaderboard extends Component {
     constructor(props) {
         super(props)
@@ -16,8 +21,6 @@ class Leaderboard extends Component {
         this.bestCiv              = this.bestCiv             .bind(this);
         this.handleProfile        = this.handleProfile       .bind(this);
         this.handleSearchByLeader = this.handleSearchByLeader.bind(this);
-
-
     }
 
     componentDidMount() {
@@ -252,7 +255,4 @@ class Leaderboard extends Component {
 
 export default Leaderboard;
 
-
-
 //{"where":{"id":1}}
-

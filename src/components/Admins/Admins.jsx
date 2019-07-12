@@ -1,3 +1,11 @@
+// This page will need to be modified slightly. Instead of adding admins via email all you need to do is add the admin's name and on submit
+// add the admin role to that player. theres no need for passwords because once the admin is added the admin login button will check to see
+// if they have the admin role. If verified, they would then be redirected to the admin dashboard.
+
+
+
+
+
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import AdminNav from '../AdminNav';
@@ -9,10 +17,10 @@ import {
     onChange,
     patchAdmin,
     toggleEdit,
-} from './OrganizersActions';
-import OrganizersEdit from '../OrganizersEdit/OrganizersEdit';
+} from './AdminsActions';
+import AdminsEdit from '../AdminsEdit/AdminsEdit';
 
-class Organizers extends Component {
+class Admins extends Component {
     constructor(props) {
         super(props);
 
@@ -20,7 +28,7 @@ class Organizers extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
-        this.toggleEdit   = this.toggleEdit.bind(this);
+        this.toggleEdit   = this.toggleEdit  .bind(this);
     }
 
     addAdmin(e) {
@@ -66,7 +74,7 @@ class Organizers extends Component {
                 < AdminNav />
                 <div className='organizer-container'>
                     <div className='organizer-container-child'>
-                        <h1>Organizers</h1>
+                        <h1>Admins</h1>
                         <h3 className='add-admin-title'>Add Other Admins Contact Info</h3>
                         <form id='organizer-form' onSubmit={this.addAdmin}>
                             <Field model='user.name'>
@@ -92,13 +100,13 @@ class Organizers extends Component {
                     </div>
 
                     <div className='organizer-edit-admins'>
-                    <h3>Current Organizers</h3>
+                    <h3>Current Admins</h3>
                         <div className='organizer-display-container'>
                             {adminList && adminList.map((admin, index) => {
 
                                 if (admin.isEditing) {
                                     return (
-                                        <OrganizersEdit key={admin.id} index={index} admin={admin} id={admin.id} onSubmit={this.handleUpdate} toggleEdit={this.toggleEdit} />
+                                        <AdminsEdit key={admin.id} index={index} admin={admin} id={admin.id} onSubmit={this.handleUpdate} toggleEdit={this.toggleEdit} />
                                     )
                                 }
                                 return (
@@ -129,4 +137,4 @@ class Organizers extends Component {
     }
 }
 
-export default Organizers;
+export default Admins;

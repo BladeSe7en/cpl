@@ -1,7 +1,12 @@
+
+// this component is probably not needed anymore. With the way we are logging in admins via thier steam account and the admin role all we need to do
+// is have a button/action in the Admin page to add or remove the admin role from the player
+
+
 import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 
-export default class OrganizersEdit extends Component {
+export default class AdminsEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {

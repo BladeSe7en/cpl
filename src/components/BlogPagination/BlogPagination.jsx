@@ -35,17 +35,11 @@ class BlogPagination extends Component {
     handleGoToNextBlog() {
         const { dispatch, currentPageBlog, viewPerPageBlog, totalCountBlog } = this.props;
         let lastPage = (Math.floor(totalCountBlog / viewPerPageBlog));
-        console.log('--------------------')
-        console.log('currentPage: ',currentPageBlog)
-        console.log('last page: ',lastPage)
-        console.log('--------------------')
         if (currentPageBlog === lastPage) {
             return
         }
         let next = (currentPageBlog + 1)
         let numSkip = (+viewPerPageBlog*next)
-        console.log('---next: ',next)
-        console.log('---numSkip: ',numSkip)
         dispatch(getBlogs(viewPerPageBlog, numSkip));
         dispatch(nextPageBlog(next))
     }
@@ -59,7 +53,6 @@ class BlogPagination extends Component {
     }
 
     selectViewPerPageBlog(e) {
-        console.log('inside select view')
         const { dispatch } = this.props;
         let views = +e.target.id
         dispatch(getBlogs(views, 0));
@@ -69,7 +62,6 @@ class BlogPagination extends Component {
     render() {
         const { viewPerPageBlog, currentPageBlog, totalCountBlog } = this.props;
         let lastPage = (Math.ceil(totalCountBlog / viewPerPageBlog)-1);
-        console.log('lastPage: ',lastPage)
         let firstEllipsis = currentPageBlog > 3 ? 'page' : 'hide';
         let lastEllipsis = currentPageBlog < (lastPage - 3) ? 'page' : 'hide'
         let twoLess = (currentPageBlog - 2)

@@ -51,4 +51,3 @@ export const getCountLeader = () => {
 		.catch(err => err)
 	}
 }
-

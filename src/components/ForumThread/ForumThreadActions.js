@@ -27,4 +27,3 @@ export const threadDelete = (value) => {
         .catch(err => err)
 	}
 }
-

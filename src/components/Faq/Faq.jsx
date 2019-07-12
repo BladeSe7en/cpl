@@ -1,7 +1,6 @@
 import React from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import Navbar from '../Navbar/Navbar';
-import { cpus } from 'os';
 
 const Faq = () => {
     var prevScrollpos = window.pageYOffset;

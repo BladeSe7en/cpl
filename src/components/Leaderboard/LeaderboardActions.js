@@ -5,7 +5,6 @@ export const type = (value) => {
 		type: 'CHANGE_GAME_TYPE',
 		payload: {
 			typeOfGame: value
-			
 		}
 	}
 }
@@ -70,12 +69,5 @@ export const updateProfile = (value) => {
 	}
 }
 
-
-
-
-
-
-
 //{"where": {"careerBestLeader": "ZuluShaka"}}
 //{ "order": "careerSkill ASC" }
-

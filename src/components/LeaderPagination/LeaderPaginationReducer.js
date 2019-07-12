@@ -13,45 +13,39 @@ export default function leaderPaginationReducer(state = initialstate, action) {
             return {
                 ...state,
                 ...payload
-
             }
-        }
+        };
 
         case 'INCRAMENT_CURRENT_PAGE_LEADER': {
             return {
                 ...state,
                ...payload
-
             }
-        }
+        };
 
         case 'GO_TO_PAGE_LEADER': {
             return {
                 ...state,
                ...payload
-
             }
-        }
+        };
 
         case 'VIEW_PER_PAGE_LEADER': {
             return {
                 ...state,
                ...payload
-
             }
-        }
+        };
 
         case 'GET_COUNT_LEADER_FULFILLED': {
             return {
                 ...state,
               totalCountLeader: payload.count
-
             }
-        }
-        
+        };
 
         default: {
             return state
         }
-    }
-}
+    };
+};

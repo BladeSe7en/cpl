@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import moment from 'moment';
-import { thread, getBlogs, getThreadsById, commentCount, updateCommentNum, onCommentChange, vote, commentDelete, topicDelete, submitUpdatedComment, liveChangeBlogs, toggleThreadEdit, editBlogPost, deleteBlogPost, reset, submitUpdatedBlog } from '../ForumTopics/ForumTopicsActions';
+import { thread, getBlogs, getThreadsById, updateCommentNum, onCommentChange, vote, commentDelete, topicDelete, submitUpdatedComment, liveChangeBlogs, toggleThreadEdit, editBlogPost, deleteBlogPost, reset, submitUpdatedBlog } from '../ForumTopics/ForumTopicsActions';
 import { onChange } from '../ForumMain/ForumMainActions';
 import BlogPagination from '../BlogPagination';
 import ThreadPagination from '../ThreadPagination';
 import { getCountBlog } from '../BlogPagination/BlogPaginationActions';
 import { getThreadCount } from '../ThreadPagination/ThreadPaginationActions';
+
 class ForumTopics extends Component {
     constructor(props) {
         super(props);
@@ -43,7 +44,6 @@ class ForumTopics extends Component {
         src2.addEventListener('data', function (msg) {
             newThread(msg)
         });
-        console.log('viewPerPageBlog: ',viewPerPageBlog)
         dispatch(getBlogs(viewPerPageBlog, 0));
     }
 
@@ -84,10 +84,7 @@ class ForumTopics extends Component {
 
     handleDeleteBlogPost(e) {
         const { dispatch, signedIn } = this.props;
-        console.log('profile: ',signedIn)
-        console.log('inside topic delete')
         let signedInId = signedIn.id;
-        console.log('signedInId: ',signedInId)
         if (signedInId == undefined) {
             return alert('Please sign in to delete this blog.')
         }
@@ -121,7 +118,6 @@ class ForumTopics extends Component {
         const { dispatch, viewPerPageBlog, currentPageBlog } = this.props;
         let skip = (currentPageBlog * viewPerPageBlog)
         let data = JSON.parse(msg.data);
-        console.log('data: ',data)
         if(data.data == undefined) {
             setTimeout(() => {
                 dispatch(getBlogs(viewPerPageBlog, skip));
@@ -137,17 +133,13 @@ class ForumTopics extends Component {
 
     handleNewThread(msg) {
         const { dispatch, viewingThreadId, viewPerPageThread, currentPageThread } = this.props;
-        console.log('viewingThreadId: ',viewingThreadId)
         let skip = (viewPerPageThread * currentPageThread)
         let data2 = JSON.parse(msg.data);
-        console.log('data2: ', data2)
         if (data2.type == 'remove') {
             dispatch(getThreadsById(viewingThreadId, viewPerPageThread, skip))
             dispatch(getThreadCount(viewingThreadId))
         } else {
             let id = data2.data.blogPostId
-            console.log('data2: ',data2)
-            console.log('id: ',id)
             setTimeout(() => {
                 if (viewingThreadId === id) {
                     dispatch(getThreadsById(id, viewPerPageThread, skip));
@@ -189,10 +181,8 @@ class ForumTopics extends Component {
         const { dispatch, viewingThread, viewingThreadId } = this.props;
         let blogId = e.target.id;
         var viewing = viewingThread;
-        console.log('viewingThread: ',viewingThread)
         if (viewingThreadId !== blogId ) {
             viewing = false;
-            console.log('inside if viewingThread: ',viewingThread)
         }
         dispatch(thread(!viewing, blogId));
     }

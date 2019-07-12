@@ -1,17 +1,22 @@
+
+
+
+
 import React, { Component } from 'react';
+import { HashLink as Link } from 'react-router-hash-link';
 import Navbar from '../Navbar/Navbar';
 import moment from 'moment';
 import openSocket from 'socket.io-client';
-import { getNewsletters, isLoading, getFirst, getLast, updatePageInView } from './NewslettersActions';
+import { getNewsletters, isLoading, getFirst, getLast, updatePageInView, activeNewsNav, jumpToDate } from './NewslettersActions';
 import { Waypoint } from 'react-waypoint';
 
 class Newsletters extends Component {
   constructor(props) {
     super(props);
-    this.socket   = this.socket  .bind(this);
-    this.loadMore = this.loadMore.bind(this);
-    this.listener = this.listener.bind(this);
-    this.handleUpdateCurrentPageNews = this.handleUpdateCurrentPageNews.bind(this)
+    this.socket           = this.socket          .bind(this);
+    this.loadMore         = this.loadMore        .bind(this);
+    this.listener         = this.listener        .bind(this);
+    this.handleJumpToDate = this.handleJumpToDate.bind(this)
   }
 
   componentDidMount() {
@@ -52,6 +57,15 @@ class Newsletters extends Component {
     }
   }
 
+  handleJumpToDate(e) {
+    const { dispatch, months } = this.props;
+    let newPage = e.target.id;
+    console.log('newPage: ',newPage)
+    let limit = newPage * 10
+    dispatch(activeNewsNav(newPage, months[newPage]))
+    dispatch(jumpToDate(limit))
+  }
+
   componentWillUnmount() {
     window.removeEventListener('scroll', this.listener, false);
   }
@@ -64,18 +78,6 @@ class Newsletters extends Component {
       dispatch(submitNewsletter(msg))
     });
   }
-
-  handleUpdateCurrentPageNews() {
-    const { dispatch } = this.props;
-    dispatch(updatePageInView())
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.currentPageNews !== prevState.currentPageNews) {
-        return { currentPageNews: nextProps.currentPageNews, lastTime: Date.now() };
-    }
-    return null;
-}
 
   render() {
     const { news, months, currentPageNews, isLoading, dispatch } = this.props;
@@ -94,8 +96,6 @@ class Newsletters extends Component {
         let hideFirst = currentPageNews <= 2 ? 'hide' : 'newsPage';
         let hideLast = currentPageNews <= (lastPage - 3) ? 'newsPage' : 'hide';
         let displayWhileLoading = isLoading ? 'loading-message': 'hide';
-console.log('nextProps.currentPageNews: ',nextProps.currentPageNews)
-console.log('prevState.currentPageNews: ',prevState.currentPageNews)
 
       
 
@@ -108,15 +108,33 @@ console.log('prevState.currentPageNews: ',prevState.currentPageNews)
 
             {/* this navbar for the newsletter could possibly be made into its own component. */}
             <div className='news-nav' id='news-nav'>
-              <button className={hideFirst} onClick={this.getNewsletters}>{months && months[0]}</button>
-              <button className={firstEllipsis} id={currentPageNews - 3} onClick={this.getNewsletters}>...</button>
-              <button className={twoLessBtn} id={twoLess} onClick={this.getNewsletters}>{months && months[currentPageNews -2]}</button>
-              <button className={oneLessBtn} id={oneLess} onClick={this.getNewsletters}>{months && months[currentPageNews -1]}</button>
-              <button className='newsPage currentNews'>{months && months[currentPageNews]}</button>
-              <button className={oneMoreBtn} id={oneMore} onClick={this.getNewsletters}>{months && months[currentPageNews +1]}</button>
-              <button className={twoMoreBtn} id={twoMore} onClick={this.getNewsletters}>{months && months[currentPageNews +2]}</button>
-              <button className={lastEllipsis} id={currentPageNews + 3} onClick={this.getNewsletters}>...</button>
-              <button className={hideLast} id={lastPage} onClick={this.getNewsletters}>{months && months[lastPage]}</button>
+              <Link to={`/Newsletters#${months[0]}`}>
+                <button className={hideFirst} onClick={this.handleJumpToDate}>{months && months[0]}</button>
+              </Link>
+              <Link to={`/Newsletters#${months[currentPageNews - 3]}`}>
+                <button className={firstEllipsis} id={currentPageNews - 3} onClick={this.handleJumpToDate}>...</button>
+              </Link>
+              <Link to={`/Newsletters#${months[currentPageNews - 2]}`}>
+                <button className={twoLessBtn} id={twoLess} onClick={this.handleJumpToDate}>{months && months[currentPageNews - 2]}</button>
+              </Link>
+              <Link to={`/Newsletters#${months[currentPageNews - 1]}`}>
+                <button className={oneLessBtn} id={oneLess} onClick={this.handleJumpToDate}>{months && months[currentPageNews - 1]}</button>
+              </Link>
+              <Link to={`/Newsletters#${months[currentPageNews]}`}>
+                <button className='newsPage currentNews'>{months && months[currentPageNews]}</button>
+              </Link>
+              <Link to={`/Newsletters#${months[currentPageNews + 1]}`}>
+                <button className={oneMoreBtn} id={oneMore} onClick={this.handleJumpToDate}>{months && months[currentPageNews + 1]}</button>
+              </Link>
+              <Link to={`/Newsletters#${months[currentPageNews + 2]}`}>
+                <button className={twoMoreBtn} id={twoMore} onClick={this.handleJumpToDate}>{months && months[currentPageNews + 2]}</button>
+              </Link>
+              <Link to={`/Newsletters#${months[currentPageNews + 3]}`}>
+                <button className={lastEllipsis} id={currentPageNews + 3} onClick={this.handleJumpToDate}>...</button>
+              </Link>
+              <Link to={`/Newsletters#${months[lastPage]}`}>
+                <button className={hideLast} id={lastPage} onClick={this.handleJumpToDate}>{months && months[lastPage]}</button>
+              </Link>
             </div>
 
             <div className='news-posts' id='news-posts' ref="myscroll">

@@ -8,7 +8,8 @@ const initialState = {
    firstMonth: '',
    lastMonth: '',
    currentPageNews: 0,
-   pageInView: ''
+   pageInView: '',
+   months: []
 }
 
 export default function NewslettersReducer(state = initialState, action) {
@@ -27,8 +28,9 @@ export default function NewslettersReducer(state = initialState, action) {
                 newNews.push(post)
             })
             console.log('newNews: ',newNews)
-            newNews.sort((a, b) => a[1] - b[1])
-            console.log('newNews2: ',newNews)
+           let sorted = newNews.sort((a, b) => a.date - b.date)
+
+            console.log('newNews2: ',sorted)
             let years = [];
             payload.forEach(item => {
                let date = moment(Number(item.date)).format('YYYY')
@@ -36,11 +38,21 @@ export default function NewslettersReducer(state = initialState, action) {
             });
             return {
                 ...state,
-                news: newNews,
+                news: sorted,
                 years: [...new Set(years)],
                 isLoading: false
             }
         }
+
+        case 'JUMP_TO_DATE_FULFILLED': {
+            console.log('payload: ',payload)
+            let sorted = payload.sort((a, b) => a.date - b.date)
+            return {
+                ...state,
+                news: sorted
+            }
+        }
+
         case 'TOGGLE_LOADING': {
             return {
                 ...state,
@@ -97,7 +109,7 @@ console.log('last date: ', moment(lastDate).format('MMMM YYYY'))
             console.log('state.months: ',state.months)
             console.log('payload: ',payload)
             let months = state.months;
-            if (months !== undefined) {
+            if (months.length !== 0) {
                 let index = months && months.indexOf(payload.pageInView)
                 console.log('index: ',index)
                 return {
@@ -110,6 +122,13 @@ console.log('last date: ', moment(lastDate).format('MMMM YYYY'))
                     ...state,
                     ...payload
                 }
+            }
+        }
+
+        case 'ACTIVE_NEWS_NAV': {
+            return {
+                ...state,
+                ...payload
             }
         }
 

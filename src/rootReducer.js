@@ -1,34 +1,26 @@
 import { combineReducers }     from 'redux';
 import AdminLoginReducer       from './components/AdminLogin/AdminLoginReducer';
-import ConfimOrCancelReducer   from './components/ConfirmOrCancel/ConfirmOrCancelReducer';
 import ForumMainReducer        from './components/ForumMain/ForumMainReducer'
-import OrganizersReducer       from './components/Organizers/OrganizersReducer';
+import AdminsReducer           from './components/Admins/AdminsReducer';
 import LeaderboardReducer      from './components/Leaderboard/LeaderboardReducer';
-import TalksPageReducer        from './components/TalksPage/TalksPageReducer';
-import MeetupsReducer          from './components/Meetups/MeetupsReducer';
 import NewslettersReducer      from './components/Newsletters/NewslettersReducer';
 import PlayerProfileReducer    from './components/PlayerProfile/PlayerProfileReducer';
 import ForumTopicsReducer      from './components/ForumTopics/ForumTopicsReducer';
 import BlogPaginationReducer   from './components/BlogPagination/BlogPaginationReducer';
 import LeaderPaginationReducer from './components/LeaderPagination/LeaderPaginationReducer';
 import ThreadPaginationReducer from './components/ThreadPagination/ThreadPaginationReducer';
-import NewsDateReducer         from './components/NewsDate/NewsDateReducer';
 
 const rootReducer = combineReducers({
     AdminLogin      : AdminLoginReducer,
-    ConfirmOrCancel : ConfimOrCancelReducer,
     ForumMain       : ForumMainReducer,
     ForumTopics     : ForumTopicsReducer,
-    Organizers      : OrganizersReducer,
+    Admins          : AdminsReducer,
     Leaderboard     : LeaderboardReducer,
-    TalksPage       : TalksPageReducer, 
-    MeetupsReducer  : MeetupsReducer,
     Newsletters     : NewslettersReducer,
     PlayerProfile   : PlayerProfileReducer,
     BlogPagination  : BlogPaginationReducer,
     LeaderPagination: LeaderPaginationReducer,
     ThreadPagination: ThreadPaginationReducer,
-    NewsDate        : NewsDateReducer
 
 });
 
