@@ -1,6 +1,19 @@
+// this component can be scrapped. Instead of using a seperate email login for the admins I wanted to use the same steam-login functions found in the
+// forumMain component and server.js. However, the middleware used in steam-login will need to be rewritten to handle a member login and redicrect to forumMain when you 
+// click on the login button in forumMain. and then run sperate code to handle an admin login and redirect to the admin dashboard when you click on the admin button found 
+// in the navbar component. I have tried duplicating and renaming the functions for the admins login but I couldnt get the middleware to redirct to the desired admin 
+// dashboard while the forum login redirected to the forumMain.
+
+// Related to the login functions I wanted to add roles for members and admins to limit access to the app.
+
+
+
+
+
+
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
-import { updateUsername, updatePassword, postLogin, postLoginPersist, checkToken, rememberMe } from './AdminLoginActions';
+import { updateUsername, updatePassword, checkToken, rememberMe } from './AdminLoginActions';
 import Navbar from '../Navbar/Navbar';
 
 class AdminLogin extends Component {

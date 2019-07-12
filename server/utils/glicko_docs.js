@@ -1,3 +1,7 @@
+// this is the example code from the glicko docs. used for the discordReportBot
+
+
+
 var glicko2 = require('glicko2');
 var settings = {
   // tau : "Reasonable choices are between 0.3 and 1.2, though the system should

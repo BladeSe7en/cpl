@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
 import Navbar from '../Navbar/Navbar';
-import glicko2 from 'glicko2';
 import moment from 'moment';
 import openSocket from 'socket.io-client';
-import { getNewsletters, isLoading, getFirst, getLast, test, updatePageInView } from './NewslettersActions';
-import $ from "jquery";
-import NewsletterNav from '../NewsletterNav/NewsletterNav';
+import { getNewsletters, isLoading, getFirst, getLast, updatePageInView } from './NewslettersActions';
 import { Waypoint } from 'react-waypoint';
 
 class Newsletters extends Component {
@@ -30,18 +26,14 @@ class Newsletters extends Component {
   }
 
   listener() {
-      console.log('this.refs: ',this.refs)
-      
       this.refs.myscroll.addEventListener("scroll", () => {
        if (
          this.refs.myscroll.scrollTop + this.refs.myscroll.clientHeight >=
          this.refs.myscroll.scrollHeight
        ) {
-       
          this.loadMore()
        }
      });
-
   }
 
   loadMore() {
@@ -78,6 +70,12 @@ class Newsletters extends Component {
     dispatch(updatePageInView())
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.currentPageNews !== prevState.currentPageNews) {
+        return { currentPageNews: nextProps.currentPageNews, lastTime: Date.now() };
+    }
+    return null;
+}
 
   render() {
     const { news, months, currentPageNews, isLoading, dispatch } = this.props;
@@ -96,6 +94,10 @@ class Newsletters extends Component {
         let hideFirst = currentPageNews <= 2 ? 'hide' : 'newsPage';
         let hideLast = currentPageNews <= (lastPage - 3) ? 'newsPage' : 'hide';
         let displayWhileLoading = isLoading ? 'loading-message': 'hide';
+console.log('nextProps.currentPageNews: ',nextProps.currentPageNews)
+console.log('prevState.currentPageNews: ',prevState.currentPageNews)
+
+      
 
     return (
       <div>
@@ -104,9 +106,8 @@ class Newsletters extends Component {
           <div className='banner-opacity-newsletter'>
             <h1 className='news-title'>Stay up to date with the latest news from Civilization Players League</h1>
 
+            {/* this navbar for the newsletter could possibly be made into its own component. */}
             <div className='news-nav' id='news-nav'>
-              {/* <NewsletterNav
-              /> */}
               <button className={hideFirst} onClick={this.getNewsletters}>{months && months[0]}</button>
               <button className={firstEllipsis} id={currentPageNews - 3} onClick={this.getNewsletters}>...</button>
               <button className={twoLessBtn} id={twoLess} onClick={this.getNewsletters}>{months && months[currentPageNews -2]}</button>

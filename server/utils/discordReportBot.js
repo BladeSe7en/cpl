@@ -1,3 +1,7 @@
+
+// this code was for reporting new posted games from discord to the server. Codenaugh has taken over this portion building his own bots
+
+
 // permission URL https://discordapp.com/oauth2/authorize?&client_id=568139051538841603&scope=bot&permissions=268561430
 // the token of your bot - https://discordapp.com/developers/applications/me
 // require('dotenv').config();
