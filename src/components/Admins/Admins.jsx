@@ -11,12 +11,7 @@ import { Redirect } from 'react-router';
 import AdminNav from '../AdminNav';
 import { Field } from 'react-redux-form';
 import {
-    addAdmin,
-    deleteAdmin,
-    getAdmins,
-    onChange,
-    patchAdmin,
-    toggleEdit,
+    addAdmin, deleteAdmin, getAdmins, onChange, patchAdmin, toggleEdit,
 } from './AdminsActions';
 import AdminsEdit from '../AdminsEdit/AdminsEdit';
 

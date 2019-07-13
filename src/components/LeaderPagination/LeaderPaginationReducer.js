@@ -1,8 +1,8 @@
 const initialstate = {
-    viewPerPageLeader: 10,
     currentPageLeader: 0,
     lastPageLeader   : 0,
-    totalCountLeader : 0
+    totalCountLeader : 0,
+    viewPerPageLeader: 10
 }
 
 export default function leaderPaginationReducer(state = initialstate, action) {

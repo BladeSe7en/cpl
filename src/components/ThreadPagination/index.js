@@ -3,12 +3,11 @@ import ThreadPagination from './ThreadPagination'
 
 function mapStoreToProps(store){
     return {
-        viewPerPageThread: store.ThreadPagination.viewPerPageThread,
         currentPageThread: store.ThreadPagination.currentPageThread,
         lastPageThread   : store.ThreadPagination.lastPageThread,
         totalCountThread : store.ThreadPagination.totalCountThread,
+        viewPerPageThread: store.ThreadPagination.viewPerPageThread,
         viewingThreadId  : store.ForumTopics     .viewingThreadId
-
     };
 }
 

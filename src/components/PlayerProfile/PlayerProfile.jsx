@@ -10,13 +10,12 @@ class PlayerProfile extends Component {
     render() {
         const { profileData } = this.props;
         if (profileData !== 'no profile') {
-        return (
-            <div>
-                <Navbar />
-                <div className='player-banner'>
-                <div className='player-banner-opacity'>
-                            {profileData && profileData.map((stat, index) => {
-
+            return (
+                <div>
+                    <Navbar />
+                    <div className='player-banner'>
+                        <div className='player-banner-opacity'>
+                            {profileData && profileData.map(stat => {
                                 return (
                                     <div>
                                         <div className='header-profile'> {stat.name}'s Stats Profile</div>

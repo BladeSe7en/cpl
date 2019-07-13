@@ -1,15 +1,15 @@
 import moment from 'moment';
 
 const initialState = {
-   news: [],
-   years: [],
-   isLoading: false,
-   scrollingPage: 0,
-   firstMonth: '',
-   lastMonth: '',
-   currentPageNews: 0,
-   pageInView: '',
-   months: []
+    currentPageNews: 0,
+    firstMonth     : '',
+    isLoading      : false,
+    lastMonth      : '',
+    months         : [],
+    news           : [],
+    pageInView     : '',
+    scrollingPage  : 0,
+    years          : [],
 }
 
 export default function NewslettersReducer(state = initialState, action) {

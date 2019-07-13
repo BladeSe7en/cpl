@@ -109,8 +109,3 @@ export const activeNewsNav = (value, inView) => {
         }
     }
 }
-
-
-
-
-// [where][and][0]condition1&[where][<and|or>]condition2

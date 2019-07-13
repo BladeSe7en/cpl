@@ -69,5 +69,5 @@ export const updateProfile = (value) => {
 	}
 }
 
-//{"where": {"careerBestLeader": "ZuluShaka"}}
-//{ "order": "careerSkill ASC" }
+// {"where": {"careerBestLeader": "ZuluShaka"}}
+// { "order": "careerSkill ASC" }

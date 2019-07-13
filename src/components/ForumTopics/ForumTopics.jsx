@@ -1,3 +1,16 @@
+// this component needs a lot of work regarding the admin vs player roles. Right now as soon as you are signed in anyone has the ability to edit or delete
+// every post created. This is not how I intended the edit/delete to function. I want all users with the player role to be allowed to create a new topic,
+// create a new comment on a topic and only be able to edit topic/comments made by them. The admin role will have the same abilites as the player in addion
+// to being able to delete any post and be able to be redirected to the admin dashboard IF they sign in from the admin button on the navbar. As a way to 
+// show the user what they have abilities to do if they have the player role toggle a show/hide css class for edit and delete buttons of any posts not
+// created by the user. For the admins all you would need to do is create a toggle show/hide css class for the edit button for any post not created by
+// that admin. On top of that as apart of the admin tools, we want to be able to create a log to record the time, message, and deleted by which admin
+
+
+
+
+
+
 import React, { Component } from 'react';
 import { Field } from 'react-redux-form';
 import moment from 'moment';

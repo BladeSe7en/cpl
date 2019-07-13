@@ -3,13 +3,13 @@ import Admins from './Admins';
 
 function mapStoreToProps(store){
     return {
+        accessToken     : store.AdminLogin.accessToken,
         adminList       : store.Admins    .adminList,
+        authorized      : store.AdminLogin.authorized,
+        newAdminEmail   : store.Admins    .newAdminEmail,
         newAdminName    : store.Admins    .newAdminName,
         newAdminPhone   : store.Admins    .newAdminPhone,
-        newAdminEmail   : store.Admins    .newAdminEmail,
-        newAdminPassword: store.Admins    .newAdminPassword,
-        accessToken     : store.AdminLogin.accessToken,
-        authorized      : store.AdminLogin.authorized
+        newAdminPassword: store.Admins    .newAdminPassword
     };
 }
 

@@ -1,4 +1,5 @@
-// I couldnt get this component to work. Ideally I would like this component to be nested within each ForumTopic.
+// I couldnt get this component to work. Ideally I would like this component to be nested within each ForumTopic. But I ended up writting show/hide if cases inside the
+// forumTopic component
 
 
 

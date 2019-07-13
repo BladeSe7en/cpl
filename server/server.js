@@ -11,9 +11,6 @@ require('discord.js');
 require('dotenv').config();
 require('../server/utils/discordNewsletterBot');
 
-// const http = require('http').Server(app);
-// const io = require('socket.io')(http);
-
 app.start = function () {
   return app.listen(function () {
     app.emit('started');
@@ -26,11 +23,12 @@ app.start = function () {
   });
 };
 
-
-
-
 ///////////////////////////
 //  steam login
+// this login code is what I was refering to in the README. I had no idea how to get this middleware to work for localhost, heroku, player login, and admin login.
+// whenever I would deploy to heroku, I would have to comment out the appropiate lines. Same goes for player/ admin login. after a sucsessful login the middleware
+// redirects the user back to the verify: 'http://localhost:3000/verify route. I tried going into the package its self to duplicate the code to where a player login
+// and an admin login run two different functions and return on two different verify routes but I could not get it to work
 
 // get your steam api key here: https://steamcommunity.com/dev/apikey
 const date = moment().format('lll');
@@ -40,13 +38,13 @@ require("http");
 app.use(require('express-session')({ resave: false, saveUninitialized: false, secret: 'a secret' }));
 app.use(steam.middleware({
   // if youre using the website locally 
-  // realm: 'http://localhost:3000',
-  // verify: 'http://localhost:3000/verify',
+  realm: 'http://localhost:3000',
+  verify: 'http://localhost:3000/verify',
   //verifyAdmin: 'http://localhost:3000/verifyAdmin',
 
   // if youre using the website with heroku
-  realm:'https://civplayers-website.herokuapp.com',
-  verify: 'https://civplayers-website.herokuapp.com/verify',
+  // realm:'https://civplayers-website.herokuapp.com',
+  // verify: 'https://civplayers-website.herokuapp.com/verify',
   apiKey: process.env.STEAM_API_KEY
 }));
 
@@ -60,6 +58,7 @@ app.get('/authenticate', steam.authenticate(), function (req, res) {
 });
 
 app.get('/verify', steam.verify(), function (req, res) {
+  // this line is what logs into my scv file. As noted in the README this needs to log in the db and be displayed in the admin dashboard
   fs.appendFile('log.csv', (' steam ID: ' + req.user._json.steamid) + '\t' + ('name: ' + req.user._json.personaname) + '\t' + ('profile: ' + req.user.profile) + '\t' + ('avatar: ' + req.user.avatar.small) + '\t' + ('date: ' + date) + '\n', (err) => {
     if (err) throw err;
     res.redirect('/#/ForumMain');
@@ -75,8 +74,6 @@ boot(app, __dirname, function (err) {
   if (err) throw err;
 
   if (require.main === module) {
-    //Comment this app.start line and add following lines
-    //app.start();
     app.io = require('socket.io')(app.start());
     require('socketio-auth')(app.io, {
       authenticate: function (socket, value, callback) {

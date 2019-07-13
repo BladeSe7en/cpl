@@ -4,7 +4,6 @@ import PlayerProfile from './PlayerProfile'
 function mapStoreToProps(store){
     return {
         profileData: store.PlayerProfile.profileData
-
     };
 }
 

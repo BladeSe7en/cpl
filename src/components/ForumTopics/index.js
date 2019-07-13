@@ -2,27 +2,27 @@ import { connect } from 'react-redux';
 import ForumTopics from './ForumTopics';
 function mapStoreToProps(store){
     return {
-       blogs            : store.ForumTopics     .blogs,
        blogId           : store.ForumTopics     .blogId,
+       blogs            : store.ForumTopics     .blogs,
        comment          : store.ForumTopics     .comment,
+       currentPageBlog  : store.BlogPagination  .currentPageBlog,
+       currentPageThread: store.ThreadPagination.lastPageThread,
+       editingBlog      : store.ForumTopics     .editingBlogId,
+       editingBlogId    : store.ForumTopics     .editingBlogId,
        editingComment   : store.ForumTopics     .editingComment,
-       viewingThread    : store.ForumTopics     .viewingThread,
        editingCommentId : store.ForumTopics     .editingCommentId,
+       newBlogBody      : store.ForumTopics     .newBlogBody,
+       newBlogTitle     : store.ForumTopics     .newBlogTitle,
        newTopicActive   : store.ForumMain       .newTopicActive,
-       threads          : store.ForumTopics     .threads,
        number           : store.ForumTopics     .number,
        signedIn         : store.ForumMain       .signedIn,
        sortOrder        : store.Leaderboard     .sortOrder,
-       viewingThreadId  : store.ForumTopics     .viewingThreadId,
-       editingBlog      : store.ForumTopics     .editingBlogId,
-       editingBlogId    : store.ForumTopics     .editingBlogId,
-       newBlogTitle     : store.ForumTopics     .newBlogTitle,
-       newBlogBody      : store.ForumTopics     .newBlogBody,
-       viewPerPageBlog  : store.BlogPagination  .viewPerPageBlog,
-       viewPerPageThread: store.ThreadPagination.viewPerPageThread,
        totalCountBlog   : store.BlogPagination  .totalCountBlog,
-       currentPageBlog  : store.BlogPagination  .currentPageBlog,
-       currentPageThread: store.ThreadPagination.lastPageThread
+       threads          : store.ForumTopics     .threads,
+       viewingThread    : store.ForumTopics     .viewingThread,
+       viewingThreadId  : store.ForumTopics     .viewingThreadId,
+       viewPerPageBlog  : store.BlogPagination  .viewPerPageBlog,
+       viewPerPageThread: store.ThreadPagination.viewPerPageThread
     };
 }
 

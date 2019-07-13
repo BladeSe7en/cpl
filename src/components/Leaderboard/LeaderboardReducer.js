@@ -1,11 +1,11 @@
 const initialstate = {
-    typeOfGame: 'career',
-    highToLow: true,
-    sortBy: "careerSkill",
-    data: [],
-    profile: {},
-    sortOrder: true,
-    playerProfile: []
+    data         : [],
+    highToLow    : true,
+    playerProfile: [],
+    profile      : {},
+    sortBy       : "careerSkill",
+    sortOrder    : true,
+    typeOfGame   : 'career'
 }
 
 export default function LeaderboardReducer(state = initialstate, action) {

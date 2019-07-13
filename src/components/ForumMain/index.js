@@ -3,16 +3,16 @@ import ForumMain from './ForumMain';
 
 function mapStoreToProps(store){
     return {
+     comment        : store.ForumTopics   .comment,
+     currentPageBlog: store.BlogPagination.currentPageBlog,
+     dateOrder      : store.ForumMain     .dateOrder,
+     newPostToggle  : store.ForumMain     .newPostToggle,
      newTopic       : store.ForumMain     .newTopic,
      newTopicActive : store.ForumMain     .newTopicActive,
      newTopicBody   : store.ForumMain     .newTopicBody,
-     signedIn       : store.ForumMain     .signedIn,
      popularityOrder: store.ForumMain     .popularityOrder,
-     newPostToggle  : store.ForumMain     .newPostToggle,
-     dateOrder      : store.ForumMain     .dateOrder,
-     comment        : store.ForumTopics   .comment,
-     totalCountBlog : store.BlogPagination.totalCountBlog,
-     currentPageBlog: store.BlogPagination.currentPageBlog
+     signedIn       : store.ForumMain     .signedIn,
+     totalCountBlog : store.BlogPagination.totalCountBlog
     };
 }
 

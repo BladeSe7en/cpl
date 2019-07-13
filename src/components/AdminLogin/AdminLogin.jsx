@@ -4,10 +4,8 @@
 // in the navbar component. I have tried duplicating and renaming the functions for the admins login but I couldnt get the middleware to redirct to the desired admin 
 // dashboard while the forum login redirected to the forumMain.
 
-// Related to the login functions I wanted to add roles for members and admins to limit access to the app.
-
-
-
+// Related to the login functions I wanted to add roles for members and admins to limit access to the app. and upon a successful player or admin login the code should
+// generate an accessToken. this accessToken should then replace every instance of accessToken that is currently hardcoded in the action files.
 
 
 
@@ -20,9 +18,9 @@ class AdminLogin extends Component {
 	constructor(props) {
 		super(props);
 
-		this.handleUsername = this.handleUsername.bind(this);
 		this.handlePassword = this.handlePassword.bind(this);
 		this.handleRemember = this.handleRemember.bind(this);
+		this.handleUsername = this.handleUsername.bind(this);
 		//this.submitLogin    = this.submitLogin   .bind(this);
 	}
 

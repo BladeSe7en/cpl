@@ -1,9 +1,9 @@
 const initialstate = {
-	username: '',
-	password: '',
 	accessToken: '',
-	authorized: false,
-	remember: false
+	authorized : false,
+	password   : '',
+	remember   : false,
+	username   : ''
 }
 
 export default function AdminLoginReducer(state = initialstate, action) {

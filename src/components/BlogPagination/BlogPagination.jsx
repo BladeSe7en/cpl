@@ -1,3 +1,9 @@
+// this component handles the pagination in the forum. its functions very simular to LeaderPagination, ThreadPagination and the navbar in the newsletter component.
+// However theres different variables involved for each of them. When building the forum I initally tried to have only one pagination component, but because the
+// forum is essentially a nested for loop with mapped lists inside dozens of mapped topics, if I changed one page on the topic it also changed the page on the list
+// which broke the site.
+
+
 import React, { Component } from 'react';
 import { previousPageBlog, nextPageBlog, goToPageBlog, viewPerPageBlog, getCountBlog, resetBlog } from './BlogPaginationActions';
 import { getBlogs } from '../ForumTopics/ForumTopicsActions';

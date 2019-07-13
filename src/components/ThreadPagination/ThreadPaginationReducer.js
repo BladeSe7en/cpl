@@ -1,8 +1,8 @@
 const initialstate = {
-    viewPerPageThread: 10,
     currentPageThread: 0,
     lastPageThread   : 0,
-    totalCountThread : 0
+    totalCountThread : 0,
+    viewPerPageThread: 10
 }
 
 export default function threadPaginationReducer(state = initialstate, action) {
