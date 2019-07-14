@@ -12,8 +12,7 @@
     "sass": "sass --watch src/css/style.scss public/style.css",
     "start": "npm run build && node .",
     "test": "mocha --require ignore-styles test/setup.js test/**/**.spec.js --exit",
-    "heroku-prebuild": "npm install --dev",
-    "heroku-postbuild": "heroku-nextjs-build"
+    "heroku-prebuild": "npm install --dev"
   },
   "dependencies": {
     "@babel/register": "^7.0.0",
