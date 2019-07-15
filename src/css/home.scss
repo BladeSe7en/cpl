@@ -165,10 +165,6 @@
             text-align: center;
 
         }
-        ul {
-            display: flex;
-            justify-content: center;
-        }
         li {
             display:inline;
             padding: 10px 40px;
@@ -186,6 +182,13 @@
     display: "inline-block";
     position: absolute;
     z-index: -1;
+}
+
+.link-items {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .banner-home {

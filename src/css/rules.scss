@@ -23,13 +23,14 @@
 
         }
         ul {
-            display: block;
+            display: inline-block;
             justify-content: center;
             list-style-type: circle;
         }
         li {
             display: flex;
-            padding: 10px 40px;
+            padding: 0 40px;
+            width: 300px;
         }
         br {
             border-bottom: 5px solid white;
