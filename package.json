@@ -39,7 +39,7 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.23",
     "mongodb": "^3.2.2",
-    "mongoose": "^5.4.20",
+    "mongoose": "^5.7.5",
     "nightmare": "^3.0.1",
     "ontime": "0.0.6",
     "react": "^16.8.6",
