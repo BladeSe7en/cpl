@@ -37,7 +37,7 @@
     "loopback-component-explorer": "^6.0.0",
     "loopback-connector-mongodb": "^4.1.0",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.23",
+    "moment-timezone": "^0.5.35",
     "mongodb": "^3.2.2",
     "mongoose": "^5.4.20",
     "nightmare": "^3.0.1",
